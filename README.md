@@ -37,11 +37,13 @@ with "ansible_role_", but the name of the role is assumed NOT to include that
 prefix.  For example, the repo (directory) *ansible_role_noop* should be
 referenced by a symlink at *ansible_environment/roles/noop*.
 
-Each role defines a configuration set.  That usually corresponds to one service
-provided by one host.  See the notes below about host roles.
+Each role defines a service ... but see the note below about host roles.  I
+haven't eliminated those, yet.
 
 hosts.ini holds the inventory, and host\_vars/ holds host-specific and
 host-defining information such as IP address, MAC address, platform, etc.
+
+## planned improvement
 
 I want to factor out any explicit references to hostnames in favor of templated
 references to roles.  dhcpd, dns\_internal, and nagios already get hosts and
@@ -68,22 +70,23 @@ of which this host is a member, from the inventory, and deploy appropriately.
 
 Host roles are to be eliminated.  Inventory belongs in inventory.
 
-## service roles
+## tasks
 
 Service role task lists mostly consist of include lines.  The variables file
 defines the parameters of those tasks.  The role may also include some service
 specific files, such as configuration or scripts.
 
-## tasks
-
 Task lists are defined in *tasks/&lt;task_name&gt;.yml*.
 
-Role variables are used as task parameters.  To use a task list defined here,
-include it in the main task list of a role, and also set the required
-variables.
+Task behavior is controlled by role variables.  To use a task list defined
+here, include it in the main task list of a role, and also set the required
+variables in the main vars file of the role.
 
 ## metrics
 
 *callback_plugins/profile_tasks.py* contains some magic to display timing
 data for ansible tasks.  It's not my code, and I've included the MIT license
 under which it was released, at *callback_plugins/LICENSE* .
+
+It generates a .pyc file, which I list in .gitignore, as I don't need to track
+compiled python code, and it seems to change very frequently.
