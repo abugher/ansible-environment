@@ -6,7 +6,7 @@ The directory containing this document should be the current working directory.
 
 The scripts are in *bin*.  This is my favorite:
 
-  `./bin/deploy_role &lt;role_name&gt; [ansible args]...`
+  `./bin/deploy_role <role_name> [ansible args]...`
 
 The role named *role_name* will be applied to the host group named *role_name*.
 
@@ -22,8 +22,8 @@ Remaining arguments are passed to ansible.
 
 More granular:
 
-  `./deploy_role_to_hosts &lt;role_name&gt; &lt;host_group&gt; [ansible args]...`
-  `./deploy_role_as_user_to_hosts &lt;role_name&gt; &lt;user_name&gt; &lt;host_group&gt; [ansible args]...`
+  `./deploy_role_to_hosts <role_name> <host_group> [ansible args]...`
+  `./deploy_role_as_user_to_hosts <role_name> <user_name> <host_group> [ansible args]...`
 
 I gave up and wrote a couple of scripts just for one role, each:
 
