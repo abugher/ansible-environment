@@ -1,0 +1,2 @@
+All code in this directory is under the terms of the WTFPL, which are
+available in:  WTFPL.txt
