@@ -1,0 +1,6 @@
+---
+mac_address:            '9c:4e:36:c0:d6:00'
+ip_address:             '192.168.11.52'
+parent:                 'gateway'
+monitor:                'no'
+notify:                 'no'

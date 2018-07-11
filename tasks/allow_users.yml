@@ -1,0 +1,7 @@
+---
+- replace:
+    dest:       /etc/ssh/sshd_config
+    regexp:     '^(AllowUsers(?!.*\b{{ item }}\b)) *(.*)$'
+    replace:    '\1                      \2 {{ item }}'
+  with_items:   "{{ allow_users }}"
+  register:     allow_users_result

@@ -1,0 +1,10 @@
+---
+- shell:                "{{ item.command }}"
+  become:               true
+  become_method:        'sudo'
+  become_user:          "{{ item.user }}"
+  args:
+    chdir:              "{{ item.chdir }}"
+    creates:            "{{ item.creates }}"
+  with_items:           "{{ shell_commands }}"
+  register:             shell_commands_result

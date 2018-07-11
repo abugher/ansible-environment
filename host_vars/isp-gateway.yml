@@ -1,0 +1,7 @@
+---
+#mac_address:           ''
+ip_address:             '96.120.88.253'
+parent:                 "{{ gateway }}"
+platform:               'big-router'
+monitor:                'yes'
+notify:                 'yes'

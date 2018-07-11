@@ -1,0 +1,7 @@
+---
+- name:                 'install packages'
+  apt:
+    name:               "{{ item }}"
+    state:              'present'
+  with_items:           "{{ install_packages }}"
+  register:             install_packages_result

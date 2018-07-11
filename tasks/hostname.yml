@@ -1,0 +1,14 @@
+---
+- name:                 'write hostname file'
+  copy:
+    dest:               '/etc/hostname'
+    content:            "{{ inventory_hostname }}"
+    owner:              'root'
+    group:              'root'
+    mode:               '0644'
+  register:             hostname_file_result
+
+- name:                 'set hostname'
+  hostname:
+    name:               "{{ inventory_hostname }}"
+  register:             hostname_command_result

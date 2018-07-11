@@ -1,0 +1,25 @@
+---
+- name:                 'home directory contents, common'
+  copy:
+    src:                '../files/conf/homedirs/common/'
+    dest:               "~{{ item }}/"
+  with_items:           "{{ homedirs }}"
+  register:             homedirs_common_result 
+- name:                 'home directory contents, by user'
+  copy:
+    src:                "../files/conf/homedirs/{{ item }}/common/"
+    dest:               "~{{ item }}/"
+  with_items:           "{{ homedirs }}"
+  register:             homedirs_by_user_result 
+- name:                 'home directory contents, by user and host'
+  copy:
+    src:                "../files/conf/homedirs/{{ item }}/{{ inventory_hostname }}"
+    dest:               "~{{ item }}/"
+  with_items:           "{{ homedirs }}"
+  register:             homedirs_by_user_at_host_result 
+- name:                 'register results'
+  command:              /bin/true
+  register:             homedirs_result
+  changed_when:         homedirs_common_result.changed
+                        or homedirs_by_user_result.changed
+                        or homedirs_by_user_at_host_result.changed

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+file=$1
+owner=$2
+group=$3
+mode=$4
+
+changed=''
+
+fail() {
+  echo -e "ERROR:  ${2}" >&2
+  exit $1
+}
+
+if ! test -e $file; then
+  touch $file || fail 1 "touch failed"
+  changed='changed'
+fi
+
+if ! (
+     test "${owner}" = "$(stat -c %U $file)" \
+  && test "${group}" = "$(stat -c %G $file)"
+); then
+  chown "${owner}:${group}" "${file}" || fail 2 "chown failed"
+  changed='changed'
+fi
+
+if ! test "${mode}" = "$( printf "%04d\n" $(stat -c %a $file) )"; then
+  chmod "${mode}" "${file}" || fail 3 "chmod failed"
+  changed='changed'
+fi
+
+echo $changed

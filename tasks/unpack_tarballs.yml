@@ -1,0 +1,7 @@
+---
+- name:                 'unpack tarballs'
+  unarchive:
+    src:                "{{ item.src }}"
+    dest:               "{{ item.dest }}"
+    creates:            "{{ item.creates }}"
+  with_items:           "{{ unpack_tarballs }}"

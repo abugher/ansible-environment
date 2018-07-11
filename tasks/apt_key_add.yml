@@ -1,0 +1,5 @@
+---
+- apt_key:
+    file:               "{{ item }}"
+  with_items:           "{{ apt_key_add }}"
+  register:             apt_key_add_results

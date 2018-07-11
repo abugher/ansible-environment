@@ -1,0 +1,66 @@
+---
+mac_address:            'F0:DE:F1:90:77:CB'
+ip_address:             '192.168.11.53'
+parent:                 "{{ gateway }}"
+platform:               'laptop'
+monitor:                'yes'
+notify:                 'yes'
+allow_users:
+  - 'rachel'
+  - 'aaron'
+  - 'ansible'
+  - 'nagios'
+  - 'shinken'
+
+# Maybe all this Steam and Don't Starve stuff should be in inventory,
+# associated with the role, rather than this host.
+steamcmd_create_user:   true # create a dedicated user for the steam cmd
+steamcmd_user:          steam # owner of the steam cmd
+steamcmd_user_home:     /home/{{ steamcmd_user }}/ # home directory of the owner
+steamcmd_directory:     /home/{{ steamcmd_user }}/cmd/ # install directory of the cmd
+steamcmd_login_timeout: 120
+
+## BEGIN Don't Starve Together dedicated server
+# app wide configuration
+# No spaces.  This gets used as part of a service name.
+game_name:              'Meliora'
+game_description:       'Come.'
+dst_app_id: 343050
+dst_install_dir: '{{ steamcmd_user_home }}apps/dontstarvetogether/'
+dst_server_token: 'pds-g^KU_U8IrMGWF^5ejq35my1yKxhNyjjRt3e3Nf8cJ1tnuAvVM6NZ1RGBU='
+
+# world
+dst_world_preset: SURVIVAL_TOGETHER
+
+# network
+dst_server_as_a_service: true
+dst_server_name: "{{ game_name }}"
+dst_server_description: "{{ game_description }}"
+dst_server_port: 10999
+dst_server_intention: social
+dst_max_players: 6 # 1..64
+dst_pvp: false # true | false
+dst_game_mode: survival # endless | survival | wilderness
+dst_enable_autosaver: true # creates a save at the start of each day, which will be resumed from when the server restarts
+dst_tick_rate: 30 # quality of the server, higher tick rate consumes more bandwidth and CPU
+dst_enable_vote_kick: false # vote kick allows users to vote to kick players that are disrupting the game
+dst_pause_when_empty: true # pause the simulation when the dedicated server is empty
+dst_offline_server: false
+
+# steam
+
+# misc
+dst_console_enabled: true
+
+# shard
+dst_shard_is_master: true
+dst_shard_enable: false # enable different server to work together
+dst_shard_name: "{{ game_name }}" # define the shard name
+dst_shard_id: "{{ dst_shard_name | to_uuid }}"
+dst_shard_master_ip: "{{ ip_address }}" # set the master server IP
+
+update_steam_hour: '08'
+update_steam_minute: '10'
+update_dontstarvetogether_hour: '09'
+update_dontstarvetogether_minute: '20'
+## END Don't Starve Together dedicated server

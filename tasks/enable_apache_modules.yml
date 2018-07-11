@@ -1,0 +1,7 @@
+---
+- name:                 'enable apache modules'
+  apache2_module:
+    state:              'present'
+    name:               "{{ item }}"
+  with_items:           "{{ enable_apache_modules }}"
+  register:             enable_apache_modules_result

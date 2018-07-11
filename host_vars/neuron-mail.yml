@@ -1,0 +1,15 @@
+---
+#mac_address:            ''
+ip_address:             '45.79.76.174'
+parent:                 "{{ isp_gateway }}"
+#platform:               ''
+monitor:                'yes'
+notify:                 'yes'
+allow_users:
+  - 'abugher'
+  - 'aaron'
+  - 'tunneler'
+  - 'nagios'
+  - 'shinken'
+  - 'ansible'
+  - 'neuronpointer'

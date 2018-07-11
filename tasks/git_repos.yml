@@ -1,0 +1,6 @@
+---
+- git:
+    repo:               "{{ item.repo }}"
+    dest:               "{{ item.dest }}"
+  with_items:           "{{ git_repos }}"
+  register:             git_repos_result

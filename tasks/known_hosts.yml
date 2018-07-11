@@ -1,0 +1,35 @@
+---
+- file:
+    owner:              'root'
+    group:              'root'
+    mode:               '0644'
+    state:              'file'
+    path:               '/etc/ssh/ssh_known_hosts'
+- name:                 'known hosts - short hostname'
+  known_hosts:
+    path:               "/etc/ssh/ssh_known_hosts"
+    name:               "{{ item }}"
+    key:                "{{ lookup('file', '{{ role_path }}/../{{ item }}/files/ssh_keys/known_host') }}"
+  with_items:           "{{ known_hosts }}"
+  register:             known_hosts_short_result
+- name:                 'known hosts - long hostname'
+  known_hosts:
+    path:               "/etc/ssh/ssh_known_hosts"
+    name:               "{{ item }}.{{ domain }}"
+    key:                "{{ lookup('file', '{{ role_path }}/../{{ item }}/files/ssh_keys/known_host') }}"
+  with_items:           "{{ known_hosts }}"
+  register:             known_hosts_long_result
+- name:                 'known hosts - ip address'
+  known_hosts:
+    path:               "/etc/ssh/ssh_known_hosts"
+    name:               "{{ lookup('dig', '{{ item }}.') }}"
+    key:                "{{ lookup('file', '{{ role_path }}/../{{ item }}/files/ssh_keys/known_host') }}"
+  with_items:           "{{ known_hosts }}"
+  register:             known_hosts_numeric_result
+
+- meta:                 noop
+  changed_when:         True
+  when:                    known_hosts_short_result.changed
+                        or known_hosts_long_result.changed
+                        or known_hosts_numeric_result.changed
+  register:             known_hosts_result

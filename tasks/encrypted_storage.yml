@@ -1,0 +1,19 @@
+---
+# The backing device doesn't get overwritten by random data.  Right here would
+# be the place to do that, if desired.
+- name:                         'format volume for LUKS'
+  shell:                        cryptsetup luksFormat --key-file {{ item.password_path }} {{ item.backing_device }} && echo success > /var/log/cryptsetup_luksFormat_{{ item.backing_device | replace('/', '_') }}.log && cryptsetup luksOpen --key-file {{ item.password_path }} {{ item.backing_device }} {{ item.name }}
+  args:
+    creates:                      "/var/log/cryptsetup_luksFormat_{{ item.backing_device | replace('/', '_') }}.log"
+  with_items:                   "{{ encrypted_storage }}"
+  register:                     encrypted_storage_creation_result
+
+- name:                         "configure name and mount point for LUKS volume"
+  crypttab:
+    backing_device:             "{{ item.backing_device }}"
+    name:                       "{{ item.name }}"
+    password:                   "{{ item.password_path }}"
+    state:                      'present'
+    opts:                       'luks'
+  with_items:                   "{{ encrypted_storage }}"
+  register:                     encrypted_storage_configuration_result

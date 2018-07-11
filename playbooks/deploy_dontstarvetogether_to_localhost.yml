@@ -1,0 +1,7 @@
+---
+- name:                 "deploy role:  donstarvetogether"
+  remote_user:          "root"
+  gather_facts:         'yes'
+  hosts:                'localhost'
+  roles:
+    - 'dontstarvetogether'

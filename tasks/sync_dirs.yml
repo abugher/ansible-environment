@@ -1,0 +1,20 @@
+---
+- name:                 'synchronize directories (options specified)'
+  synchronize:
+    src:                "{{ item.src }}"
+    dest:               "{{ item.dest }}"
+    delete:             "{{ item.delete }}"
+    rsync_opts:         
+      - "{{ item.rsync_opts }}"
+  with_items:           "{{ sync_dirs }}"
+  when:                 item.rsync_opts is defined
+  register:             sync_dirs_result
+
+- name:                 'synchronize directories (no options specified)'
+  synchronize:
+    src:                "{{ item.src }}"
+    dest:               "{{ item.dest }}"
+    delete:             "{{ item.delete }}"
+  with_items:           "{{ sync_dirs }}"
+  when:                 item.rsync_opts is not defined
+  register:             sync_dirs_result

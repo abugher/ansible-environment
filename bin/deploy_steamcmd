@@ -1,0 +1,9 @@
+#!/bin/bash
+# Deploy the dontstarvetogether role to
+#
+# I think the root user thing is working around a bug in ansible, so this
+# script shouldn't last forever.
+
+#./bin/deploy_role_as_user_to_hosts dontstarvetogether root dontstarvetogether 
+
+time ansible-playbook ./playbooks/deploy_role.yml -e 'role=steamcmd' -e 'gather_facts=true'

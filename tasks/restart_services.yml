@@ -1,0 +1,7 @@
+---
+- name:                 'restart services'
+  service:
+    name:               "{{ item }}"
+    state:              'restarted'
+  with_items:           "{{ restart_services }}"
+  register:             restart_services_result

@@ -1,0 +1,12 @@
+---
+- name:                 'symlinks'
+  file:
+    owner:              "{{ item.owner }}"
+    group:              "{{ item.group }}"
+    mode:               '0755'
+    src:                "{{ item.src }}"
+    dest:               "{{ item.dest }}"
+    state:              'link'
+    force:              'yes'
+  with_items:           "{{ symlinks }}"
+  register:             symlinks_result

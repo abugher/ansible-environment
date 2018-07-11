@@ -1,0 +1,15 @@
+---
+mac_address:            '5C:C5:D4:64:E6:19'
+ip_address:             '192.168.11.58'
+parent:                 "{{ gateway }}"
+platform:               'laptop'
+monitor:                'yes'
+notify:                 'no'
+backup_users:
+  - 'rachel'
+# The vars file in backup_client role can't loop over backup_users.  So there's
+# this, which clearly only works as long as we're only doing one user.
+backup_user:            'rachel'
+allow_users:
+  - 'aaron'
+  - 'rachel'

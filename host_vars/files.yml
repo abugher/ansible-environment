@@ -1,0 +1,20 @@
+---
+mac_address:            '02:55:08:42:95:49'
+ip_address:             '192.168.11.62'
+parent:                 "{{ gateway }}"
+platform:               'raspberry-pi'
+monitor:                'yes'
+notify:                 'yes'
+encrypted_storage:
+  - name:               'storage'
+    backing_device:     '/dev/sda'
+    password_path:      '/home/escrow/storage_pass_phrase/pass_phrase.txt'
+e_user:                 'escrow'
+allow_users:
+  - 'pi'
+  - 'aaron-phone'
+  - 'rachel-phone'
+  - 'rachel'
+  - 'escrow '
+  - 'nagios'
+  - 'readonly'

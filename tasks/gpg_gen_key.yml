@@ -1,0 +1,2 @@
+---
+command:        gpg --gen-key --pass-phrase-file /home/escrow/storage_pass_phrase/pass_phrase.txt

@@ -1,0 +1,9 @@
+---
+# This was just "groups", until I realized the {{ groups }} variable is
+# reserved.
+- name:                 'user groups'
+  group:
+    name:               "{{ item }}"
+    state:              'present'
+  with_items:           "{{ user_groups }}"
+  register:             user_groups_result

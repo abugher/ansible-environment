@@ -1,0 +1,7 @@
+---
+#mac_address:            ''
+ip_address:             '127.0.0.1'
+platform:               'localhost'
+monitor:                'no'
+notify:                 'no'
+

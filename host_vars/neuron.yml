@@ -1,0 +1,16 @@
+---
+mac_address:            'B8:27:EB:47:A1:FB'
+ip_address:             '192.168.11.54'
+parent:                 "{{ gateway }}"
+platform:               'raspberry-pi'
+monitor:                'yes'
+notify:                 'yes'
+e_user:                 'escrow'
+allow_users:
+  - 'pi'
+  - 'nagios'
+  - 'shinken'
+  - 'ansible'
+  - 'cryptkeeper'
+  - 'escrow'
+  - 'aaron'

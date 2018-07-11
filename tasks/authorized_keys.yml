@@ -1,0 +1,7 @@
+---
+- name:                 'authorized keys'
+  authorized_key:
+    user:               "{{ item.user }}"
+    key:                "{{ lookup('file', item.keyfile) }}"
+  with_items:           "{{ authorized_keys }}"
+  register:             authorized_keys_result
