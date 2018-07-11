@@ -22,13 +22,15 @@ Remaining arguments are passed to ansible.
 
 More granular:
 
-  `./deploy_role_to_hosts <role_name> <host_group> [ansible args]...
-  ./deploy_role_as_user_to_hosts <role_name> <user_name> <host_group> [ansible args]...`
+  `./deploy_role_to_hosts <role_name> <host_group> [ansible args]...`
+
+  `./deploy_role_as_user_to_hosts <role_name> <user_name> <host_group> [ansible args]...`
 
 I gave up and wrote a couple of scripts just for one role, each:
 
-  `./bin/deploy_dontstarvetogether [ansible args]...
-  ./bin/deploy_steamcmd [ansible args]...`
+  `./bin/deploy_dontstarvetogether [ansible args]...`
+
+  `./bin/deploy_steamcmd [ansible args]...`
 
 # structure
 
