@@ -37,7 +37,9 @@ I gave up and wrote a couple of scripts just for one role, each:
 Each role has its own repo.  The name of each ansible role repo is prefixed
 with "ansible_role_", but the name of the role is assumed NOT to include that
 prefix.  For example, the repo (directory) *ansible_role_noop* should be
-referenced by a symlink at *ansible_environment/roles/noop*.
+referenced by a symlink at *ansible_environment/roles/noop*.  Due to some
+relative path references, the repo directory itself should also reside under
+*roles/*.  Exclude *roles/* from the *ansible_env* repo in *.gitignore*.
 
 Each role defines a service ... but see the note below about host roles.  I
 haven't eliminated those, yet.
