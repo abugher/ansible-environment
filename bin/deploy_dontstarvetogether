@@ -6,4 +6,7 @@
 
 #./bin/deploy_role_as_user_to_hosts dontstarvetogether root dontstarvetogether 
 
-time ansible-playbook ./playbooks/deploy_role.yml -e 'role=dontstarvetogether' -e 'gather_facts=true'
+echo Deploying Overworld
+time ansible-playbook ./playbooks/deploy_role.yml -e 'role=dontstarvetogether' -e 'gather_facts=true' -e 'dst_shard_is_master=true'
+echo Deploying Caves
+time ansible-playbook ./playbooks/deploy_role.yml -e 'role=dontstarvetogether' -e 'gather_facts=true' -e 'dst_world_preset=DST_CAVES' -e 'dst_server_port=11000' -e 'dst_shard_name=caves' -e 'master_ip=127.0.0.1'
