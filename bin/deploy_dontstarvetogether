@@ -6,7 +6,28 @@
 
 #./bin/deploy_role_as_user_to_hosts dontstarvetogether root dontstarvetogether 
 
-echo Deploying Overworld
-time ansible-playbook ./playbooks/deploy_role.yml -e 'role=dontstarvetogether' -e 'gather_facts=true' -e 'dst_shard_is_master=true'
-echo Deploying Caves
-time ansible-playbook ./playbooks/deploy_role.yml -e 'role=dontstarvetogether' -e 'gather_facts=true' -e 'dst_world_preset=DST_CAVES' -e 'dst_server_port=11000' -e 'dst_shard_name=caves' -e 'master_ip=127.0.0.1'
+
+function fail {
+  echo "ERROR:  ${1}" >&2
+  exit 1
+}
+
+
+function main {
+  time ansible-playbook ./playbooks/deploy_role.yml \
+    -e 'role=dontstarvetogether' \
+    -e 'gather_facts=true' \
+    -e 'dst_shard_is_master=true' \
+  || fail "Failed to deploy overworld."
+  time ansible-playbook ./playbooks/deploy_role.yml \
+    -e 'role=dontstarvetogether' \
+    -e 'gather_facts=true' \
+    -e 'dst_world_preset=DST_CAVES' \
+    -e 'dst_server_port=11000' \
+    -e 'dst_shard_name=caves' \
+    -e 'master_ip=127.0.0.1' \
+  || fail "Failed to deploy caves."
+}
+
+
+time main
