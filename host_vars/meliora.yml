@@ -53,7 +53,7 @@ dst_offline_server: false
 dst_console_enabled: true
 
 # shard
-dst_shard_is_master: false
+#dst_shard_is_master: false # Set this in the deployment script.
 dst_shard_enable: true # enable different server to work together
 dst_shard_name: "{{ game_name }}" # define the shard name
 dst_shard_id: "{{ dst_shard_name | to_uuid }}"

@@ -25,6 +25,7 @@ function main {
     -e 'dst_world_preset=DST_CAVES' \
     -e 'dst_server_port=11000' \
     -e 'dst_shard_name=caves' \
+    -e 'dst_shard_is_master=false' \
     -e 'master_ip=127.0.0.1' \
   || fail "Failed to deploy caves."
 }
