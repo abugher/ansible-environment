@@ -1,0 +1,16 @@
+---
+- hosts:                        dontstarvetogether
+  remote_user:                  'ansible'
+  become:                       'yes'
+  become_method:                'sudo'
+  gather_facts:                 true
+  roles:
+    - role:                     dontstarvetogether
+      dst_shard_enable:         true
+      dst_shard_is_master:      true
+    - role:                     dontstarvetogether
+      dst_shard_enable:         true
+      dst_world_preset:         DST_CAVES
+      dst_server_port:          11000
+      dst_shard_name:           caves
+      master_ip:                127.0.0.1

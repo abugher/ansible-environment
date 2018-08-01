@@ -1,10 +1,4 @@
 #!/bin/bash
-# Deploy the dontstarvetogether role to
-#
-# I think the root user thing is working around a bug in ansible, so this
-# script shouldn't last forever.
-
-#./bin/deploy_role_as_user_to_hosts dontstarvetogether root dontstarvetogether 
 
 
 function fail {
@@ -14,20 +8,8 @@ function fail {
 
 
 function main {
-  time ansible-playbook ./playbooks/deploy_role.yml \
-    -e 'role=dontstarvetogether' \
-    -e 'gather_facts=true' \
-    -e 'dst_shard_is_master=true' \
-  || fail "Failed to deploy overworld."
-  time ansible-playbook ./playbooks/deploy_role.yml \
-    -e 'role=dontstarvetogether' \
-    -e 'gather_facts=true' \
-    -e 'dst_world_preset=DST_CAVES' \
-    -e 'dst_server_port=11000' \
-    -e 'dst_shard_name=caves' \
-    -e 'dst_shard_is_master=false' \
-    -e 'master_ip=127.0.0.1' \
-  || fail "Failed to deploy caves."
+  time ansible-playbook ./playbooks/deploy_dontstarvetogether_with_caves.yml \
+    || fail "Failed to deploy dontstarvetogether with caves."
 }
 
 

@@ -57,7 +57,7 @@ dst_console_enabled: true
 dst_shard_enable: true # enable different server to work together
 dst_shard_name: "{{ game_name }}" # define the shard name
 dst_shard_id: "{{ dst_shard_name | to_uuid }}"
-dst_shard_master_ip: "{{ ip_address }}" # set the master server IP
+dst_shard_master_ip: "127.0.0.1" # set the master server IP
 
 update_steam_hour: '08'
 update_steam_minute: '10'
