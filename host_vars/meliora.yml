@@ -30,13 +30,13 @@ dst_install_dir: '{{ steamcmd_user_home }}apps/dontstarvetogether/'
 dst_server_token: 'pds-g^KU_U8IrMGWF^5ejq35my1yKxhNyjjRt3e3Nf8cJ1tnuAvVM6NZ1RGBU='
 
 # world
-dst_world_preset: SURVIVAL_TOGETHER
+# Does nothing.  WTF.
+#dst_world_preset: SURVIVAL_TOGETHER
 
 # network
 dst_server_as_a_service: true
 dst_server_name: "{{ game_name }}"
 dst_server_description: "{{ game_description }}"
-dst_server_port: 10999
 dst_server_intention: social
 dst_max_players: 6 # 1..64
 dst_pvp: false # true | false
@@ -56,7 +56,6 @@ dst_console_enabled: true
 #dst_shard_is_master: false # Set this in the deployment script.
 dst_shard_enable: true # enable different server to work together
 dst_shard_name: "{{ game_name }}" # define the shard name
-dst_shard_id: "{{ dst_shard_name | to_uuid }}"
 dst_shard_master_ip: "127.0.0.1" # set the master server IP
 
 update_steam_hour: '08'
