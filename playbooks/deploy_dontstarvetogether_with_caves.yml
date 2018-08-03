@@ -6,12 +6,13 @@
   gather_facts:                         true
   roles:
     - role:                             dontstarvetogether
+      dst_server_port:                  10991
       dst_shard_enable:                 true
       dst_shard_is_master:              true
       dst_shard_id:                     1
     - role:                             dontstarvetogether
       dst_shard_enable:                 true
-      dst_server_port:                  11000
+      dst_server_port:                  10992
       dst_shard_name:                   caves
       dst_shard_id:                     2
       master_ip:                        127.0.0.1
