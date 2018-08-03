@@ -15,4 +15,5 @@
       dst_server_port:                  10992
       dst_shard_name:                   caves
       dst_shard_id:                     2
+      dst_world_preset:                 'DST_CAVE'
       master_ip:                        127.0.0.1
