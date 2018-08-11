@@ -11,6 +11,9 @@ allow_users:
   - 'ansible'
   - 'nagios'
   - 'shinken'
+aliases:
+  - 'remote'
+  - 'printer'
 
 # Maybe all this Steam and Don't Starve stuff should be in inventory,
 # associated with the role, rather than this host.

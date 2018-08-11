@@ -4,4 +4,5 @@ ip_address:             '192.168.11.1'
 platform:               'router'
 monitor:                'yes'
 notify:                 'yes'
-
+aliases:
+  - 'ap'

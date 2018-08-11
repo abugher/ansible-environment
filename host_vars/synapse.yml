@@ -12,3 +12,7 @@ allow_users:
   - 'ansible'
   - 'escrow'
   - 'aaron'
+aliases:
+  - 'kerberos'
+  - 'smokeping'
+  - 'nagios'

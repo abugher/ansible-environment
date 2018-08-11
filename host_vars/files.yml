@@ -18,3 +18,5 @@ allow_users:
   - 'escrow '
   - 'nagios'
   - 'readonly'
+aliases:
+  - 'transmission'
