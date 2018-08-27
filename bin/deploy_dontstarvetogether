@@ -8,8 +8,8 @@ function fail {
 
 
 function main {
-  time ansible-playbook ./playbooks/deploy_dontstarvetogether_with_caves.yml \
-    || fail "Failed to deploy dontstarvetogether with caves."
+  time ansible-playbook ./playbooks/deploy_dontstarvetogether.yml \
+    || fail "Failed to deploy dontstarvetogether."
 }
 
 
