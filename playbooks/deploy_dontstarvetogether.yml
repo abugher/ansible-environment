@@ -6,14 +6,44 @@
   gather_facts:                         true
   roles:
     - role:                             dontstarvetogether
+      dst_server_name:                  'Meliora'
+      dst_server_description:           'Come.'
+      dst_server_intention:             'social'
       dst_server_port:                  10991
       dst_shard_enable:                 true
       dst_shard_is_master:              true
+      dst_shard_name:                   overworld
       dst_shard_id:                     1
+      dst_world_preset:                 'SURVIVE_TOGETHER'
+      dst_shard_cluster_key:            {{ dst_shard_cluster_key_meliora }}
     - role:                             dontstarvetogether
-      dst_shard_enable:                 true
+      dst_server_name:                  'Meliora'
       dst_server_port:                  10992
+      dst_shard_enable:                 true
+      dst_shard_is_master:              false
       dst_shard_name:                   caves
       dst_shard_id:                     2
       dst_world_preset:                 'DST_CAVE'
-      master_ip:                        127.0.0.1
+      dst_shard_cluster_key:            {{ dst_shard_cluster_key_meliora }}
+    - role:                             dontstarvetogether
+      dst_server_name:                  'Fruitopia-Nine'
+      dst_server_description:           'Come.'
+      dst_server_intention:             'social'
+      dst_server_port:                  10989
+      dst_shard_enable:                 true
+      dst_shard_is_master:              true
+      dst_shard_name:                   overworld
+      dst_shard_id:                     1
+      dst_world_preset:                 'SURVIVE_TOGETHER'
+      dst_master_port:                  10989
+      dst_shard_cluster_key:            {{ dst_shard_cluster_key_fruitopia_nine }}
+    - role:                             dontstarvetogether
+      dst_server_name:                  'Meliora'
+      dst_server_port:                  10988
+      dst_shard_enable:                 true
+      dst_shard_is_master:              false
+      dst_shard_name:                   caves
+      dst_shard_id:                     2
+      dst_world_preset:                 'DST_CAVE'
+      dst_master_port:                  10989
+      dst_shard_cluster_key:            {{ dst_shard_cluster_key_fruitopia_nine }}
