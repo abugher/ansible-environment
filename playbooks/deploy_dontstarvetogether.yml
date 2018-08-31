@@ -37,7 +37,7 @@
       dst_shard_name:                   'fruitopia-overworld'
       dst_shard_id:                     1
       dst_world_preset:                 'SURVIVE_TOGETHER'
-      dst_master_port:                  10989
+      dst_master_port:                  10987
       dst_shard_cluster_key:            "{{ dst_shard_cluster_key_fruitopia_nine }}"
     - role:                             dontstarvetogether
       dst_server_name:                  'Fruitopia-Nine'
@@ -47,5 +47,5 @@
       dst_shard_name:                   'fruitopia-caves'
       dst_shard_id:                     2
       dst_world_preset:                 'DST_CAVE'
-      dst_master_port:                  10989
+      dst_master_port:                  10987
       dst_shard_cluster_key:            "{{ dst_shard_cluster_key_fruitopia_nine }}"
