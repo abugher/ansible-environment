@@ -1,0 +1,5 @@
+---
+- name:                 'apt upgrade'
+  apt:
+    upgrade:            'yes'
+  register:             apt_upgrade_result
