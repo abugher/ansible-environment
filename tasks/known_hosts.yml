@@ -1,4 +1,13 @@
 ---
+- name:                 'initialize files'
+  script:               ../files/scripts/initialize_file /etc/ssh/ssh_known_hosts 'root' 'root' '0644'
+  with_items:           "{{ initialize_files }}"
+  register:             initialize_file_script_result
+  changed_when:         false
+
+- meta:                 'noop'
+  when:                 "'changed' in initialize_file_script_result.stdout"
+
 - file:
     owner:              'root'
     group:              'root'

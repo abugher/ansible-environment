@@ -1,0 +1,7 @@
+---
+- lineinfile:
+    regexp:             "{{ item.regexp }}"
+    dest:               "{{ item.dest }}"
+    state:              'absent'
+  with_items:           "{{ lines_not_in_files }}"
+  register:             lines_not_in_files_result

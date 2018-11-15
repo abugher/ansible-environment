@@ -1,0 +1,7 @@
+---
+- shell:                        dpkg --print-foreign-architectures | grep '^i386$'
+  changed_when:                 false
+  failed_when:                  false
+  register:                     i386_check_result
+- command:                      dpkg --add-architecture i386
+  when:                         0 != i386_check_result.rc
