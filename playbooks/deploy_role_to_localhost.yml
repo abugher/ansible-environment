@@ -1,0 +1,10 @@
+---
+# ansible-playbook -e role=foo deploy_role.yml
+- name:                 "deploy role to localhost:  {{ role }}"
+  connection:           'local'
+  become:               'yes'
+  become_method:        'sudo'
+  gather_facts:         'no'
+  hosts:                localhost
+  roles:
+    - "{{ role }}"
