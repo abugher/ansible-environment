@@ -1,0 +1,13 @@
+---
+- name:                 'transfer package files'
+  copy:
+    src:                "{{ item.src }}"
+    dest:               '/tmp/ansible_install_package_file.deb'
+  changed_when:         False
+
+- name:                 'install package files'
+  apt:
+    name:               "{{ item.name }}"
+    deb:                '/tmp/ansible_install_package_file.deb'
+  with_items:           "{{ install_package_files }}"
+  register:             install_package_files_result
