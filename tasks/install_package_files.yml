@@ -1,13 +1,25 @@
 ---
+# "name" should be the name of the package as displayed by the package manager after installation.
+# If a name is specified more than once, only the last package specified with that name will be installed.
+
+- name:                 'create package file directory'
+  file:
+    path:               '/usr/local/packages'
+    state:              'directory'
+    owner:              'root'
+    group:              'root'
+    mode:               '0755'
+
 - name:                 'transfer package files'
   copy:
     src:                "{{ item.src }}"
-    dest:               '/tmp/ansible_install_package_file.deb'
-  changed_when:         False
+    dest:               "/usr/local/packages/{{ item.name }}.deb"
+  with_items:           "{{ install_package_files }}"
+  register:             transfer_package_files_result 
 
 - name:                 'install package files'
   apt:
-    name:               "{{ item.name }}"
-    deb:                '/tmp/ansible_install_package_file.deb'
+    deb:                "/usr/local/packages/{{ item.name }}.deb"
   with_items:           "{{ install_package_files }}"
+  when:                 transfer_package_files_result.changed
   register:             install_package_files_result
