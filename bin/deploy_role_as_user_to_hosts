@@ -1,6 +1,8 @@
 #!/bin/bash
 role="${1}"
-shift 1
+shift
 user="${1}"
-shift 1
-time ansible-playbook ./playbooks/deploy_role_as_user_to_hosts.yml -e role="${role}" -e user="${user}" -e hosts="${*}" "${@}"
+shift
+hosts="${1}"
+shift
+time ansible-playbook ./playbooks/deploy_role_as_user_to_hosts.yml -e role="${role}" -e user="${user}" -e hosts="${hosts}" "${@}"
