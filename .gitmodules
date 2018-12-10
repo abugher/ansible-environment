@@ -55,9 +55,6 @@
 [submodule "roles/dphys-swapfile"]
 	path = roles/dphys-swapfile
 	url = git@github.com:abugher/ansible_role_dphys-swapfile.git
-[submodule "roles/dst"]
-	path = roles/dst
-	url = git@github.com:abugher/ansible_role_dst.git
 [submodule "roles/elasticsearch"]
 	path = roles/elasticsearch
 	url = git@github.com:abugher/ansible_role_elasticsearch.git

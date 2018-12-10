@@ -17,21 +17,21 @@
   known_hosts:
     path:               "/etc/ssh/ssh_known_hosts"
     name:               "{{ item }}"
-    key:                "{{ lookup('file', '{{ role_path }}/../{{ item }}/files/ssh_keys/known_host') }}"
+    key:                "{{ lookup('file', '{{ role_path }}/../../inventory/hosts/{{ item }}/files/ssh_keys/known_host') }}"
   with_items:           "{{ known_hosts }}"
   register:             known_hosts_short_result
 - name:                 'known hosts - long hostname'
   known_hosts:
     path:               "/etc/ssh/ssh_known_hosts"
     name:               "{{ item }}.{{ domain }}"
-    key:                "{{ lookup('file', '{{ role_path }}/../{{ item }}/files/ssh_keys/known_host') }}"
+    key:                "{{ lookup('file', '{{ role_path }}/../../inventory/hosts/{{ item }}/files/ssh_keys/known_host') }}"
   with_items:           "{{ known_hosts }}"
   register:             known_hosts_long_result
 - name:                 'known hosts - ip address'
   known_hosts:
     path:               "/etc/ssh/ssh_known_hosts"
     name:               "{{ lookup('dig', '{{ item }}.') }}"
-    key:                "{{ lookup('file', '{{ role_path }}/../{{ item }}/files/ssh_keys/known_host') }}"
+    key:                "{{ lookup('file', '{{ role_path }}/../../inventory/hosts/{{ item }}/files/ssh_keys/known_host') }}"
   with_items:           "{{ known_hosts }}"
   register:             known_hosts_numeric_result
 
