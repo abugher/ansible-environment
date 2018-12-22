@@ -5,3 +5,8 @@
     replace:    '\1                      \2 {{ item }}'
   with_items:   "{{ allow_users }}"
   register:     allow_users_result
+
+- service:
+    name:       'ssh'
+    state:      'restarted'
+  when:         allow_users_result.changed
