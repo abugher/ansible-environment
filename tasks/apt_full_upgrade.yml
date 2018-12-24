@@ -1,0 +1,5 @@
+---
+- name:                 'apt full-upgrade'
+  apt:
+    upgrade:            'full'
+  register:             apt_full_upgrade_result

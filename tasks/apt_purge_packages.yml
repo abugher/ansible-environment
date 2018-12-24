@@ -4,6 +4,6 @@
     name:               "{{ item }}"
     state:              'absent'
     purge:              'yes'
-    autoremove:         'yes'
-  with_items:           "{{ purge_packages }}"
-  register:             purge_packages_result
+#    autoremove:         'yes'
+  with_items:           "{{ apt_purge_packages }}"
+  register:             apt_purge_packages_result
