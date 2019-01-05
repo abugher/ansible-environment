@@ -1,0 +1,16 @@
+---
+# ansible-playbook -e roles="['role1', 'role2']" -e host=host deploy_roles_to_hosts.yml
+- name:                 "deploy roles to hosts"
+  remote_user:          'ansible'
+  become:               'yes'
+  become_method:        'sudo'
+  gather_facts:         'no'
+  hosts:                "{{ target_hosts }}"
+  #roles:                
+  #  - 'time'
+  tasks:
+    - include_role:
+        name:           "{{ target_role }}"
+      with_items:       "{{ target_roles }}"
+      loop_control:
+        loop_var:       'target_role'

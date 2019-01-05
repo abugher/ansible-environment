@@ -1,0 +1,33 @@
+#!/bin/bash
+
+host="${1}"
+# Be a bad-ass and allow multiple hosts to be specified.  Later.
+shift 1
+role_names=()
+
+unset role_name
+while read line; do
+  if grep -qE '^[\s]*\[[a-zA-Z0-9_-]*\][\s]*$' <<< $line; then
+    #echo "DEBUG:  group name:  $line" >&2
+    role_name=$(sed -E 's/^.*\[//;s/\].*$//' <<< $line)
+  fi
+
+  if grep -qE "^[\s]*${host}[\s]*$" <<< $line; then
+    #echo "DEBUG:  host is in group:  $role_name" >&2
+    if test -d roles/$role_name; then
+      role_names+=( $role_name )
+    fi
+  fi
+done < inventory/hosts.ini
+
+roles_string="{ 'target_roles': [$(
+  for role_name in "${role_names[@]}"; do 
+    echo -n "'${role_name}', "
+  done \
+  | sed 's/, $//'
+)] }"
+hosts_string="{ 'target_hosts': ['${host}']}"
+#time ansible-playbook ./playbooks/deploy_roles_to_hosts.yml -e hosts="${host}" -e "${roles_string}" "${@}"
+time ansible-playbook ./playbooks/deploy_host.yml -e "${hosts_string}" -e "${roles_string}" "${@}"
+#echo "${hosts_string}"
+#echo "${roles_string}"
