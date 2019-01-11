@@ -19,3 +19,7 @@ aliases:
   - 'wiki'
   - 'public'
   - 'neuronpointer.net'
+reboot_hour:            '01'
+reboot_minute:          '59'
+update_hour:            '02'
+update_minute:          '30'

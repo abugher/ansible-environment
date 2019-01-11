@@ -16,3 +16,7 @@ aliases:
   - 'kerberos'
   - 'smokeping'
   - 'nagios'
+reboot_hour:            '02'
+reboot_minute:          '29'
+update_hour:            '08'
+update_minute:          '00'

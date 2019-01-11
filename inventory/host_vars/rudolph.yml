@@ -13,3 +13,5 @@ backup_user:            'rachel'
 allow_users:
   - 'aaron'
   - 'rachel'
+update_hour:            '03'
+update_minute:          '30'

@@ -6,3 +6,7 @@ monitor:                'yes'
 notify:                 'no'
 allow_users:
   - 'ansible'
+reboot_hour:            '13'
+reboot_minute:          '59'
+update_hour:            '13'
+update_minute:          '17'

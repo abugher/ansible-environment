@@ -20,3 +20,7 @@ allow_users:
   - 'readonly'
 aliases:
   - 'transmission'
+reboot_hour:            '02'
+reboot_minute:          '59'
+update_hour:            '17'
+update_minute:          '00'

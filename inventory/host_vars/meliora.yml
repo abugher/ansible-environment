@@ -15,6 +15,11 @@ aliases:
   - 'remote'
   - 'printer'
 
+reboot_hour:            '01'
+reboot_minute:          '29'
+update_hour:            '02'
+update_minute:          '30'
+
 # Maybe all this Steam and Don't Starve stuff should be in inventory,
 # associated with the role, rather than this host.
 steamcmd_create_user:   true # create a dedicated user for the steam cmd
