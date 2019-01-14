@@ -136,9 +136,6 @@
 [submodule "roles/no_systemd"]
 	path = roles/no_systemd
 	url = git@github.com:abugher/ansible_role_no_systemd.git
-[submodule "roles/pi"]
-	path = roles/pi
-	url = git@github.com:abugher/ansible_role_pi.git
 [submodule "roles/pianobard"]
 	path = roles/pianobard
 	url = git@github.com:abugher/ansible_role_pianobard.git
