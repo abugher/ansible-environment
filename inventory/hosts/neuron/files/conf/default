@@ -1,0 +1,37 @@
+server {
+  listen        80;
+  server_name   neuron neuron.neuronpointer.net neuronpointer.net;
+  root          /usr/share/nginx/www/private;
+
+  return 301    https://neuronpointer.net$request_uri;
+}
+
+server {
+  listen        80;
+  server_name   public.neuronpointer.net;
+  root          /usr/share/nginx/www/public;
+  index         index.html index.htm;
+
+  location / {
+    try_files   $uri $uri/ =404;
+    autoindex   on;
+  }
+}
+
+server {
+  listen        80;
+  server_name   192.168.11.54;
+  root          /usr/share/nginx/www/plaintext;
+  index         index.html index.htm;
+
+  location / {
+    try_files $uri $uri/ /index.html;
+  }
+
+  error_page 500 502 503 504 /50x.html;
+  location = /50x.html {
+    root /usr/share/nginx/www;
+  }
+}
+
+

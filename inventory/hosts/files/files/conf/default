@@ -1,0 +1,10 @@
+# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+
+server {
+  listen                80;
+  server_name           files files.neuronpointer.net;
+  return 301            https://files.neuronpointer.net$request_uri;
+}
+
+
+

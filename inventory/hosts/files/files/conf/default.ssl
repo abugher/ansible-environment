@@ -1,0 +1,11 @@
+# I think this could be templated and placed in the nginx role.
+server {
+  listen 443 default_server ssl;
+  ssl_certificate /etc/ssl/certs/chain.pem;
+  ssl_certificate_key /etc/ssl/private/files.pem;
+  server_name files.neuronpointer.net;
+  access_log /var/log/nginx/ssl.access.log;
+  root /usr/share/nginx/html;
+  index index.html index.htm;
+}
+

@@ -1,0 +1,5 @@
+# DISTRIBUTED BY ANSIBLE
+
+deb     http://mirrordirector.raspbian.org/raspbian/    jessie main contrib non-free rpi
+deb     http://archive.raspberrypi.org/debian/          jessie main
+deb-src http://archive.raspberrypi.org/debian/          jessie main
