@@ -5,6 +5,6 @@
   become:               'yes'
   become_method:        'sudo'
   gather_facts:         'no'
-  hosts:                "{{ hosts }}"
+  hosts:                "{{ target_hosts }}"
   roles:
     - "{{ role }}"

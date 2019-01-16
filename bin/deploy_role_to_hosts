@@ -1,7 +1,7 @@
 #!/bin/bash
 role="${1}"
 shift 1
-hosts="${1}"
+target_hosts="${1}"
 shift 1
 
-time ansible-playbook ./playbooks/deploy_role_to_hosts.yml -e role="${role}" -e hosts="${hosts}" "${@}"
+time ansible-playbook ./playbooks/deploy_role_to_hosts.yml -e role="${role}" -e target_hosts="${target_hosts}" "${@}"
