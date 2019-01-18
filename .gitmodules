@@ -181,9 +181,6 @@
 [submodule "roles/storage_server"]
 	path = roles/storage_server
 	url = git@github.com:abugher/ansible_role_storage_server.git
-[submodule "roles/synapse"]
-	path = roles/synapse
-	url = git@github.com:abugher/ansible_role_synapse.git
 [submodule "roles/syslog_client"]
 	path = roles/syslog_client
 	url = git@github.com:abugher/ansible_role_syslog_client.git
