@@ -100,9 +100,6 @@
 [submodule "roles/logstash_repo"]
 	path = roles/logstash_repo
 	url = git@github.com:abugher/ansible_role_logstash_repo.git
-[submodule "roles/meliora"]
-	path = roles/meliora
-	url = git@github.com:abugher/ansible_role_meliora.git
 [submodule "roles/monitored"]
 	path = roles/monitored
 	url = git@github.com:abugher/ansible_role_monitored.git
