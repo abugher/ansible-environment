@@ -19,6 +19,8 @@ reboot_hour:            '01'
 reboot_minute:          '29'
 update_hour:            '02'
 update_minute:          '30'
+live_build_minute:      '00'
+live_build_hour:        '05'
 
 # Maybe all this Steam and Don't Starve stuff should be in inventory,
 # associated with the role, rather than this host.
