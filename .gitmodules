@@ -70,9 +70,6 @@
 [submodule "roles/escrow"]
 	path = roles/escrow
 	url = git@github.com:abugher/ansible_role_escrow.git
-[submodule "roles/files"]
-	path = roles/files
-	url = git@github.com:abugher/ansible_role_files.git
 [submodule "roles/file_server"]
 	path = roles/file_server
 	url = git@github.com:abugher/ansible_role_file_server.git
