@@ -223,9 +223,6 @@
 [submodule "roles/steamcmd"]
 	path = roles/steamcmd
 	url = git@github.com:abugher/ansible-role-steamcmd
-[submodule "roles/nixon"]
-	path = roles/nixon
-	url = git@github.com:abugher/ansible_role_nixon
 [submodule "roles/dns_client"]
 	path = roles/dns_client
 	url = git@github.com:abugher/ansible_role_dns_client.git
