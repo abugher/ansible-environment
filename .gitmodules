@@ -151,9 +151,6 @@
 [submodule "roles/root_keys"]
 	path = roles/root_keys
 	url = git@github.com:abugher/ansible_role_root_keys.git
-[submodule "roles/rudolph"]
-	path = roles/rudolph
-	url = git@github.com:abugher/ansible_role_rudolph.git
 [submodule "roles/sensitive_server"]
 	path = roles/sensitive_server
 	url = git@github.com:abugher/ansible_role_sensitive_server.git
