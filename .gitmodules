@@ -115,9 +115,6 @@
 [submodule "roles/nethack"]
 	path = roles/nethack
 	url = git@github.com:abugher/ansible_role_nethack.git
-[submodule "roles/neuron-mail"]
-	path = roles/neuron-mail
-	url = git@github.com:abugher/ansible_role_neuron-mail.git
 [submodule "roles/nginx"]
 	path = roles/nginx
 	url = git@github.com:abugher/ansible_role_nginx.git
