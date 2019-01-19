@@ -154,9 +154,6 @@
 [submodule "roles/smokeping"]
 	path = roles/smokeping
 	url = git@github.com:abugher/ansible_role_smokeping.git
-[submodule "roles/spy"]
-	path = roles/spy
-	url = git@github.com:abugher/ansible_role_spy.git
 [submodule "roles/sshd"]
 	path = roles/sshd
 	url = git@github.com:abugher/ansible_role_sshd.git
