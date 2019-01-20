@@ -1,9 +1,8 @@
 ---
 - name:                 'purge packages'
   apt:
-    name:               "{{ item }}"
+    name:               "{{ apt_purge_packages }}"
     state:              'absent'
     purge:              'yes'
 #    autoremove:         'yes'
-  with_items:           "{{ apt_purge_packages }}"
   register:             apt_purge_packages_result
