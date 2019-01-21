@@ -13,5 +13,7 @@ allow_users:
   - 'shinken'
   - 'ansible'
   - 'neuronpointer'
-update_hour:            '14'
+update_hour:            '15'
 update_minute:          '30'
+reboot_hour:            '14'
+reboot_minute:          '59'

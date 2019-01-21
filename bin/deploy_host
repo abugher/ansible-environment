@@ -1,7 +1,6 @@
 #!/bin/bash
 
 host="${1}"
-# Be a bad-ass and allow multiple hosts to be specified.  Later.
 shift 1
 role_names=()
 

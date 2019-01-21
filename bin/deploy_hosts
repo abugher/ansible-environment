@@ -1,0 +1,47 @@
+#!/bin/bash
+# Currently no file locking is done, but multiple instances seem infeasible and
+# undesirable.
+
+group="${1}"
+shift 1
+host_names=()
+tmpdir=/tmp/$USER/ansible_deploy_host
+
+mkdir -p $tmpdir
+
+current_role_is_target=0
+while read line; do
+  if grep -qE '^[\s]*\[[a-zA-Z0-9_-]*\][\s]*$' <<< $line; then
+    role_name=$(sed -E 's/^.*\[//;s/\].*$//' <<< $line)
+    if test "${role_name}" == "${group}"; then
+      current_role_is_target=1
+    else
+      current_role_is_target=0
+    fi
+  else
+    if test 1 -eq $current_role_is_target; then
+      host_name="$(sed -E 's/^\s*//g;s/\s*$//g' <<< $line)"
+      if grep -qE '^[a-zA-Z0-9_-]+$' <<< $host_name; then
+        host_names+=("${host_name}")
+      fi
+    fi
+  fi
+done < inventory/hosts.ini
+
+ansible_pids=()
+for host_name in "${host_names[@]}"; do
+  echo "Deploying host:  ${host_name}"
+  {
+    ./bin/deploy_host "${host_name}" "${@}" > "${tmpdir}/${host_name}".log 2>&1 
+    ret="${?}"
+    echo "${ret}" > "${tmpdir}/${host_name}".ret
+    echo "Deployment to ${host_name} return status:  ${ret}"
+  } &
+  ansible_pid="${!}"
+  ansible_pids+=("${ansible_pid}")
+  echo "${ansible_pid}" > "${tmpdir}"/"${host_name}".pid
+done
+
+echo "All deployments are launched.  Waiting."
+
+wait "${ansible_pids[@]}"

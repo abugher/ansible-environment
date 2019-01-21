@@ -17,5 +17,4 @@ update_hour:            '03'
 update_minute:          '30'
 reboot_hour:            '00'
 reboot_minute:          '00'
-# Don't reboot.  Comment the line.
 skip_reboot:            'yes'
