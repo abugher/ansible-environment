@@ -2,5 +2,7 @@
 - git:
     repo:               "{{ item.repo }}"
     dest:               "{{ item.dest }}"
+  # install == changed; update == unchanged
+  changed_when:         "'null' == git_repos_result.before"
   with_items:           "{{ git_repos }}"
   register:             git_repos_result

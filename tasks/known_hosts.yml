@@ -18,6 +18,7 @@
     name:               "{{ item }}"
     key:                "{{ lookup('file', '../../inventory/hosts/{{ item }}/files/ssh_keys/known_host') }}"
   with_items:           "{{ known_hosts }}"
+  changed_when:         false
   register:             known_hosts_short_result
 - name:                 'known hosts - long hostname'
   known_hosts:
@@ -25,6 +26,7 @@
     name:               "{{ item }}.{{ domain }}"
     key:                "{{ lookup('file', '../../inventory/hosts/{{ item }}/files/ssh_keys/known_host') }}"
   with_items:           "{{ known_hosts }}"
+  changed_when:         false
   register:             known_hosts_long_result
 - name:                 'known hosts - ip address'
   known_hosts:
@@ -32,4 +34,5 @@
     name:               "{{ lookup('dig', '{{ item }}.') }}"
     key:                "{{ lookup('file', '../../inventory/hosts/{{ item }}/files/ssh_keys/known_host') }}"
   with_items:           "{{ known_hosts }}"
+  changed_when:         false
   register:             known_hosts_numeric_result

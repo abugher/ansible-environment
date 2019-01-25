@@ -12,7 +12,9 @@ while read line; do
 
   if grep -qE "^[\s]*${host}[\s]*$" <<< $line; then
     if test -d roles/$role_name; then
-      role_names+=( $role_name )
+      if ! [[ " ${role_names[@]} " =~ " ${role_name} " ]]; then
+        role_names+=( $role_name )
+      fi
     fi
   fi
 done < inventory/hosts.ini

@@ -5,6 +5,3 @@ server {
   server_name           files files.neuronpointer.net;
   return 301            https://files.neuronpointer.net$request_uri;
 }
-
-
-

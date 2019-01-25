@@ -3,10 +3,14 @@
   file:
     owner:              "{{ item.owner }}"
     group:              "{{ item.group }}"
-    mode:               '0755'
+    # https://github.com/ansible/ansible/issues/39802
+    # Setting mode on symlinks is problematic.  Modes are mostly or entirely
+    # ignored, and modes other than 0777 cause a change to be reported.
+    #mode:               '0755'
     src:                "{{ item.src }}"
     dest:               "{{ item.dest }}"
     state:              'link'
     force:              'yes'
+    follow:             'no'
   with_items:           "{{ symlinks }}"
   register:             symlinks_result
