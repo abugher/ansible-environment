@@ -1,0 +1,10 @@
+---
+- shell:                "{{ item.command }}"
+  become:               true
+  become_method:        'sudo'
+  become_user:          "{{ item.user }}"
+  args:
+    chdir:              "{{ item.chdir }}"
+  with_items:           "{{ shell_commands_ignore_result }}"
+  changed_when:         false
+  register:             shell_commands_ignore_result_result
