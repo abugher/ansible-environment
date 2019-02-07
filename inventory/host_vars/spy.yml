@@ -4,8 +4,6 @@ ip_address:             '192.168.11.64'
 parent:                 'gateway'
 monitor:                'yes'
 notify:                 'no'
-allow_users:
-  - 'ansible'
 reboot_hour:            '13'
 reboot_minute:          '59'
 update_hour:            '14'
