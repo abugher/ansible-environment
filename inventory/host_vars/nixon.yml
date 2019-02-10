@@ -5,7 +5,3 @@ parent:                 "{{ gateway }}"
 platform:               'laptop'
 monitor:                'yes'
 notify:                 'no'
-allow_users:
-  - 'pi'
-  - 'nagios'
-  - 'ansible'

@@ -6,12 +6,6 @@ platform:               'raspberry-pi'
 monitor:                'yes'
 notify:                 'yes'
 e_user:                 'escrow'
-allow_users:
-  - 'pi'
-  - 'nagios'
-  - 'ansible'
-  - 'escrow'
-  - 'aaron'
 aliases:
   - 'kerberos'
   - 'smokeping'

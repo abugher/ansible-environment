@@ -5,12 +5,6 @@ parent:                 "{{ gateway }}"
 platform:               'laptop'
 monitor:                'yes'
 notify:                 'yes'
-allow_users:
-  - 'rachel'
-  - 'aaron'
-  - 'ansible'
-  - 'nagios'
-  - 'shinken'
 aliases:
   - 'remote'
   - 'printer'

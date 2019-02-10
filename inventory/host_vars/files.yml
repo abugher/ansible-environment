@@ -10,14 +10,6 @@ encrypted_storage:
     backing_device:     '/dev/sda'
     password_path:      '/home/escrow/storage_pass_phrase/pass_phrase.txt'
 e_user:                 'escrow'
-allow_users:
-  - 'pi'
-  - 'aaron-phone'
-  - 'rachel-phone'
-  - 'rachel'
-  - 'escrow '
-  - 'nagios'
-  - 'readonly'
 aliases:
   - 'transmission'
 reboot_hour:            '02'
