@@ -4,15 +4,21 @@ The directory containing this document should be the current working directory.
 
   `cd ansible_environment`
 
-The scripts are in *bin*.  This is my favorite:
+The scripts are in *bin*.  These two are my favorites:
 
   `./bin/deploy_role <role_name> [ansible args]...`
 
-The role named *role_name* will be applied to the host group named *role_name*.
+  `./bin/deploy_host <host_name> [ansible args]...
+
+In the first case, the role named *role_name* will be applied to the host group
+named *role_name*.  In the second case, for every host group which shares a
+name with a role, if host_name is a member of the group, the role is added to a
+list, and then the list of roles is applied to host_name.  Basically, a role
+defines a service, and a host is defined by its role membership.
 
 If you want the server *mainframe* to run the service *role_name*, write a role
 named *role_name*, create a host group named *role_name* in the inventory, and
-add *mainframe* to that group, before running the above command.
+add *mainframe* to that group, before running one of the above commands.
 
 Your current user is assumed to be the remote user, by name, in the style of
 ssh.  It is assumed that this user has sudo privileges with no password entry
@@ -26,12 +32,6 @@ More granular:
 
   `./deploy_role_as_user_to_hosts <role_name> <user_name> <host_group> [ansible args]...`
 
-I gave up and wrote a couple of scripts just for one role, each:
-
-  `./bin/deploy_dontstarvetogether [ansible args]...`
-
-  `./bin/deploy_steamcmd [ansible args]...`
-
 # structure
 
 Each role has its own repo.  The name of each ansible role repo is prefixed
@@ -41,8 +41,7 @@ referenced by a symlink at *ansible_environment/roles/noop*.  Due to some
 relative path references, the repo directory itself should also reside under
 *roles/*.  Exclude *roles/* from the *ansible_env* repo in *.gitignore*.
 
-Each role defines a service ... but see the note below about host roles.  I
-haven't eliminated those, yet.
+Each role defines a service.
 
 hosts.ini holds the inventory, and host\_vars/ holds host-specific and
 host-defining information such as IP address, MAC address, platform, etc.
@@ -62,17 +61,6 @@ reconciling the groups controlling deployment with the groups controlling
 monitoring, so that, for example, a raspberry pi will get configuration updates
 when I deploy the raspberry-pi role, and nagios will check on its pi-specific
 updates, just because it is a member of group raspberry-pi.
-
-## host roles
-
-This was a mistake.  Some roles attempt to define a host by depending on its roles.
-
-The set of roles assigned to a host should be recorded in the inventory.  If it
-is desirable to be able to conveniently deploy a full set of configuration to a
-single host, work out a playbook or script which will compile a list of roles
-of which this host is a member, from the inventory, and deploy appropriately.
-
-Host roles are to be eliminated.  Inventory belongs in inventory.
 
 ## tasks
 
