@@ -1,5 +1,8 @@
 ---
-- shell:        if ! grep -q AllowUsers /etc/ssh/sshd_config; then echo AllowUsers ansible >> /etc/ssh/sshd_config; fi
+- shell:        if ! grep -q AllowUsers /etc/ssh/sshd_config; then echo AllowUsers ansible >> /etc/ssh/sshd_config && echo changed; fi
+  register:     allow_users_shell_result
+  changed_when: allow_users_shell_result.stdout.find('changed') != -1
+
 - replace:
     dest:       /etc/ssh/sshd_config
     regexp:     '^(AllowUsers(?!.*\b{{ item }}\b)) *(.*)$'
