@@ -1,0 +1,30 @@
+---
+install_packages:
+  - 'gcc'
+  - 'libusb-dev'
+create_files:
+  - owner:                      'root'
+    group:                      'root'
+    mode:                       '0755'
+    state:                      'directory'
+    path:                       '/usr/local/src/temper-usb'
+install_files:
+  - owner:                      'root'
+    group:                      'root'
+    mode:                       '0644'
+    src:                        'files/source/temperv14.c'
+    dest:                       '/usr/local/src/temper-usb/temperv14.c'
+  - owner:                      'root'
+    group:                      'root'
+    mode:                       '0644'
+    src:                        'files/source/Makefile'
+    dest:                       '/usr/local/src/temper-usb/Makefile'
+commands:
+  - command:                    'make'
+    user:                       'root'
+    chdir:                      '/usr/local/src/temper-usb/'
+    creates:                    '/usr/local/src/temper-usb/temperv14'
+  - command:                    'cp temperv14 /usr/local/bin/temperv14'
+    user:                       'root'
+    chdir:                      '/usr/local/src/temper-usb/'
+    creates:                    '/usr/local/bin/temperv14'
