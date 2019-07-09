@@ -2,5 +2,5 @@
 mac_address:            '50:1A:C5:5B:B7:AA'
 ip_address:             '192.168.11.65'
 parent:                 'gateway'
-monitor:                'yes'
+monitor:                'no'
 notify:                 'no'
