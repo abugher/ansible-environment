@@ -3,5 +3,5 @@ mac_address:            '00:0e:35:2d:9c:17'
 ip_address:             '192.168.11.66'
 parent:                 "{{ gateway }}"
 platform:               'laptop'
-monitor:                'yes'
+monitor:                'no'
 notify:                 'no'
