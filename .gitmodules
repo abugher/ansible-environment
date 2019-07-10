@@ -220,3 +220,6 @@
 [submodule "roles/dontstarvetogether_fruitopia"]
 	path = roles/dontstarvetogether_fruitopia
 	url = git@github.com:abugher/ansible_role_dontstarvetogether_fruitopia
+[submodule "roles/xmpp-server"]
+	path = roles/xmpp-server
+	url = git@github.com:abugher/ansible-role-xmpp-server
