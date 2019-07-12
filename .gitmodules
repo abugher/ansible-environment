@@ -223,3 +223,6 @@
 [submodule "roles/xmpp-server"]
 	path = roles/xmpp-server
 	url = git@github.com:abugher/ansible-role-xmpp-server
+[submodule "roles/thermometer"]
+	path = roles/thermometer
+	url = git@github.com:abugher/ansible-role-thermometer.git
