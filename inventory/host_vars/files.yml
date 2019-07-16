@@ -1,8 +1,9 @@
 ---
+# Close enough, but technically, it's a Banana Pi M1.
+platform:               'raspberry-pi'
 mac_address:            '02:55:08:42:95:49'
 ip_address:             '192.168.11.62'
 parent:                 "{{ gateway }}"
-platform:               'raspberry-pi'
 monitor:                'yes'
 notify:                 'yes'
 encrypted_storage:
