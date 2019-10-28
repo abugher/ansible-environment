@@ -1,0 +1,12 @@
+---
+# Close enough, but technically it's a Banana Pi M2.
+platform:               'raspberry-pi'
+mac_address:            '3A:4E:D2:48:B3:B7'
+ip_address:             '192.168.11.64'
+parent:                 'gateway'
+monitor:                'yes'
+notify:                 'no'
+reboot_hour:            '13'
+reboot_minute:          '59'
+update_hour:            '14'
+update_minute:          '17'
