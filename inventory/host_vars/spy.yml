@@ -1,5 +1,5 @@
 ---
-# Close enough, but technically it's a Banana Pi M2.
+# Close enough, but technically it's an Orange Pi.
 platform:               'raspberry-pi'
 mac_address:            '3A:4E:D2:48:B3:B7'
 ip_address:             '192.168.11.64'
