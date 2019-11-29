@@ -226,3 +226,6 @@
 [submodule "roles/thermometer"]
 	path = roles/thermometer
 	url = git@github.com:abugher/ansible-role-thermometer.git
+[submodule "inventory"]
+	path = inventory
+	url = ./inventory/
