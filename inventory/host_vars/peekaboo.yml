@@ -1,6 +1,0 @@
----
-mac_address:            'A0:99:9B:0A:02:F3'
-ip_address:             '192.168.11.60'
-parent:                 'gateway'
-monitor:                'no'
-notify:                 'no'
