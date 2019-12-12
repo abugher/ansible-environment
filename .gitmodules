@@ -1,9 +1,6 @@
 [submodule "roles/kanboard"]
 	path = roles/kanboard
 	url = git@github.com:abugher/ansible_role_kanboard.git
-[submodule "roles/aaron-phone"]
-	path = roles/aaron-phone
-	url = git@github.com:abugher/ansible_role_aaron-phone.git
 [submodule "roles/ansible_master"]
 	path = roles/ansible_master
 	url = git@github.com:abugher/ansible_role_ansible_master.git
