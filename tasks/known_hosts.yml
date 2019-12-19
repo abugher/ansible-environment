@@ -5,13 +5,14 @@
 #  changed_when:         false
 
 - name:                 'initialize files'
-  include:              ../playbooks/intialize_files.yml
+  include:              ../playbooks/create_files.yml
     vars:
-      initialize_files:
+      create_files:
         - path:         '/etc/ssh/ssh_known_hosts'
           owner:        'root'
           group:        'root'
           mode:         '0644'
+          state:        'touch'
 
 - file:
     owner:              'root'
