@@ -83,5 +83,3 @@ reconciling the groups controlling deployment with the groups controlling
 monitoring, so that, for example, a raspberry pi will get configuration updates
 when I deploy the raspberry-pi role, and nagios will check on its pi-specific
 updates, just because it is a member of group raspberry-pi.
-
-*tasks/initialize_files.yml* may be redundant to *tasks/create_files.yml*.

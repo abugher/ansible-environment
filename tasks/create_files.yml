@@ -6,5 +6,8 @@
     mode:               "{{ item.mode }}"
     state:              "{{ item.state }}"
     path:               "{{ item.path }}"
+    # https://github.com/ansible/ansible/issues/7490
+    modification_time:  'preserve'
+    access_time:        'preserve'
   with_items:           "{{ create_files }}"
   register:             create_files_result
