@@ -1,8 +1,17 @@
 ---
+#- name:                 'initialize files'
+#  script:               ../files/scripts/initialize_file /etc/ssh/ssh_known_hosts 'root' 'root' '0644'
+#  register:             initialize_file_script_result
+#  changed_when:         false
+
 - name:                 'initialize files'
-  script:               ../files/scripts/initialize_file /etc/ssh/ssh_known_hosts 'root' 'root' '0644'
-  register:             initialize_file_script_result
-  changed_when:         false
+  include:              ../playbooks/intialize_files.yml
+    vars:
+      initialize_files:
+        - path:         '/etc/ssh/ssh_known_hosts'
+          owner:        'root'
+          group:        'root'
+          mode:         '0644'
 
 - file:
     owner:              'root'
