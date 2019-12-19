@@ -6,13 +6,13 @@
 
 - name:                 'initialize files'
   include:              ../playbooks/create_files.yml
-    vars:
-      create_files:
-        - path:         '/etc/ssh/ssh_known_hosts'
-          owner:        'root'
-          group:        'root'
-          mode:         '0644'
-          state:        'touch'
+  vars:
+    create_files:
+      - path:         '/etc/ssh/ssh_known_hosts'
+        owner:        'root'
+        group:        'root'
+        mode:         '0644'
+        state:        'touch'
 
 - file:
     owner:              'root'
