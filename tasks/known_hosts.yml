@@ -5,7 +5,7 @@
 #  changed_when:         false
 
 - name:                 'initialize files'
-  include:              ../playbooks/create_files.yml
+  include:              ../tasks/create_files.yml
   vars:
     create_files:
       - path:         '/etc/ssh/ssh_known_hosts'
