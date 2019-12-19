@@ -2,13 +2,13 @@
 
 The directory containing this document should be the current working directory.
 
-  `cd ansible\_environment`
+  `cd ansible_environment`
 
 The scripts are in *bin*.  These two are my favorites:
 
-  `./bin/deploy\_role <role> [ansible args]...`
+  `./bin/deploy_role <role> [ansible args]...`
 
-  `./bin/deploy\_host <host> [ansible args]...`
+  `./bin/deploy_host <host> [ansible args]...`
 
 With *deploy\_role*, the role named *role* will be applied to the host
 group named *role*.  In the second case, for every host group which shares
@@ -24,16 +24,16 @@ Remaining arguments are passed to ansible.
 
 More granular:
 
-  `./deploy\_role\_to\_hosts <role\_name> <host\_group> [ansible args]...`
+  `./deploy_role_to_hosts <role_name> <host_group> [ansible args]...`
 
 These commands expect a remote user named *ansible* with sudo privileges
 without a password requirement.  If the remote host does not yet meet those
 requirements, but you have credentials for root or a user with sudo privileges,
 you may be able to fix that like so:
 
-  `./bin/deploy\_role\_as\_user\_to\_hosts <role\_name> <user\_name> <host\_group> [ansible args]...`
+  `./bin/deploy_role_as_user_to_hosts <role_name> <user_name> <host_group> [ansible args]...`
 
-  `./bin/deploy\_role\_as\_user\_to\_hosts ansible\_target <user> <host> -kK`
+  `./bin/deploy_role_as_user_to_hosts ansible_target <user> <host> -k
 
 # structure
 
