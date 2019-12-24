@@ -19,11 +19,20 @@ while read line; do
   fi
 done < inventory/hosts.ini
 
-roles_string="{ 'target_roles': [$(
-  for role_name in "${role_names[@]}"; do 
-    echo -n "'${role_name}', "
-  done \
-  | sed 's/, $//'
-)] }"
-hosts_string="{ 'target_hosts': ['${host}']}"
-time ansible-playbook ./playbooks/deploy_host.yml -e "${hosts_string}" -e "${roles_string}" "${@}"
+case "$(sed 's/.*\///g' <<< "${0}")" in
+  deploy_host)
+    roles_string="{ 'target_roles': [$(
+      for role_name in "${role_names[@]}"; do 
+        echo -n "'${role_name}', "
+      done \
+      | sed 's/, $//'
+    )] }"
+    hosts_string="{ 'target_hosts': ['${host}']}"
+    time ansible-playbook ./playbooks/deploy_host.yml -e "${hosts_string}" -e "${roles_string}" "${@}"
+    ;;
+  list_roles)
+    for role_name in "${role_names[@]}"; do
+      echo "${role_name}"
+    done | sort
+    ;;
+esac
