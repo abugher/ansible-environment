@@ -1,6 +1,6 @@
 ---
 # ansible-playbook -e roles="['role1', 'role2']" -e host=host deploy_roles_to_hosts.yml
-- name:                 "deploy roles to hosts"
+- name:                 "deploy host {{ target_hosts }}"
   remote_user:          'ansible'
   become:               'yes'
   become_method:        'sudo'

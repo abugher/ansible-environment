@@ -1,6 +1,6 @@
 ---
 # ansible-playbook -e role=foo deploy_role.yml
-- name:                 "deploy role:  {{ role }}"
+- name:                 "deploy role as user to host:  {{ role }}"
   remote_user:          "{{ user }}"
   become:               'yes'
   become_method:        'sudo'
