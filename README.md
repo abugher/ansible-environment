@@ -37,15 +37,27 @@ you may be able to fix that like so:
 
 # structure
 
+## playbooks
+
+Generic playbooks, consisting mostly of variables, meant to be called by the scripts under *bin*.
+
+## bin
+
+Scripts to launch deployment of roles to hosts.  Roles are defined under *roles* and hosts are defined under *inventory*.
+
+## roles
+
 Each role has its own repo.  The name of each ansible role repo is prefixed
 with "ansible\_role\_", but the name of the role is assumed NOT to include that
 prefix.  For example, the repo (directory) *ansible\_role\_noop* should be
 checked out to *ansible\_environment/roles/noop*.  Each role is a subproject of
 this project.
 
-Under *inventory*, *hosts.ini* holds the list of hosts and host groups, and
-*host\_vars/\** hold host-specific and host-defining information such as IP
-address, MAC address, platform, etc.
+## inventory
+
+Under *inventory* (a subproject), *hosts.ini* holds the list of hosts and host
+groups, and *host\_vars/\** hold host-specific and host-defining information
+such as IP address, MAC address, platform, etc.
 
 ## tasks
 
