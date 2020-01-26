@@ -37,13 +37,13 @@ you may be able to fix that like so:
 
 # structure
 
+## bin
+
+Scripts to launch deployment of roles to hosts.  Playbooks defining deployment patterns are under *playbooks*.  Roles are defined under *roles* and hosts are defined under *inventory*.
+
 ## playbooks
 
 Generic playbooks, consisting mostly of variables, meant to be called by the scripts under *bin*.
-
-## bin
-
-Scripts to launch deployment of roles to hosts.  Roles are defined under *roles* and hosts are defined under *inventory*.
 
 ## roles
 
@@ -70,6 +70,11 @@ Task lists are defined in *tasks/<task\_name>.yml*.
 Task behavior is controlled by role variables.  To use a task list defined
 here, include it in the main task list of a role, and also set the required
 variables in the main vars file of the role.
+
+## files
+
+Files to be deployed to remote hosts, shared among all roles.  More typically,
+files to deploy would be stored with each role under *roles/rolename/files/*.
 
 ## metrics
 
