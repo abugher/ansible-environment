@@ -16,6 +16,9 @@
 [submodule "roles/backup_client"]
 	path = roles/backup_client
 	url = git@github.com:abugher/ansible_role_backup_client.git
+[submodule "roles/backup_proxy"]
+	path = roles/backup_proxy
+	url = git@github.com:abugher/ansible_role_backup_proxy.git
 [submodule "roles/backup_server"]
 	path = roles/backup_server
 	url = git@github.com:abugher/ansible_role_backup_server.git
