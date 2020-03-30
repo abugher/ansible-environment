@@ -21,28 +21,11 @@
     state:              'file'
     path:               '/etc/ssh/ssh_known_hosts'
 
-# These always report change.  I don't know why.
-- name:                 'known hosts - short hostname'
+- name:                 'known hosts'
   known_hosts:
     path:               "/etc/ssh/ssh_known_hosts"
     name:               "{{ item }}"
-    key:                "{{ lookup('file', '../../inventory/hosts/{{ item }}/files/ssh_keys/known_host') }}"
+    key:                "{{ item }},{{ item }}.{{ domain }},[{{ item }}.{{ domain }}]:{{ hostvars[item].ssh_unique_port | default('22') }}{% if hostvars[item].aliases is defined %}{% for alias in hostvars[item].aliases %},{{ alias }},{{ alias }}.{{ domain }},[{{ alias }}.{{ domain }}]:{{ hostvars[item].ssh_unique_port | default('22') }}{% endfor %}{% endif %},{{ hostvars[item].ip_address }} {{ known_host }}"
   with_items:           "{{ known_hosts }}"
   changed_when:         false
-  register:             known_hosts_short_result
-- name:                 'known hosts - long hostname'
-  known_hosts:
-    path:               "/etc/ssh/ssh_known_hosts"
-    name:               "{{ item }}.{{ domain }}"
-    key:                "{{ lookup('file', '../../inventory/hosts/{{ item }}/files/ssh_keys/known_host') }}"
-  with_items:           "{{ known_hosts }}"
-  changed_when:         false
-  register:             known_hosts_long_result
-- name:                 'known hosts - ip address'
-  known_hosts:
-    path:               "/etc/ssh/ssh_known_hosts"
-    name:               "{{ lookup('dig', '{{ item }}.') }}"
-    key:                "{{ lookup('file', '../../inventory/hosts/{{ item }}/files/ssh_keys/known_host') }}"
-  with_items:           "{{ known_hosts }}"
-  changed_when:         false
-  register:             known_hosts_numeric_result
+  register:             known_hosts_result
