@@ -5,5 +5,5 @@
     mode:                         "{{ item.mode }}"
     path:                         "{{ item.path }}"
   with_items:                   "{{ adjust_files }}"
-  register:                     own_files_result
+  register:                     adjust_files_result
 
