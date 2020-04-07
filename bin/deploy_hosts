@@ -26,7 +26,7 @@ while read line; do
       fi
     fi
   fi
-done < inventory/hosts.ini
+done < inventory/inventory.ini
 
 ansible_pids=()
 for host_name in "${host_names[@]}"; do
