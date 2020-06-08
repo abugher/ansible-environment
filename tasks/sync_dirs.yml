@@ -4,8 +4,7 @@
     src:                "{{ item.src }}"
     dest:               "{{ item.dest }}"
     delete:             "{{ item.delete }}"
-    rsync_opts:         
-      - "{{ item.rsync_opts }}"
+    rsync_opts:         "{{ item.rsync_opts }}"
   with_items:           "{{ sync_dirs }}"
   when:                 item.rsync_opts is defined
   register:             sync_dirs_result
