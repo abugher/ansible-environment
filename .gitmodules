@@ -226,3 +226,6 @@
 [submodule "inventory"]
 	path = inventory
 	url = git@github.com:abugher/ansible_inventory.git
+[submodule "roles/dark"]
+	path = roles/dark
+	url = git@github.com:abugher/ansible_role_dark.git
