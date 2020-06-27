@@ -26,7 +26,14 @@ while read line; do
       fi
     fi
   fi
-done < inventory/inventory.ini
+done <<< $(
+  for f in inventory/inventory.d/*; do 
+    if ! grep -q 'host_list$' <<< "${f}"; then 
+      cat "${f}"; 
+    fi; 
+  done
+)
+
 
 ansible_pids=()
 for host_name in "${host_names[@]}"; do
