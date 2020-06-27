@@ -1,0 +1,5 @@
+---
+- include:              '../tasks/install_packages.yml'
+- include:              '../tasks/enable_services.yml'
+- include:              '../tasks/start_services.yml'
+  when:                 install_packages_result.changed or enable_services_result.changed
