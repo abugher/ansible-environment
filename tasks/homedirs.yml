@@ -25,13 +25,13 @@
   register:             homedirs_by_user_sensitive_result 
 - name:                 'home directory contents, by user and host'
   copy:
-    src:                "../files/conf/homedirs/{{ item }}/{{ inventory_hostname }}"
+    src:                "../files/conf/homedirs/{{ item }}/{{ inventory_hostname }}/"
     dest:               "~{{ item }}/"
   with_items:           "{{ usergroup_all }}"
   register:             homedirs_by_user_at_host_result 
 - name:                 'home directory contents, by user and host, sensitive'
   copy:
-    src:                "../../sensitive_ansible/files/conf/homedirs/{{ item }}/{{ inventory_hostname }}"
+    src:                "../../sensitive_ansible/files/conf/homedirs/{{ item }}/{{ inventory_hostname }}/"
     dest:               "~{{ item }}/"
   with_items:           "{{ usergroup_all }}"
   register:             homedirs_by_user_at_host_sensitive_result 
