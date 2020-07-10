@@ -1,4 +1,6 @@
 ---
+- name:                 'check for directory, common'
+  
 - name:                 'home directory contents, common'
   copy:
     src:                '../files/conf/homedirs/common/common/'
