@@ -1,12 +1,23 @@
 ---
-- name:                 'check for directory, common'
-  
+- name:                 'check for directory'
+  local_action:         stat path='../files/conf/homedirs/common/common/'
+  become:               'no'
+  register:             common_check_result
 - name:                 'home directory contents, common'
   copy:
     src:                '../files/conf/homedirs/common/common/'
     dest:               "~{{ item }}/"
   with_items:           "{{ usergroup_all }}"
   register:             homedirs_common_result 
+  when:                 common_check_result.stat.exists
+- name:                 'home directory contents, common (none)'
+  local_action:         command true
+  become:               'no'
+  register:             homedirs_common_result 
+- name:                 'check for directory'
+  local_action:         stat path='../files/conf/homedirs/common/common/'
+  become:               'no'
+  register:             common_check_result
 - name:                 'home directory contents, common, sensitive'
   copy:
     src:                '../../sensitive_ansible/files/conf/homedirs/common/common/'
