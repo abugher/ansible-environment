@@ -1,8 +1,0 @@
----
-- name:                 'add user to groups'
-  user:
-    name:               "{{ item.user }}"
-    append:             'yes'
-    groups:             "{{ item.groups }}"
-  with_items:           "{{ add_user_to_groups}}"
-  register:             add_user_to_groups_result
