@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pgrep -lu aaron '^xscreensaver$' || xscreensaver -no-splash & disown
+xscreensaver-command -lock
