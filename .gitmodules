@@ -229,3 +229,6 @@
 [submodule "roles/dark"]
 	path = roles/dark
 	url = git@github.com:abugher/ansible_role_dark.git
+[submodule "roles/x"]
+	path = roles/x
+	url = git@github.com:abugher/ansible_role_x.git
