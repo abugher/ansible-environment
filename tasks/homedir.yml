@@ -7,6 +7,8 @@
   register:             homedir_common_check_result
 - name:                 'home directory contents, common'
   copy:
+    owner:              "{{ homedir_user }}"
+    group:              "{{ homedir_user }}"
     mode:               'preserve'
     src:                '../files/conf/homedirs/common/common/'
     dest:               "~{{ homedir_user }}/"
@@ -20,6 +22,8 @@
   register:             homedir_common_sensitive_check_result
 - name:                 'home directory contents, common, sensitive'
   copy:
+    owner:              "{{ homedir_user }}"
+    group:              "{{ homedir_user }}"
     mode:               'preserve'
     src:                '../../sensitive_ansible/files/conf/homedirs/common/common/'
     dest:               "~{{ homedir_user }}/"
@@ -33,6 +37,8 @@
   register:             homedir_by_user_check_result
 - name:                 'home directory contents, by user'
   copy:
+    owner:              "{{ homedir_user }}"
+    group:              "{{ homedir_user }}"
     mode:               'preserve'
     src:                "../files/conf/homedirs/{{ homedir_user }}/common/"
     dest:               "~{{ homedir_user }}/"
@@ -46,6 +52,8 @@
   register:             homedir_by_user_sensitive_check_result 
 - name:                 'home directory contents, by user, sensitive'
   copy:
+    owner:              "{{ homedir_user }}"
+    group:              "{{ homedir_user }}"
     mode:               'preserve'
     src:                "../../sensitive_ansible/files/conf/homedirs/{{ homedir_user }}/common/"
     dest:               "~{{ homedir_user }}/"
@@ -59,6 +67,8 @@
   register:             homedir_by_user_at_host_check_result
 - name:                 'home directory contents, by user and host'
   copy:
+    owner:              "{{ homedir_user }}"
+    group:              "{{ homedir_user }}"
     mode:               'preserve'
     src:                "../files/conf/homedirs/{{ homedir_user }}/{{ inventory_hostname }}/"
     dest:               "~{{ homedir_user }}/"
@@ -72,6 +82,8 @@
   register:             homedir_by_user_at_host_sensitive_check_result 
 - name:                 'home directory contents, by user and host, sensitive'
   copy:
+    owner:              "{{ homedir_user }}"
+    group:              "{{ homedir_user }}"
     mode:               'preserve'
     src:                "../../sensitive_ansible/files/conf/homedirs/{{ homedir_user }}/{{ inventory_hostname }}/"
     dest:               "~{{ homedir_user }}/"
