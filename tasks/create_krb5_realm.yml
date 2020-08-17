@@ -2,5 +2,5 @@
 - name:                 'create krb5 realm'
   shell:                /bin/echo -e "{{ kdc_db_master_key_twice }}" | /usr/sbin/krb5_newrealm
   args:
-    creates:            '/etc/krb5kdc/principal'
+    creates:            '/var/lib/krb5kdc/principal'
   register:             create_krb5_realm_result
