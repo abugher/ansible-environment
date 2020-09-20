@@ -4,5 +4,6 @@
     regexp:             "{{ item.regexp }}"
     dest:               "{{ item.dest }}"
     state:              'present'
+    backrefs:           "{{ item.backrefs | default('no') }}"
   with_items:           "{{ lines_in_files }}"
   register:             lines_in_files_result

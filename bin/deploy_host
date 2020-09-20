@@ -18,7 +18,7 @@ while read line; do
     fi
   fi
 done <<< $(
-  for f in inventory/inventory.d/*; do 
+  for f in $(find inventory/inventory.d/ -type f); do 
     if ! grep -q 'host_list$' <<< "${f}"; then 
       cat "${f}"; 
     fi; 
