@@ -235,3 +235,6 @@
 [submodule "files/conf/homedirs/aaron/common/.mutt.d"]
 	path = files/conf/homedirs/aaron/common/.mutt.d
 	url = git@github.com:abugher/mutt.d.git
+[submodule "roles/ssh_client"]
+	path = roles/ssh_client
+	url = git@github.com:abugher/ansible-role-ssh_client.git
