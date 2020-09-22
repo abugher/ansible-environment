@@ -1,0 +1,21 @@
+# Configuration data is parsed as follows:
+#  1. command line options
+#  2. user-specific file
+#  3. system-wide file
+# Any configuration value is only changed the first time it is set.
+# Thus, host-specific definitions should be at the beginning of the
+# configuration file, and defaults at the end.
+
+GSSAPIDelegateCredentials yes
+HashKnownHosts no
+
+{% for host in groups['server'] %}
+Host {{ host }}
+  HostName {{ host }}.neuronpointer.net
+  Port {{ hostvars[host]['ssh_unique_port'] }}
+
+{% endfor %}
+
+Host *
+    SendEnv LANG LC_*
+    GSSAPIAuthentication yes
