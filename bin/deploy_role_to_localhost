@@ -1,7 +1,6 @@
 #!/bin/bash
 role="${1}"
 shift 1
-target_host="${1:-localhost}"
-shift 1
+target_host="${HOSTNAME}"
 
 time ansible-playbook ./playbooks/deploy_role_to_localhost.yml -e role="${role}" -e target_host="${target_host}" "${@}"
