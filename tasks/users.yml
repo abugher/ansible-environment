@@ -6,6 +6,5 @@
     comment:            ""
     state:              "present"
     shell:              "/bin/bash"
-    password:           "*"
   with_items:           "{{ users }}"
   register:             users_result
