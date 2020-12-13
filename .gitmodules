@@ -241,3 +241,6 @@
 [submodule "roles/pass_server"]
 	path = roles/pass_server
 	url = git@github.com:abugher/pass_server.git
+[submodule "roles/mail_server"]
+	path = roles/mail_server
+	url = git@github.com:abugher/ansible_role_mail_server.git
