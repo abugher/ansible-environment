@@ -244,3 +244,6 @@
 [submodule "roles/mail_server"]
 	path = roles/mail_server
 	url = git@github.com:abugher/ansible_role_mail_server.git
+[submodule "roles/kanboard_proxy"]
+	path = roles/kanboard_proxy
+	url = git@github.com:abugher/ansible_role_kanboard_proxy.git
