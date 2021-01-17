@@ -214,9 +214,6 @@
 [submodule "roles/steamcmd"]
 	path = roles/steamcmd
 	url = git@github.com:abugher/ansible-role-steamcmd
-[submodule "roles/dns_client"]
-	path = roles/dns_client
-	url = git@github.com:abugher/ansible_role_dns_client.git
 [submodule "roles/xmpp-server"]
 	path = roles/xmpp-server
 	url = git@github.com:abugher/ansible-role-xmpp-server
