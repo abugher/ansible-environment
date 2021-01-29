@@ -1,10 +1,12 @@
 ---
 - name:                 'mount'
   mount:
-    name:               "{{ item.name }}"
-    fstype:             "{{ item.fstype }}"
-    opts:               "{{ item.opts }}"
-    src:                "{{ item.src }}"
-    state:              "{{ item.state }}"
+    name:               "{{ volume.name }}"
+    fstype:             "{{ volume.fstype }}"
+    opts:               "{{ volume.opts }}"
+    src:                "{{ volume.src }}"
+    state:              "{{ volume.state }}"
   with_items:           "{{ mount }}"
+  loop_control:
+    loop_var:           'volume'
   register:             mount_result

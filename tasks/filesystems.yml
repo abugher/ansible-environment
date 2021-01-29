@@ -1,7 +1,9 @@
 ---
 - name:                         'create filesystem'
   filesystem:
-    dev:                        "{{ item.dev }}"
-    fstype:                     "{{ item.fstype }}"
+    dev:                        "{{ filesystem.dev }}"
+    fstype:                     "{{ filesystem.fstype }}"
   with_items:                   "{{ filesystems }}"
+  loop_control:
+    loop_var:                   'filesystem'
   register:                     filesystems_result
