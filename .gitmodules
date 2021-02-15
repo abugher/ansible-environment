@@ -247,3 +247,6 @@
 [submodule "roles/mail_client"]
 	path = roles/mail_client
 	url = https://github.com/abugher/ansible_role_mail_client.git
+[submodule "roles/jetson_nano"]
+	path = roles/jetson_nano
+	url = https://github.com/abugher/ansible_role_jetson_nano.git
