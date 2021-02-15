@@ -1,0 +1,7 @@
+---
+- include_role:
+    name:               "{{ dependency }}"
+  with_items:           "{{ dependencies }}"
+  loop_control:
+    loop_var:           "dependency"
+  when:                 skipdeps is not defined
