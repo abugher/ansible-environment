@@ -2,9 +2,9 @@
 - command:              "{{ item.command }}"
   become:               true
   become_method:        'sudo'
-  become_user:          "{{ item.user }}"
+  become_user:          "{{ item.user|default('root') }}"
   args:
-    chdir:              "{{ item.chdir }}"
-    creates:            "{{ item.creates }}"
+    chdir:              "{{ item.chdir|default('/') }}"
+    creates:            "{{ item.creates|default('/does/not/create/anything') }}"
   with_items:           "{{ commands }}"
   register:             commands_result
