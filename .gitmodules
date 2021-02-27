@@ -52,9 +52,6 @@
 [submodule "roles/dns_internal"]
 	path = roles/dns_internal
 	url = https://github.com/abugher/ansible_role_dns_internal.git
-[submodule "roles/dphys-swapfile"]
-	path = roles/dphys-swapfile
-	url = https://github.com/abugher/ansible_role_dphys-swapfile.git
 [submodule "roles/elasticsearch"]
 	path = roles/elasticsearch
 	url = https://github.com/abugher/ansible_role_elasticsearch.git
