@@ -130,9 +130,6 @@
 [submodule "roles/rachel-phone"]
 	path = roles/rachel-phone
 	url = https://github.com/abugher/ansible_role_rachel-phone.git
-[submodule "roles/reboot"]
-	path = roles/reboot
-	url = https://github.com/abugher/ansible_role_reboot.git
 [submodule "roles/remote"]
 	path = roles/remote
 	url = https://github.com/abugher/ansible_role_remote.git
