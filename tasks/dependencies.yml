@@ -1,4 +1,7 @@
 ---
+# I'm tired of adding a line for a conditional after every dependency in the
+# meta files.  Define a list named "dependencies" in role vars, and include
+# this task, instead.
 - include_role:
     name:               "{{ dependency }}"
   with_items:           "{{ dependencies }}"
