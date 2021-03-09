@@ -2,53 +2,44 @@
 # Currently no file locking is done, but multiple instances seem infeasible and
 # undesirable.
 
-group="${1}"
-shift 1
-host_names=()
-tmpdir=/tmp/$USER/ansible_deploy_host
 
-mkdir -p $tmpdir
+function main() {
+  tmpdir="/tmp/${USER}/ansible_deploy_host"
+  rm -rf "${tmpdir}"
+  mkdir -p "${tmpdir}"
 
-current_role_is_target=0
-while read line; do
-  if grep -qE '^[\s]*\[[a-zA-Z0-9_-]*\][\s]*$' <<< $line; then
-    role_name=$(sed -E 's/^.*\[//;s/\].*$//' <<< $line)
-    if test "${role_name}" == "${group}"; then
-      current_role_is_target=1
+  target="${1}"
+  shift 1
+
+  host_names=( $( list_hosts ) )
+
+  case "${0##*/}" in
+  deploy_hosts)
+    if test 1 = "${#host_names[@]}"; then
+      deploy_host "${host_names[0]}" "${@}"
     else
-      current_role_is_target=0
+      deploy_hosts "${@}"
     fi
-  else
-    if test 1 -eq $current_role_is_target; then
-      host_name="$(sed -E 's/^\s*//g;s/\s*$//g' <<< $line)"
-      if grep -qE '^[a-zA-Z0-9_-]+$' <<< $host_name; then
-        host_names+=("${host_name}")
-      fi
-    fi
-  fi
-done <<< $(
-  for f in inventory/inventory.d/*; do 
-    if ! grep -qE 'host_list$|host_vars$' <<< "${f}"; then 
-      cat "${f}"; 
-    fi; 
-  done
+    ;;
+  list_roles)
+    list_roles "${host_names[@]}"
+    ;;
+  esac
+}
+
+
+self_path="$(readlink -f ${0})"
+self_dir="${self_path%/*}/.."
+cd "${self_dir}"
+
+libs=(
+  'list_hosts'
+  'list_roles'
+  'deploy_hosts'
 )
-
-
-ansible_pids=()
-for host_name in "${host_names[@]}"; do
-  echo "Deploying host:  ${host_name}"
-  {
-    ./bin/deploy_host "${host_name}" "${@}" > "${tmpdir}/${host_name}".log 2>&1 
-    ret="${?}"
-    echo "${ret}" > "${tmpdir}/${host_name}".ret
-    echo "Deployment to ${host_name} return status:  ${ret}"
-  } &
-  ansible_pid="${!}"
-  ansible_pids+=("${ansible_pid}")
-  echo "${ansible_pid}" > "${tmpdir}"/"${host_name}".pid
+for lib in "${libs[@]}"; do
+  . lib/${lib}.sh
 done
 
-echo "All deployments are launched.  Waiting."
 
-wait "${ansible_pids[@]}"
+main "${@}"

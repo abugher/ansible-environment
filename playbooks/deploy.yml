@@ -1,13 +1,11 @@
 ---
-# ansible-playbook -e roles="['role1', 'role2']" -e host=host deploy_roles_to_hosts.yml
-- name:                 "deploy host {{ target_hosts }}"
-  remote_user:          'ansible'
+- name:                 "Deploy!"
+  connection:           "{{ connection|default('ssh') }}"
+  remote_user:          "{{ remote_user|default('ansible') }}"
   become:               'yes'
   become_method:        'sudo'
-  gather_facts:         'no'
+  gather_facts:         "{{ gather_facts|default('no') }}"
   hosts:                "{{ target_hosts }}"
-  #roles:                
-  #  - 'time'
   tasks:
     - include_role:
         name:           "{{ target_role }}"

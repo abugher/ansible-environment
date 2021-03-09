@@ -1,8 +1,13 @@
 #!/bin/bash
+
+self_path="$(readlink -f ${0})"
+self_dir="${self_path%/*}/.."
+cd "${self_dir}"
+
 role="${1}"
 shift
 user="${1}"
 shift
 target_hosts="${1}"
 shift
-time ansible-playbook ./playbooks/deploy_role_as_user_to_hosts.yml -e role="${role}" -e user="${user}" -e target_hosts="${target_hosts}" "${@}"
+time ansible-playbook ./playbooks/deploy.yml -e target_roles="${role}" -e remote_user="${user}" -e target_hosts="${target_hosts}" "${@}"
