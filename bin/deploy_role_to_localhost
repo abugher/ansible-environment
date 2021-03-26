@@ -6,6 +6,10 @@ cd "${self_dir}"
 
 role="${1}"
 shift 1
+# Targeting localhost would allow deployment without defining a new set of host
+# variables, but many roles rely on host variables, so that doesn't really
+# work.
+#target_host='localhost'
 target_host="${HOSTNAME}"
 
 time ansible-playbook ./playbooks/deploy.yml -e target_roles="${role}" -e target_hosts="${target_host}" -e connection='local' "${@}"
