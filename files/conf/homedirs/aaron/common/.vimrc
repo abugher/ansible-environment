@@ -43,13 +43,17 @@ if !exists("autocommands_loaded")
   let autocommands_loaded = 1
 
   " Set width to 72 only if file ends in .txt.
-  au BufWinEnter           *.txt   setlocal textwidth=72
-  au BufWinEnter           *.txt   setlocal spell
+  au BufWinEnter        *.txt           setlocal textwidth=72
+  au BufWinEnter        *.txt           setlocal spell
+
+  " Makefiles need real tabs.
+  au BufWinEnter        [Mm]akefile     setlocal noexpandtab
+  au BufWinEnter        [Mm]akefile     setlocal nosmarttab
 
   " Remember a "view" per-file.  This preserves folds, and presumably other
   " things.  
-  au BufWinLeave        ?*      mkview
-  au BufWinEnter        ?*      loadview
+  au BufWinLeave        ?*              mkview
+  au BufWinEnter        ?*              loadview
 
   " This awful mess should put the cursor at the last position per-file:
   function! ResCur()
