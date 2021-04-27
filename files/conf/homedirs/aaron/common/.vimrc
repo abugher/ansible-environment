@@ -73,4 +73,5 @@ if !exists("autocommands_loaded")
   autocmd BufEnter * :syntax sync fromstart
 endif
 
+" If ':set syn=sh', use Bash syntax, not generic sh.
 let b:is_bash=1
