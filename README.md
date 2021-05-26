@@ -100,3 +100,11 @@ reconciling the groups controlling deployment with the groups controlling
 monitoring, so that, for example, a raspberry pi will get configuration updates
 when I deploy the raspberry-pi role, and nagios will check on its pi-specific
 updates, just because it is a member of group raspberry-pi.
+
+Reference to tasks can be a little confusing, between the shared tasks
+directory and per-role task directories.  Ansible has an interesting search
+order for inclusions, and I found that if a per-role task file has the same
+name as a shared task file, it's possible for ansilbe to misinterpret the
+relative path, find the wrong one, and even get stuck in a loop if the per-role
+task calls the shared task.  For now, avoid using the same name between shared
+and per-role task files.  This could use a more systematic solution, though.
