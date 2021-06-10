@@ -169,9 +169,9 @@
 [submodule "roles/tar_backup_client"]
 	path = roles/tar_backup_client
 	url = https://github.com/abugher/ansible_role_tar_backup_client.git
-[submodule "roles/temper-python"]
-	path = roles/temper-python
-	url = https://github.com/abugher/ansible_role_temper-python.git
+[submodule "roles/temper"]
+	path = roles/temper
+	url = https://github.com/abugher/ansible_role_temper.git
 [submodule "roles/tftp"]
 	path = roles/tftp
 	url = https://github.com/abugher/ansible_role_tftp.git
