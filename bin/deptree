@@ -8,7 +8,6 @@ function main() {
   fi
   roles_for_host=( $(roles_for_host "${host}") )
   for role in "${roles_for_host[@]}"; do
-    dep_chain=( "${role}" )
     printf '%s\n' "${role}"
     deps_for_role "${role}"
   done
@@ -38,6 +37,13 @@ function roles_for_host() {
 
 function deps_for_role() {
   role="${1}"
+  for dep in "${dep_chain[@]}"; do
+    if test "${dep}" = "${role}"; then
+      echo "Loop detected:  ${dep_chain[@]}"
+      exit 1
+    fi
+  done
+  local dep_chain=( "${dep_chain[@]}" "${role}" )
   meta="roles/${role}/meta/main.yml"
   deps=()
   if test -e "${meta}"; then
@@ -51,6 +57,7 @@ function deps_for_role() {
       printf '  '
     done
     printf '%s\n' "${dep}"
+    dep_chain=( "${dep_chain[@]}" "${dep}" ) deps_for_role "${dep}"
   done
 }
 
