@@ -7,6 +7,11 @@ function main() {
     exit 1
   fi
   roles_for_host=( $(roles_for_host "${host}") )
+  for role in "${roles_for_host[@]}"; do
+    dep_chain=( "${role}" )
+    printf '%s\n' "${role}"
+    deps_for_role "${role}"
+  done
 }
 
 
@@ -28,6 +33,25 @@ function roles_for_host() {
   done
   grep -lE "${host}" "${roles_files_to_search[@]}" \
     | sed 's/^inventory\/inventory\.d\///'
+}
+
+
+function deps_for_role() {
+  role="${1}"
+  meta="roles/${role}/meta/main.yml"
+  deps=()
+  if test -e "${meta}"; then
+    deps=( $(
+      awk '/^ *- role:/ {print $3}' "${meta}" \
+        | sed "s/'//g"
+    ) )
+  fi
+  for dep in "${deps[@]}"; do
+    for i in $(seq 1 "${#dep_chain[@]}"); do
+      printf '  '
+    done
+    printf '%s\n' "${dep}"
+  done
 }
 
 
