@@ -14,13 +14,17 @@ function roles_for_host() {
   for role in $(all_roles); do
     roles_files_to_search+=( "inventory/inventory.d/${role}" )
   done
-  grep -lE "${1}" "${roles_files_to_search[@]}"
+  grep -lE "${1}" "${roles_files_to_search[@]}" \
+    | sed 's/^inventory\/inventory\.d\///'
 }
 
 
 function all_roles() {
   for file in $(find inventory/inventory.d/ -maxdepth 1 -type f); do 
-    printf '%s\n' "${file##*/}"
+    role="${file##*/}"
+    if grep -q "\[${role}\]" "${file}"; then
+      printf '%s\n' "${role}"
+    fi
   done
 }
 
