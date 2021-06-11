@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+function main() {
+  if ! test 'set' = "${1:+set}"; then
+    exit 1
+  fi
+  roles_for_host "${1}"
+}
+
+
+function roles_for_host() {
+  roles_files_to_search=()
+  for role in $(all_roles); do
+    roles_files_to_search+=( "inventory/inventory.d/${role}" )
+  done
+  grep -lE "${1}" "${roles_files_to_search[@]}"
+}
+
+
+function all_roles() {
+  for file in $(find inventory/inventory.d/ -maxdepth 1 -type f); do 
+    printf '%s\n' "${file##*/}"
+  done
+}
+
+
+main "${@}"
