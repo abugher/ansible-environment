@@ -5,17 +5,7 @@ function main() {
   if ! test 'set' = "${1:+set}"; then
     exit 1
   fi
-  roles_for_host "${1}"
-}
-
-
-function roles_for_host() {
-  roles_files_to_search=()
-  for role in $(all_roles); do
-    roles_files_to_search+=( "inventory/inventory.d/${role}" )
-  done
-  grep -lE "${1}" "${roles_files_to_search[@]}" \
-    | sed 's/^inventory\/inventory\.d\///'
+  roles_for_host=( $(roles_for_host "${1}") )
 }
 
 
@@ -26,6 +16,16 @@ function all_roles() {
       printf '%s\n' "${role}"
     fi
   done
+}
+
+
+function roles_for_host() {
+  roles_files_to_search=()
+  for role in $(all_roles); do
+    roles_files_to_search+=( "inventory/inventory.d/${role}" )
+  done
+  grep -lE "${1}" "${roles_files_to_search[@]}" \
+    | sed 's/^inventory\/inventory\.d\///'
 }
 
 
