@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# deptree <hostname>
+#
+# Show a dependency tree, starting with roles for which this host is a member
+# of the corresponding group, then recursing through roles on which those roles
+# depend.
 
 
 function main() {
