@@ -2,10 +2,11 @@
 
 
 function main() {
+  host="${1}"
   if ! test 'set' = "${1:+set}"; then
     exit 1
   fi
-  roles_for_host=( $(roles_for_host "${1}") )
+  roles_for_host=( $(roles_for_host "${host}") )
 }
 
 
@@ -20,11 +21,12 @@ function all_roles() {
 
 
 function roles_for_host() {
+  host="${1}"
   roles_files_to_search=()
   for role in $(all_roles); do
     roles_files_to_search+=( "inventory/inventory.d/${role}" )
   done
-  grep -lE "${1}" "${roles_files_to_search[@]}" \
+  grep -lE "${host}" "${roles_files_to_search[@]}" \
     | sed 's/^inventory\/inventory\.d\///'
 }
 
