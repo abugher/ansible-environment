@@ -25,6 +25,6 @@
   known_hosts:
     path:               "/etc/ssh/ssh_known_hosts"
     name:               "{{ item }}"
-    key:                "{{ item }},{{ item }}.{{ domain }},[{{ item }}.{{ domain }}]:{{ hostvars[item].ssh_unique_port | default('22') }}{% if hostvars[item].aliases is defined %}{% for alias in hostvars[item].aliases %},{{ alias }},{{ alias }}.{{ domain }},[{{ alias }}.{{ domain }}]:{{ hostvars[item].ssh_unique_port | default('22') }}{% endfor %}{% endif %},{{ hostvars[item].ip_address }} {{ hostvars[item].known_host }}"
+    key:                "{{ item }},{{ item }}.{{ domain }},[{{ item }}.{{ domain }}]:{{ hostvars[item].ssh_unique_port | default('22') }}{% if hostvars[item].aliases is defined %}{% for alias in hostvars[item].aliases %},{{ alias }},{{ alias }}.{{ domain }},[{{ alias }}.{{ domain }}]:{{ hostvars[item].ssh_unique_port | default('22') }}{% endfor %}{% endif %},{% if hostvars[item].ip_address is defined %}{{ hostvars[item].ip_address }}{% endif %} {{ hostvars[item].known_host }}"
   with_items:           "{{ known_hosts }}"
   register:             known_hosts_result
