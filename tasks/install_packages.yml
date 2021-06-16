@@ -4,3 +4,6 @@
     name:               "{{ install_packages }}"
     state:              'present'
   register:             install_packages_result
+  retries:              5
+  delay:                120
+  until:                install_packages_result is not failed
