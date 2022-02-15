@@ -8,7 +8,11 @@
     mode:               '0644'
   register:             hostname_file_result
 
+# The hostname module seems to want to use the hostnamectl command, which
+# relies on systemd, which is not always available.
 - name:                 'set hostname'
-  hostname:
-    name:               "{{ inventory_hostname }}"
+#  hostname:
+#    name:               "{{ inventory_hostname }}"
+  shell:                if ! { hostname | grep -q {{ inventory_hostname }}; }; then hostname {{ inventory_hostname }} && echo "Hostname changed to {{ inventory_hostname }}."; fi
   register:             hostname_command_result
+  changed_when:         hostname_command_result.stdout.find("to {{ inventory_hostname }}") != -1
