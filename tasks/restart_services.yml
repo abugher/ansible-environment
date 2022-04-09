@@ -1,7 +1,14 @@
 ---
-- name:                 'restart services'
+- name:                 'restart services (stop)'
   service:
     name:               "{{ item }}"
-    state:              'restarted'
+    state:              'stopped'
+  with_items:           "{{ restart_services }}"
+  register:             restart_services_result
+
+- name:                 'restart services (start)'
+  service:
+    name:               "{{ item }}"
+    state:              'started'
   with_items:           "{{ restart_services }}"
   register:             restart_services_result
