@@ -220,9 +220,6 @@
 [submodule "roles/dark"]
 	path = roles/dark
 	url = https://github.com/abugher/ansible_role_dark.git
-[submodule "roles/x"]
-	path = roles/x
-	url = https://github.com/abugher/ansible_role_x.git
 [submodule "files/conf/homedirs/aaron/common/.mutt.d"]
 	path = files/conf/homedirs/aaron/common/.mutt.d
 	url = https://github.com/abugher/mutt.d.git
@@ -244,3 +241,6 @@
 [submodule "roles/jetson_nano"]
 	path = roles/jetson_nano
 	url = https://github.com/abugher/ansible_role_jetson_nano.git
+[submodule "roles/dns_client"]
+	path = roles/dns_client
+	url = git@github.com:abugher/ansible_role_dns_client.git
