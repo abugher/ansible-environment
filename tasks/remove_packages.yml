@@ -3,4 +3,5 @@
   apt:
     name:               '{{ remove_packages }}'
     state:              'absent'
+    purge:              True
   register:             remove_packages_result
