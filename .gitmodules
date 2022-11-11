@@ -244,3 +244,6 @@
 [submodule "roles/dns_client"]
 	path = roles/dns_client
 	url = git@github.com:abugher/ansible_role_dns_client.git
+[submodule "roles/no-laptop"]
+	path = roles/no-laptop
+	url = git@github.com:abugher/ansible-role-no-laptop
