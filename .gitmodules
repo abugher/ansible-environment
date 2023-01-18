@@ -247,3 +247,6 @@
 [submodule "roles/no-laptop"]
 	path = roles/no-laptop
 	url = git@github.com:abugher/ansible-role-no-laptop
+[submodule "roles/apt-repo-server"]
+	path = roles/apt-repo-server
+	url = https://github.com/abugher/ansible-role-apt-repo-server.git
