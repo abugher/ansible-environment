@@ -3,3 +3,11 @@
   reboot:
     msg:                'Reboot triggered by ansible.'
     pre_reboot_delay:   60
+    # default search paths plus molly-guard bypass location
+    search_paths:
+      - '/lib/molly-guard'
+      - '/sbin'
+      - '/bin'
+      - '/usr/sbin'
+      - '/usr/bin'
+      - '/usr/local/sbin'
