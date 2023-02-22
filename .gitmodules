@@ -58,9 +58,6 @@
 [submodule "roles/elasticsearch_repo"]
 	path = roles/elasticsearch_repo
 	url = https://github.com/abugher/ansible_role_elasticsearch_repo.git
-[submodule "roles/elk"]
-	path = roles/elk
-	url = https://github.com/abugher/ansible_role_elk.git
 [submodule "roles/encrypted_storage"]
 	path = roles/encrypted_storage
 	url = https://github.com/abugher/ansible_role_encrypted_storage.git
