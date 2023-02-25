@@ -175,12 +175,12 @@
 [submodule "roles/transmission"]
 	path = roles/transmission
 	url = https://github.com/abugher/ansible_role_transmission.git
-[submodule "roles/transmission_proxy"]
+[submodule "roles/transmission-proxy"]
 	path = roles/transmission-proxy
 	url = https://github.com/abugher/ansible-role-transmission-proxy.git
 [submodule "roles/user_friendly"]
-	path = roles/user_friendly
-	url = https://github.com/abugher/ansible_role_user_friendly.git
+	path = roles/user-friendly
+	url = https://github.com/abugher/ansible-role-user-friendly.git
 [submodule "roles/user_identity_client"]
 	path = roles/user_identity_client
 	url = https://github.com/abugher/ansible_role_user_identity_client.git
