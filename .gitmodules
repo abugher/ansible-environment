@@ -130,9 +130,9 @@
 [submodule "roles/root-keys"]
 	path = roles/root-keys
 	url = https://github.com/abugher/ansible-role-root-keys.git
-[submodule "roles/sensitive_server"]
-	path = roles/sensitive_server
-	url = https://github.com/abugher/ansible_role_sensitive_server.git
+[submodule "roles/sensitive-server"]
+	path = roles/sensitive-server
+	url = https://github.com/abugher/ansible-role-sensitive-server.git
 [submodule "roles/smokeping"]
 	path = roles/smokeping
 	url = https://github.com/abugher/ansible_role_smokeping.git
