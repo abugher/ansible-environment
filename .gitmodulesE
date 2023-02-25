@@ -142,12 +142,12 @@
 [submodule "roles/sshfs-client"]
 	path = roles/sshfs-client
 	url = https://github.com/abugher/ansible-role-sshfs-client.git
-[submodule "roles/ssl_identity"]
+[submodule "roles/ssl-identity"]
 	path = roles/ssl-identity
 	url = https://github.com/abugher/ansible-role-ssl-identity.git
 [submodule "roles/static_address"]
-	path = roles/static_address
-	url = https://github.com/abugher/ansible_role_static_address.git
+	path = roles/static-address
+	url = https://github.com/abugher/ansible-role-static-address.git
 [submodule "roles/storage_server"]
 	path = roles/storage_server
 	url = https://github.com/abugher/ansible_role_storage_server.git
