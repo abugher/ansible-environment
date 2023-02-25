@@ -28,9 +28,9 @@
 [submodule "roles/camera"]
 	path = roles/camera
 	url = https://github.com/abugher/ansible_role_camera.git
-[submodule "roles/crl_server"]
-	path = roles/crl_server
-	url = https://github.com/abugher/ansible_role_crl_server.git
+[submodule "roles/crl-server"]
+	path = roles/crl-server
+	url = https://github.com/abugher/ansible-role-crl-server.git
 [submodule "roles/cryptkeeper"]
 	path = roles/cryptkeeper
 	url = https://github.com/abugher/ansible_role_cryptkeeper.git

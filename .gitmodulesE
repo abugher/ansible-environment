@@ -10,7 +10,7 @@
 [submodule "roles/archive-server"]
 	path = roles/archive-server
 	url = https://github.com/abugher/ansible-role-archive-server.git
-[submodule "roles/automatic_updates"]
+[submodule "roles/automatic-updates"]
 	path = roles/automatic-updates
 	url = https://github.com/abugher/ansible-role-automatic-updates.git
 [submodule "roles/backup-client"]
@@ -29,8 +29,8 @@
 	path = roles/camera
 	url = https://github.com/abugher/ansible_role_camera.git
 [submodule "roles/crl_server"]
-	path = roles/crl_server
-	url = https://github.com/abugher/ansible_role_crl_server.git
+	path = roles/crl-server
+	url = https://github.com/abugher/ansible-role-crl-server.git
 [submodule "roles/cryptkeeper"]
 	path = roles/cryptkeeper
 	url = https://github.com/abugher/ansible_role_cryptkeeper.git
