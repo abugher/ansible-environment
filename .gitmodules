@@ -58,9 +58,9 @@
 [submodule "roles/escrow"]
 	path = roles/escrow
 	url = https://github.com/abugher/ansible_role_escrow.git
-[submodule "roles/file_server"]
-	path = roles/file_server
-	url = https://github.com/abugher/ansible_role_file_server.git
+[submodule "roles/file-server"]
+	path = roles/file-server
+	url = https://github.com/abugher/ansible-role-file-server.git
 [submodule "roles/flexget"]
 	path = roles/flexget
 	url = https://github.com/abugher/ansible_role_flexget.git
