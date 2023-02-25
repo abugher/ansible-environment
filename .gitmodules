@@ -112,9 +112,9 @@
 [submodule "roles/pianobard"]
 	path = roles/pianobard
 	url = https://github.com/abugher/ansible_role_pianobard.git
-[submodule "roles/printer_postscript_proxy"]
-	path = roles/printer_postscript_proxy
-	url = https://github.com/abugher/ansible_role_printer_postscript_proxy.git
+[submodule "roles/printer-postscript-proxy"]
+	path = roles/printer-postscript-proxy
+	url = https://github.com/abugher/ansible-role-printer-postscript-proxy.git
 [submodule "roles/python"]
 	path = roles/python
 	url = https://github.com/abugher/ansible_role_python.git
