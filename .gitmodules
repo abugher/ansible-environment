@@ -181,9 +181,9 @@
 [submodule "roles/user-friendly"]
 	path = roles/user-friendly
 	url = https://github.com/abugher/ansible-role-user-friendly.git
-[submodule "roles/user_identity_client"]
-	path = roles/user_identity_client
-	url = https://github.com/abugher/ansible_role_user_identity_client.git
+[submodule "roles/user-identity-client"]
+	path = roles/user-identity-client
+	url = https://github.com/abugher/ansible-role-user-identity-client.git
 [submodule "roles/wiki"]
 	path = roles/wiki
 	url = https://github.com/abugher/ansible_role_wiki.git
