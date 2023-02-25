@@ -85,7 +85,7 @@
 [submodule "roles/logstash"]
 	path = roles/logstash
 	url = https://github.com/abugher/ansible_role_logstash.git
-[submodule "roles/logstash_repo"]
+[submodule "roles/logstash-repo"]
 	path = roles/logstash-repo
 	url = https://github.com/abugher/ansible-role-logstash-repo.git
 [submodule "roles/monitored"]
@@ -227,8 +227,8 @@
 	path = roles/kanboard-proxy
 	url = https://github.com/abugher/ansible-role-kanboard-proxy.git
 [submodule "roles/mail_client"]
-	path = roles/mail_client
-	url = https://github.com/abugher/ansible_role_mail_client.git
+	path = roles/mail-client
+	url = https://github.com/abugher/ansible-role-mail-client.git
 [submodule "roles/jetson-nano"]
 	path = roles/jetson-nano
 	url = https://github.com/abugher/ansible-role-jetson-nano.git
