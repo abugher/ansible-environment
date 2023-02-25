@@ -7,7 +7,7 @@
 [submodule "roles/ansible-target"]
 	path = roles/ansible-target
 	url = https://github.com/abugher/ansible-role-ansible-target.git
-[submodule "roles/archive-server"]
+[submodule "roles/archive_server"]
 	path = roles/archive-server
 	url = https://github.com/abugher/ansible-role-archive-server.git
 [submodule "roles/automatic_updates"]
