@@ -10,9 +10,9 @@
 [submodule "roles/archive-server"]
 	path = roles/archive-server
 	url = https://github.com/abugher/ansible-role-archive-server.git
-[submodule "roles/automatic_updates"]
-	path = roles/automatic_updates
-	url = https://github.com/abugher/ansible_role_automatic_updates.git
+[submodule "roles/automatic-updates"]
+	path = roles/automatic-updates
+	url = https://github.com/abugher/ansible-role-automatic-updates.git
 [submodule "roles/backup-client"]
 	path = roles/backup-client
 	url = https://github.com/abugher/ansible-role-backup-client.git
