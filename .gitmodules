@@ -76,9 +76,9 @@
 [submodule "roles/kibana"]
 	path = roles/kibana
 	url = https://github.com/abugher/ansible_role_kibana.git
-[submodule "roles/kibana_repo"]
-	path = roles/kibana_repo
-	url = https://github.com/abugher/ansible_role_kibana_repo.git
+[submodule "roles/kibana-repo"]
+	path = roles/kibana-repo
+	url = https://github.com/abugher/ansible-role-kibana-repo.git
 [submodule "roles/krb5"]
 	path = roles/krb5
 	url = https://github.com/abugher/ansible_role_krb5.git

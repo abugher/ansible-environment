@@ -77,8 +77,8 @@
 	path = roles/kibana
 	url = https://github.com/abugher/ansible_role_kibana.git
 [submodule "roles/kibana_repo"]
-	path = roles/kibana_repo
-	url = https://github.com/abugher/ansible_role_kibana_repo.git
+	path = roles/kibana-repo
+	url = https://github.com/abugher/ansible-role-kibana-repo.git
 [submodule "roles/krb5"]
 	path = roles/krb5
 	url = https://github.com/abugher/ansible_role_krb5.git
@@ -223,7 +223,7 @@
 [submodule "roles/mail_server"]
 	path = roles/mail_server
 	url = https://github.com/abugher/ansible_role_mail_server.git
-[submodule "roles/kanboard_proxy"]
+[submodule "roles/kanboard-proxy"]
 	path = roles/kanboard-proxy
 	url = https://github.com/abugher/ansible-role-kanboard-proxy.git
 [submodule "roles/mail_client"]
