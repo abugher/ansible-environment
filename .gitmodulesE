@@ -157,7 +157,7 @@
 [submodule "roles/syslog-server"]
 	path = roles/syslog-server
 	url = https://github.com/abugher/ansible-role-syslog-server.git
-[submodule "roles/tar_backup_client"]
+[submodule "roles/tar-backup-client"]
 	path = roles/tar-backup-client
 	url = https://github.com/abugher/ansible-role-tar-backup-client.git
 [submodule "roles/temper"]
@@ -176,8 +176,8 @@
 	path = roles/transmission
 	url = https://github.com/abugher/ansible_role_transmission.git
 [submodule "roles/transmission_proxy"]
-	path = roles/transmission_proxy
-	url = https://github.com/abugher/ansible_role_transmission_proxy.git
+	path = roles/transmission-proxy
+	url = https://github.com/abugher/ansible-role-transmission-proxy.git
 [submodule "roles/user_friendly"]
 	path = roles/user_friendly
 	url = https://github.com/abugher/ansible_role_user_friendly.git
