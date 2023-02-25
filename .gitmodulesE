@@ -124,12 +124,12 @@
 [submodule "roles/remote"]
 	path = roles/remote
 	url = https://github.com/abugher/ansible_role_remote.git
-[submodule "roles/remote_proxy"]
+[submodule "roles/remote-proxy"]
 	path = roles/remote-proxy
 	url = https://github.com/abugher/ansible-role-remote-proxy.git
 [submodule "roles/root_keys"]
-	path = roles/root_keys
-	url = https://github.com/abugher/ansible_role_root_keys.git
+	path = roles/root-keys
+	url = https://github.com/abugher/ansible-role-root-keys.git
 [submodule "roles/sensitive_server"]
 	path = roles/sensitive_server
 	url = https://github.com/abugher/ansible_role_sensitive_server.git
