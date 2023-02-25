@@ -219,7 +219,7 @@
 	url = https://github.com/abugher/ansible-role-ssh-client.git
 [submodule "roles/pass-server"]
 	path = roles/pass-server
-	url = https://github.com/abugher/pass-server.git
+	url = https://github.com/abugher/ansible-role-pass-server.git
 [submodule "roles/mail-server"]
 	path = roles/mail-server
 	url = https://github.com/abugher/ansible-role-mail-server.git
