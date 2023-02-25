@@ -97,9 +97,9 @@
 [submodule "roles/nagios"]
 	path = roles/nagios
 	url = https://github.com/abugher/ansible_role_nagios.git
-[submodule "roles/nagios_proxy"]
-	path = roles/nagios_proxy
-	url = https://github.com/abugher/ansible_role_nagios_proxy.git
+[submodule "roles/nagios-proxy"]
+	path = roles/nagios-proxy
+	url = https://github.com/abugher/ansible-role-nagios-proxy.git
 [submodule "roles/nethack"]
 	path = roles/nethack
 	url = https://github.com/abugher/ansible_role_nethack.git
