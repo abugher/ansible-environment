@@ -46,9 +46,9 @@
 [submodule "roles/display"]
 	path = roles/display
 	url = https://github.com/abugher/ansible_role_display.git
-[submodule "roles/dns_external"]
-	path = roles/dns_external
-	url = https://github.com/abugher/ansible_role_dns_external.git
+[submodule "roles/dns-external"]
+	path = roles/dns-external
+	url = https://github.com/abugher/ansible-role-dns-external.git
 [submodule "roles/dns_internal"]
 	path = roles/dns_internal
 	url = https://github.com/abugher/ansible_role_dns_internal.git
