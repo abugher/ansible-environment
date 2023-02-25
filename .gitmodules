@@ -190,9 +190,6 @@
 [submodule "roles/x2go"]
 	path = roles/x2go
 	url = https://github.com/abugher/ansible_role_x2go.git
-[submodule "roles/zabbix"]
-	path = roles/zabbix
-	url = https://github.com/abugher/ansible_role_zabbix.git
 [submodule "roles/dontstarvetogether"]
 	path = roles/dontstarvetogether
 	url = https://github.com/abugher/ansible-role-dontstarvetogether
