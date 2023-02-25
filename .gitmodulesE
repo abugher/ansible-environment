@@ -106,7 +106,7 @@
 [submodule "roles/nginx"]
 	path = roles/nginx
 	url = https://github.com/abugher/ansible_role_nginx.git
-[submodule "roles/no_systemd"]
+[submodule "roles/no-systemd"]
 	path = roles/no-systemd
 	url = https://github.com/abugher/ansible-role-no-systemd.git
 [submodule "roles/pianobard"]
@@ -218,8 +218,8 @@
 	path = roles/ssh_client
 	url = https://github.com/abugher/ansible-role-ssh_client.git
 [submodule "roles/pass_server"]
-	path = roles/pass_server
-	url = https://github.com/abugher/pass_server.git
+	path = roles/pass-server
+	url = https://github.com/abugher/pass-server.git
 [submodule "roles/mail-server"]
 	path = roles/mail-server
 	url = https://github.com/abugher/ansible-role-mail-server.git
