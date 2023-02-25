@@ -52,9 +52,9 @@
 [submodule "roles/dns-internal"]
 	path = roles/dns-internal
 	url = https://github.com/abugher/ansible-role-dns-internal.git
-[submodule "roles/encrypted_storage"]
-	path = roles/encrypted_storage
-	url = https://github.com/abugher/ansible_role_encrypted_storage.git
+[submodule "roles/encrypted-storage"]
+	path = roles/encrypted-storage
+	url = https://github.com/abugher/ansible-role-encrypted-storage.git
 [submodule "roles/escrow"]
 	path = roles/escrow
 	url = https://github.com/abugher/ansible_role_escrow.git
