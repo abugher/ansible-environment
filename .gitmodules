@@ -235,12 +235,12 @@
 [submodule "roles/jetson_nano"]
 	path = roles/jetson_nano
 	url = https://github.com/abugher/ansible_role_jetson_nano.git
-[submodule "roles/dns_client"]
-	path = roles/dns_client
-	url = git@github.com:abugher/ansible_role_dns_client.git
+[submodule "roles/dns-client"]
+	path = roles/dns-client
+	url = https://github.com/abugher/ansible-role-dns-client.git
 [submodule "roles/no-laptop"]
 	path = roles/no-laptop
-	url = git@github.com:abugher/ansible-role-no-laptop
+	url = https://github.com/abugher/ansible-role-no-laptop
 [submodule "roles/apt-repo-server"]
 	path = roles/apt-repo-server
 	url = https://github.com/abugher/ansible-role-apt-repo-server.git
