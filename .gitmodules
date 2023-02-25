@@ -49,9 +49,9 @@
 [submodule "roles/dns-external"]
 	path = roles/dns-external
 	url = https://github.com/abugher/ansible-role-dns-external.git
-[submodule "roles/dns_internal"]
-	path = roles/dns_internal
-	url = https://github.com/abugher/ansible_role_dns_internal.git
+[submodule "roles/dns-internal"]
+	path = roles/dns-internal
+	url = https://github.com/abugher/ansible-role-dns-internal.git
 [submodule "roles/elasticsearch_repo"]
 	path = roles/elasticsearch_repo
 	url = https://github.com/abugher/ansible_role_elasticsearch_repo.git
