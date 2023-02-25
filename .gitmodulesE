@@ -224,12 +224,12 @@
 	path = roles/mail_server
 	url = https://github.com/abugher/ansible_role_mail_server.git
 [submodule "roles/kanboard_proxy"]
-	path = roles/kanboard_proxy
-	url = https://github.com/abugher/ansible_role_kanboard_proxy.git
+	path = roles/kanboard-proxy
+	url = https://github.com/abugher/ansible-role-kanboard-proxy.git
 [submodule "roles/mail_client"]
 	path = roles/mail_client
 	url = https://github.com/abugher/ansible_role_mail_client.git
-[submodule "roles/jetson_nano"]
+[submodule "roles/jetson-nano"]
 	path = roles/jetson-nano
 	url = https://github.com/abugher/ansible-role-jetson-nano.git
 [submodule "roles/dns-client"]
