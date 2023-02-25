@@ -221,12 +221,12 @@
 	path = roles/pass_server
 	url = https://github.com/abugher/pass_server.git
 [submodule "roles/mail_server"]
-	path = roles/mail_server
-	url = https://github.com/abugher/ansible_role_mail_server.git
+	path = roles/mail-server
+	url = https://github.com/abugher/ansible-role-mail-server.git
 [submodule "roles/kanboard-proxy"]
 	path = roles/kanboard-proxy
 	url = https://github.com/abugher/ansible-role-kanboard-proxy.git
-[submodule "roles/mail_client"]
+[submodule "roles/mail-client"]
 	path = roles/mail-client
 	url = https://github.com/abugher/ansible-role-mail-client.git
 [submodule "roles/jetson-nano"]
