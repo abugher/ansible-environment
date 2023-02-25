@@ -13,9 +13,9 @@
 [submodule "roles/automatic_updates"]
 	path = roles/automatic_updates
 	url = https://github.com/abugher/ansible_role_automatic_updates.git
-[submodule "roles/backup-client"]
+[submodule "roles/backup_client"]
 	path = roles/backup-client
-	url = https://github.com/abugher/ansible-role-backup-client.git
+	url = https://github.com/abugher/ansible_role_backup_client.git
 [submodule "roles/backup-proxy"]
 	path = roles/backup-proxy
 	url = https://github.com/abugher/ansible-role-backup-proxy.git
@@ -244,3 +244,5 @@
 [submodule "roles/discord-repo"]
 	path = roles/discord-repo
 	url = https://github.com/abugher/ansible-role-discord-repo.git
+[submodule "roles/backup_client/"]
+	url = 
