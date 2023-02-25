@@ -19,9 +19,9 @@
 [submodule "roles/backup-proxy"]
 	path = roles/backup-proxy
 	url = https://github.com/abugher/ansible-role-backup-proxy.git
-[submodule "roles/backup_server"]
-	path = roles/backup_server
-	url = https://github.com/abugher/ansible_role_backup_server.git
+[submodule "roles/backup-server"]
+	path = roles/backup-server
+	url = https://github.com/abugher/ansible-role-backup-server.git
 [submodule "roles/bananian"]
 	path = roles/bananian
 	url = https://github.com/abugher/ansible_role_bananian.git
