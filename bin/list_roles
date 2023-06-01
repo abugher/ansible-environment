@@ -1,1 +1,45 @@
-deploy_hosts
+#!/bin/bash
+# Currently no file locking is done, but multiple instances seem infeasible and
+# undesirable.
+
+
+function main() {
+  tmpdir="/tmp/${USER}/ansible_deploy_host"
+  rm -rf "${tmpdir}"
+  mkdir -p "${tmpdir}"
+
+  target="${1}"
+  shift 1
+
+  host_names=( $( list_hosts ) )
+
+  case "${0##*/}" in
+  deploy_hosts)
+    if test 1 = "${#host_names[@]}"; then
+      deploy_host "${host_names[0]}" "${@}"
+    else
+      deploy_hosts "${@}"
+    fi
+    ;;
+  list_roles)
+    list_roles "${host_names[@]}"
+    ;;
+  esac
+}
+
+
+self_path="$(readlink -f ${0})"
+self_dir="${self_path%/*}/.."
+cd "${self_dir}"
+
+libs=(
+  'list_hosts'
+  'list_roles'
+  'deploy_hosts'
+)
+for lib in "${libs[@]}"; do
+  . lib/${lib}.sh
+done
+
+
+main "${@}"
