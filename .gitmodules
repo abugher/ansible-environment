@@ -241,3 +241,6 @@
 [submodule "roles/discord-repo"]
 	path = roles/discord-repo
 	url = https://github.com/abugher/ansible-role-discord-repo.git
+[submodule "roles/grafana"]
+	path = roles/grafana
+	url = git@github.com:abugher/ansible-role-grafana.git
