@@ -2,7 +2,7 @@
 
 
 function list_hosts() {
-  if grep -q "^${target}$" inventory/inventory.d/host_list; then
+  if grep -q "^${target}$" inventory/inventory.d/host-list; then
     echo "${target}"
     return 0
   fi

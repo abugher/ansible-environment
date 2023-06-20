@@ -1,16 +1,12 @@
 # usage
 
-The directory containing this document should be the current working directory.
-
-  `cd ansible_environment`
-
 The scripts are in *bin*.  These two are my favorites:
 
-  `./bin/deploy_role <role> [ansible args]...`
+  `./bin/deploy-role <role> [ansible args]...`
 
-  `./bin/deploy_host <host> [ansible args]...`
+  `./bin/deploy-hosts <host> [ansible args]...`
 
-With *deploy\_role*, the role named *role* will be applied to the host
+With *deploy-role*, the role named *role* will be applied to the host
 group named *role*.  In the second case, for every host group which shares
 a name with a role, if host is a member of the group, the role is added to
 a list, and then the list of roles is applied to host.  Basically, a role
@@ -24,16 +20,16 @@ Remaining arguments are passed to ansible.
 
 More granular:
 
-  `./deploy_role_to_hosts <role_name> <host_group> [ansible args]...`
+  `./deploy-role-to-hosts <role_name> <host_group> [ansible args]...`
 
 These commands expect a remote user named *ansible* with sudo privileges
 without a password requirement.  If the remote host does not yet meet those
 requirements, but you have credentials for root or a user with sudo privileges,
 you may be able to fix that like so:
 
-  `./bin/deploy_role_as_user_to_hosts <role_name> <user_name> <host_group> [ansible args]...`
+  `./bin/deploy-role-as-user-to-hosts <role_name> <user_name> <host_group> [ansible args]...`
 
-  `./bin/deploy_role_as_user_to_hosts ansible_target <user> <host> -k
+  `./bin/deploy-role-as-user-to-hosts ansible-target <user> <host> -k
 
 # structure
 
@@ -48,16 +44,15 @@ Generic playbooks, consisting mostly of variables, meant to be called by the scr
 ## roles
 
 Each role has its own repo.  The name of each ansible role repo is prefixed
-with "ansible\_role\_", but the name of the role is assumed NOT to include that
-prefix.  For example, the repo (directory) *ansible\_role\_noop* should be
-checked out to *ansible\_environment/roles/noop*.  Each role is a subproject of
-this project.
+with "ansible-role-", but the name of the role is assumed NOT to include that
+prefix.  For example, the repo (directory) *ansible-role-noop* should be
+checked out to *roles/noop*.  Each role is a subproject of this project.
 
 ## inventory
 
 Under *inventory* (a subproject), *hosts.ini* holds the list of hosts and host
-groups, and *host\_vars/\** hold host-specific and host-defining information
-such as IP address, MAC address, platform, etc.
+groups, and *inventory/inventory.d/host\_vars/\** hold host-specific and
+host-defining information such as IP address, MAC address, platform, etc.
 
 ## tasks
 
@@ -87,14 +82,6 @@ compiled python code, and it seems to change very frequently.
 
 # planned improvement
 
-Inventory-driven:  I want to factor out any explicit references to hostnames in
-favor of templated references to roles.  dhcpd, dns\_internal, and nagios
-already get hosts and groups from inventory, and contain no redundant inventory
-information.  If you define a host in the inventory, and set *mac\_address*,
-*ip\_address*, *monitor*, and *notify* in the host variables, and deploy the
-dhcpd, dns\_internal, and nagios roles, the new host will receive a fixed
-address by DHCP, a DNS hostname, and basic monitoring.  
-
 Monitoring is controlled by group membership.  I am in the process of
 reconciling the groups controlling deployment with the groups controlling
 monitoring, so that, for example, a raspberry pi will get configuration updates
@@ -104,7 +91,7 @@ updates, just because it is a member of group raspberry-pi.
 Reference to tasks can be a little confusing, between the shared tasks
 directory and per-role task directories.  Ansible has an interesting search
 order for inclusions, and I found that if a per-role task file has the same
-name as a shared task file, it's possible for ansilbe to misinterpret the
+name as a shared task file, it's possible for ansible to misinterpret the
 relative path, find the wrong one, and even get stuck in a loop if the per-role
 task calls the shared task.  For now, avoid using the same name between shared
 and per-role task files.  This could use a more systematic solution, though.
