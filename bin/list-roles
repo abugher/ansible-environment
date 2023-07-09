@@ -14,14 +14,14 @@ function main() {
   host_names=( $( list_hosts ) )
 
   case "${0##*/}" in
-  deploy_hosts)
+  deploy-hosts)
     if test 1 = "${#host_names[@]}"; then
       deploy_host "${host_names[0]}" "${@}"
     else
       deploy_hosts "${@}"
     fi
     ;;
-  list_roles)
+  list-roles)
     list_roles "${host_names[@]}"
     ;;
   esac
