@@ -1,6 +1,11 @@
 ---
 - name:                 'synchronize directories (options specified)'
   synchronize:
+    archive:            False
+    recursive:          True
+    perms:              True
+    # WTF; why would I have to specify this?!
+    verify_host:        True
     src:                "{{ item.src }}"
     dest:               "{{ item.dest }}"
     delete:             "{{ item.delete }}"
@@ -11,6 +16,11 @@
 
 - name:                 'synchronize directories (no options specified)'
   synchronize:
+    archive:            False
+    recursive:          True
+    perms:              True
+    # WTF; why would I have to specify this?!
+    verify_host:        True
     src:                "{{ item.src }}"
     dest:               "{{ item.dest }}"
     delete:             "{{ item.delete }}"
