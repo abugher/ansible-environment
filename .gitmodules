@@ -244,3 +244,6 @@
 [submodule "roles/grafana"]
 	path = roles/grafana
 	url = git@github.com:abugher/ansible-role-grafana.git
+[submodule "roles/ssl-client"]
+	path = roles/ssl-client
+	url = git@github.com:abugher/ssl-client.git
