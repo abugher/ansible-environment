@@ -4,7 +4,7 @@
 
 
 function main() {
-  tmpdir="/tmp/${USER}/ansible_deploy_host"
+  tmpdir="/tmp/${USER}/ansible-deploy-hosts"
   rm -rf "${tmpdir}"
   mkdir -p "${tmpdir}"
 

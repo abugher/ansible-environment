@@ -2,7 +2,7 @@
 
 
 function list_roles() {
-  host_names="${@}"
+  host_names=( "${@}" )
   for host_name in "${host_names[@]}"; do
     if ! test 1 = "${#host_names[@]}"; then
       echo "${host_name}:"

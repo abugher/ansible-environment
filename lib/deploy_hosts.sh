@@ -19,7 +19,7 @@ function deploy_hosts() {
 
 function launch_deploy_host() {
   echo "Deploying to ${host_name}.  Log:  ${tmpdir}/${host_name}.log"
-  deploy_host "${@}" > "${tmpdir}/${host_name}".log 2>&1
+  deploy_host "${host_name}" "${@}" > "${tmpdir}/${host_name}".log 2>&1
   ret="${?}"
   echo "${ret}" > "${tmpdir}/${host_name}".ret
   echo "Deployment to ${host_name} return status:  ${ret}"
