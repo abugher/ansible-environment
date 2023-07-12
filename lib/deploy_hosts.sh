@@ -4,7 +4,6 @@
 function deploy_hosts() {
   ansible_pids=()
   for host_name in "${host_names[@]}"; do
-    echo "Deploying host:  ${host_name}"
     launch_deploy_host "${@}" &
     ansible_pid="${!}"
     ansible_pids+=("${ansible_pid}")
