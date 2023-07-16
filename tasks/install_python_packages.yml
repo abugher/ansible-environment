@@ -3,5 +3,6 @@
   pip:
     name:               "{{ install_python_packages }}"
     state:              'present'
+    # Debian 12 is heavily encouraging proper use of python venv.
+    extra_args:         '--break-system-packages'
   register:             install_python_packages_result
-
