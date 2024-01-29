@@ -247,3 +247,6 @@
 [submodule "roles/ssl-client"]
 	path = roles/ssl-client
 	url = git@github.com:abugher/ssl-client.git
+[submodule "roles/wesnoth-server"]
+	path = roles/wesnoth-server
+	url = git@github.com:abugher/ansible-role-wesnoth-server.git
