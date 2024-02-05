@@ -1,8 +1,15 @@
 ---
+- file:
+    owner:              'root'
+    group:              'root'
+    mode:               '0755'
+    path:               '/usr/local/python-packages/'
+    state:              'directory'
+
 - name:                 'install python packages'
   pip:
-    name:               "{{ install_python_packages }}"
+    name:               "{{ item }}"
     state:              'present'
-    # Debian 12 is heavily encouraging proper use of python venv.
-    extra_args:         '--break-system-packages'
+    virtualenv:         "/usr/local/python-packages/{{ item }}"
+  with_items:           "{{ install_python_packages }}"
   register:             install_python_packages_result
