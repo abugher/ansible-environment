@@ -1,4 +1,15 @@
 ---
+- name:                 'install packages from release'
+  apt:
+    name:               "{{ install_packages }}"
+    state:              'present'
+    default_release:    "{{ install_packages_from_release }}"
+  register:             install_packages_result
+  retries:              5
+  delay:                120
+  until:                install_packages_result is not failed
+  when:                 install_packages_from_release is defined
+
 - name:                 'install packages'
   apt:
     name:               "{{ install_packages }}"
@@ -7,3 +18,4 @@
   retries:              5
   delay:                120
   until:                install_packages_result is not failed
+  when:                 install_packages_from_release is not defined

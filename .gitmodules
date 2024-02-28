@@ -250,3 +250,6 @@
 [submodule "roles/wesnoth-server"]
 	path = roles/wesnoth-server
 	url = git@github.com:abugher/ansible-role-wesnoth-server.git
+[submodule "roles/webmail"]
+	path = roles/webmail
+	url = git@github.com:abugher/ansible-role-webmail
