@@ -1,0 +1,9 @@
+---
+- name:                 'create database user(s)'
+  mysql_user:
+    name:               "{{ item }}"
+    state:              'present'
+    login_user:         'root'
+    login_unix_socket:  '/var/run/mysqld/mysqld.sock'
+  with_items:           "{{ database_users }}"
+  register:             database_users_result
