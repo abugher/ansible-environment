@@ -1,0 +1,12 @@
+---
+# sudo debconf-show packagename
+# debconf-get-selections | grep packagename
+- name:                 'answer debconf questions'
+  debconf:
+    name:               "{{ item.package }}"
+    question:           "{{ item.question }}"
+    value:              "{{ item.answer }}"
+    vtype:              "{{ item.type }}"
+  no_log:               "{{ item.no_log|default(False) }}"
+  with_items:           "{{ debconf }}"
+  register:             debconf_result
