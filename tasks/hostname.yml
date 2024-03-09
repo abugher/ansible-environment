@@ -15,4 +15,4 @@
 #    name:               "{{ inventory_hostname }}"
   shell:                if ! { hostname | grep -q {{ inventory_hostname }}; }; then hostname {{ inventory_hostname }} && echo "Hostname changed to {{ inventory_hostname }}."; fi
   register:             hostname_command_result
-  changed_when:         hostname_command_result.stdout.find("to {{ inventory_hostname }}") != -1
+  changed_when:         hostname_command_result.stdout.find("to " + inventory_hostname ) != -1
