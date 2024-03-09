@@ -253,3 +253,15 @@
 [submodule "roles/webmail"]
 	path = roles/webmail
 	url = git@github.com:abugher/ansible-role-webmail
+[submodule "roles/debian"]
+	path = roles/debian
+	url = git@github.com:abugher/ansible-role-debian
+[submodule "roles/armbian"]
+	path = roles/armbian
+	url = git@github.com:abugher/ansible-role-armbian
+[submodule "roles/devuan"]
+	path = roles/devuan
+	url = git@github.com:abugher/ansible-role-devuan
+[submodule "roles/raspios"]
+	path = roles/raspios
+	url = git@github.com:abugher/ansible-role-raspios
