@@ -8,5 +8,6 @@
     value:              "{{ item.answer }}"
     vtype:              "{{ item.type }}"
   no_log:               "{{ item.no_log|default(False) }}"
+  changed_when:         debconf_result.changed and ( item.no_log is not defined or not item.no_log )
   with_items:           "{{ debconf }}"
   register:             debconf_result

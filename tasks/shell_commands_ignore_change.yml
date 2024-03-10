@@ -2,9 +2,10 @@
 - shell:                "{{ item.command }}"
   become:               true
   become_method:        'sudo'
-  become_user:          "{{ item.user }}"
+  become_user:          "{{ item.user|default('root') }}"
   args:
-    chdir:              "{{ item.chdir }}"
+    chdir:              "{{ item.chdir|default('/') }}"
+    creates:            "{{ item.creates|default('/does/not/create/anything') }}"
   with_items:           "{{ shell_commands_ignore_change }}"
   changed_when:         false
   register:             shell_commands_ignore_change_result
