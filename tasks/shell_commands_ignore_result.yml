@@ -5,6 +5,6 @@
   become_user:          "{{ item.user }}"
   args:
     chdir:              "{{ item.chdir }}"
-  with_items:           "{{ shell_commands_ignore_result }}"
+  with_items:           "{{ shell_commands_ignore_change }}"
   changed_when:         false
-  register:             shell_commands_ignore_result_result
+  register:             shell_commands_ignore_change_result
