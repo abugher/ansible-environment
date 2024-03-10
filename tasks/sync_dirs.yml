@@ -4,6 +4,11 @@
     archive:            False
     recursive:          True
     perms:              True
+    owner:              False
+    group:              False
+    times:              False
+    # Even with "times" disabled, "checksum" is necessary, or change is always reported.
+    checksum:           True
     # WTF; why would I have to specify this?!
     verify_host:        True
     src:                "{{ item.src }}"
@@ -19,6 +24,11 @@
     archive:            False
     recursive:          True
     perms:              True
+    times:              False
+    owner:              False
+    group:              False
+    # Even with "times" disabled, "checksum" is necessary, or change is always reported.
+    checksum:           True
     # WTF; why would I have to specify this?!
     verify_host:        True
     src:                "{{ item.src }}"
