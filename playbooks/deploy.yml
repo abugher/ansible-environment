@@ -6,6 +6,8 @@
   become_method:        'sudo'
   gather_facts:         "{{ gather_facts|default('no') }}"
   hosts:                "{{ target_hosts }}"
+  # https://stackoverflow.com/questions/42947301/ansible-multiple-roles
+  #roles:                "{{ target_roles }}"
   tasks:
     - include_role:
         name:           "{{ target_role }}"
