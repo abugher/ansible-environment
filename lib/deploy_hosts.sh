@@ -2,17 +2,30 @@
 
 
 function deploy_hosts() {
-  ansible_pids=()
+  pids=()
+  declare -A rets_by_pid
   for host_name in "${host_names[@]}"; do
     launch_deploy_host "${@}" &
-    ansible_pid="${!}"
-    ansible_pids+=("${ansible_pid}")
-    echo "${ansible_pid}" > "${tmpdir}"/"${host_name}".pid
+    pid="${!}"
+    pids+=("${pid}")
+    echo "${pid}" > "${tmpdir}"/"${host_name}".pid
   done
 
   echo "All deployments are launched.  Waiting."
 
-  wait "${ansible_pids[@]}"
+  for pid in "${pids[@]}"; do
+    wait "${pid}"
+    ret="${?}"
+    rets_by_pid["${pid}"]="${ret}"
+  done
+
+  for ret in "${rets_by_pid[@]}"; do
+    if ! test 0 = "${ret}"; then
+      return "${ret}"
+    fi
+  done
+
+  return 0
 }
 
 
@@ -22,6 +35,7 @@ function launch_deploy_host() {
   ret="${?}"
   echo "${ret}" > "${tmpdir}/${host_name}".ret
   echo "Deployment to ${host_name} return status:  ${ret}"
+  return "${ret}"
 }
 
 
