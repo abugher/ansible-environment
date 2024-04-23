@@ -1,5 +1,7 @@
 ---
 - name:                 'template files'
+  become:               True
+  become_user:          'root'
   template:
     owner:              "{{ item.owner }}"
     group:              "{{ item.group }}"

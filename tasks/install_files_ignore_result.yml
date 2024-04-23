@@ -1,5 +1,7 @@
 ---
 - name:                 'install files; ignore results (never show "changed" status)'
+  become:               True
+  become_user:          'root'
   copy:
     owner:              "{{ item.owner }}"
     group:              "{{ item.group }}"
