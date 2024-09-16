@@ -265,3 +265,6 @@
 [submodule "roles/raspios"]
 	path = roles/raspios
 	url = git@github.com:abugher/ansible-role-raspios
+[submodule "roles/apt-repo-client"]
+	path = roles/apt-repo-client
+	url = https://github.com/abugher/ansible-role-apt-repo-client.git
