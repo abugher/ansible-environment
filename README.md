@@ -33,45 +33,52 @@ you may be able to fix that like so:
 
 # structure
 
-## bin
+## bin/
 
-Scripts to launch deployment of roles to hosts.  Playbooks defining deployment patterns are under *playbooks*.  Roles are defined under *roles* and hosts are defined under *inventory*.
+Scripts to launch deployment of roles to hosts.  Playbooks defining deployment patterns are under *playbooks/*.  Roles are defined under *roles/* and hosts are defined under *inventory/*.
 
-## playbooks
+## playbooks/
 
-Generic playbooks, consisting mostly of variables, meant to be called by the scripts under *bin*.
+Generic playbooks, consisting mostly of variables, meant to be called by the scripts under *bin/*.
 
-## roles
+## roles/
 
 Each role has its own repo.  The name of each ansible role repo is prefixed
 with "ansible-role-", but the name of the role is assumed NOT to include that
-prefix.  For example, the repo (directory) *ansible-role-noop* should be
-checked out to *roles/noop*.  Each role is a subproject of this project.
+prefix.  For example, the repo (directory) *ansible-role-noop/* should be
+checked out to *roles/noop/*.  Each role is a subproject of this project.
 
-## inventory
+## inventory/
 
-Under *inventory* (a subproject), *hosts.ini* holds the list of hosts and host
-groups, and *inventory/inventory.d/host\_vars/\** hold host-specific and
-host-defining information such as IP address, MAC address, platform, etc.
+*inventory/hosts/* contains files specific to hosts, such as certain public
+keys.  Contents here should be kept to a minimum.
 
-## tasks
+*inventory/inventory.d/\*.yml* are group definition files, one per group, named
+for the group.
 
-Service role task lists mostly consist of include lines.  The variables file
-defines the parameters of those tasks.  The role may also include some service
-specific files, such as configuration or scripts.
+*inventory/inventory.d/vars* contains global variables.  The domain name and
+time zone are set here, for example.
 
-Task lists are defined in *tasks/<task\_name>.yml*.
+*inventory/inventory.d/host_vars/* contains host variable definition files, one
+per host, named for the host, containing details like IP address, MAC address,
+and platform.
+
+## tasks/
+
+Generic tasks are defined under *tasks/*.  Service role task lists mostly
+consist of include lines referencing these generic tasks.  Task lists are
+defined in *roles/role-name/tasks/<task\_name>.yml*, usually just *main.yml*.
 
 Task behavior is controlled by role variables.  To use a task list defined
 here, include it in the main task list of a role, and also set the required
-variables in the main vars file of the role.
+variables in:  *roles/role-name/vars/main.yml*
 
-## files
+## files/
 
 Files to be deployed to remote hosts, shared among all roles.  More typically,
 files to deploy would be stored with each role under *roles/rolename/files/*.
 
-## metrics
+## metrics/
 
 *callback\_plugins/profile\_tasks.py* contains some magic to display timing
 data for ansible tasks.  It's not my code, and I've included the MIT license
@@ -80,13 +87,7 @@ under which it was released, at *callback\_plugins/LICENSE* .
 It generates a .pyc file, which I list in .gitignore, as I don't need to track
 compiled python code, and it seems to change very frequently.
 
-# planned improvement
-
-Monitoring is controlled by group membership.  I am in the process of
-reconciling the groups controlling deployment with the groups controlling
-monitoring, so that, for example, a raspberry pi will get configuration updates
-when I deploy the raspberry-pi role, and nagios will check on its pi-specific
-updates, just because it is a member of group raspberry-pi.
+# bugs
 
 Reference to tasks can be a little confusing, between the shared tasks
 directory and per-role task directories.  Ansible has an interesting search
