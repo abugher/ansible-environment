@@ -268,3 +268,6 @@
 [submodule "roles/apt-repo-client"]
 	path = roles/apt-repo-client
 	url = https://github.com/abugher/ansible-role-apt-repo-client.git
+[submodule "roles/minecraft-bedrock-client"]
+	path = roles/minecraft-bedrock-client
+	url = https://github.com/abugher/ansible-role-minecraft-bedrock-client.git
