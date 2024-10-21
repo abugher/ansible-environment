@@ -124,13 +124,4 @@ noisily () {
     || { aplay -q ~/.smw_death.wav & }
 }
 
-# WHERE THE FUCK DID THESE LINES COME FROM?  I just deleted ~/perl5, a
-# directory dated to Oct 2, 2017, on today, Jan 21, 2019.  Where the fuck did
-# all this come from?
-#PATH="/home/aaron/perl5/bin${PATH:+:${PATH}}"; export PATH;
-#PERL5LIB="/home/aaron/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-#PERL_LOCAL_LIB_ROOT="/home/aaron/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-#PERL_MB_OPT="--install_base \"/home/aaron/perl5\""; export PERL_MB_OPT;
-#PERL_MM_OPT="INSTALL_BASE=/home/aaron/perl5"; export PERL_MM_OPT;
-
 export NETHACKOPTIONS="@${HOME}/.nethackrc"
