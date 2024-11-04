@@ -1,4 +1,5 @@
 ---
+# 'state' should be set to 'directory' or 'touch', or creation will fail.
 - name:                 'create files'
   file:
     owner:              "{{ item.owner }}"
