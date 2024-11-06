@@ -2,7 +2,7 @@
 - lineinfile:
     line:               "{{ item.line }}"
     regexp:             "{{ item.regexp }}"
-    dest:               "{{ item.dest }}"
+    dest:               "{{ item.dest | default(item.path) }}"
     state:              'present'
     backrefs:           "{{ item.backrefs | default('no') }}"
   with_items:           "{{ lines_in_files }}"
