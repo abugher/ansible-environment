@@ -29,7 +29,7 @@ you may be able to fix that like so:
 
   `./bin/deploy-role-as-user-to-hosts <role_name> <user_name> <host_group> [ansible args]...`
 
-  `./bin/deploy-role-as-user-to-hosts ansible-target <user> <host> -k
+  `./bin/deploy-role-as-user-to-hosts ansible-target <user> <host> -k`
 
 # structure
 
