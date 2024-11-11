@@ -271,3 +271,6 @@
 [submodule "roles/minecraft-bedrock-client"]
 	path = roles/minecraft-bedrock-client
 	url = https://github.com/abugher/ansible-role-minecraft-bedrock-client.git
+[submodule "roles/smokeping-proxy"]
+	path = roles/smokeping-proxy
+	url = git@github.com:abugher/ansible-role-smokeping-proxy.git
