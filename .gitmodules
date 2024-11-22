@@ -199,9 +199,6 @@
 [submodule "roles/xmpp-server"]
 	path = roles/xmpp-server
 	url = https://github.com/abugher/ansible-role-xmpp-server
-[submodule "roles/thermometer"]
-	path = roles/thermometer
-	url = https://github.com/abugher/ansible-role-thermometer.git
 [submodule "inventory"]
 	path = inventory
 	url = https://github.com/abugher/ansible_inventory.git
