@@ -1,0 +1,7 @@
+#!/bin/bash
+
+self_path="$(readlink -f ${0})"
+self_dir="${self_path%/*}/.."
+cd "${self_dir}"
+
+ansible-inventory -i inventory/inventory.d/ --list
