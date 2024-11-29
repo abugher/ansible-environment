@@ -1,0 +1,4 @@
+---
+- name:                 "gather subset of facts"
+  setup:
+    gather_subset:      "{{ gather_subset_of_facts }}"
