@@ -1,23 +1,11 @@
 ---
 - command:              "{{ item.command }}"
-  become:               true
+  become:               True
   become_method:        'sudo'
   become_user:          "{{ item.user|default('root') }}"
   args:
     chdir:              "{{ item.chdir|default('/') }}"
     creates:            "{{ item.creates|default('/does/not/create/anything') }}"
-  when:                 item.changed_when is not defined
   with_items:           "{{ commands }}"
   register:             commands_result
-
-- command:              "{{ item.command }}"
-  become:               true
-  become_method:        'sudo'
-  become_user:          "{{ item.user|default('root') }}"
-  args:
-    chdir:              "{{ item.chdir|default('/') }}"
-    creates:            "{{ item.creates|default('/does/not/create/anything') }}"
-  changed_when:         item.changed_when
-  when:                 item.changed_when is defined
-  with_items:           "{{ commands }}"
-  register:             commands_result
+  changed_when:         "{{ item.changed_when|default(commands_result.changed) }}"
