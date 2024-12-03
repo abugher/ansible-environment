@@ -8,4 +8,5 @@
     creates:            "{{ item.creates|default('/does/not/create/anything') }}"
   with_items:           "{{ commands }}"
   register:             commands_result
-  changed_when:         "{{ item.changed_when|default(commands_result.changed) }}"
+  changed_when:         item.changed_when|default(commands_result.changed)
+  failed_when:          item.failed_when|default(commands_result.rc != 0)
