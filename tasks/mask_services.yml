@@ -1,0 +1,8 @@
+---
+- systemd_service:
+    name:               "{{ item }}"
+    masked:             True
+  with_items:           "{{ mask_services }}"
+  register:             mask_services_result
+
+
