@@ -101,3 +101,8 @@ change rapidly.  Like so:
 ```
 ./bin/deploy-role-to-hosts <role> <host> --skip-tags dependency
 ```
+
+Group names contain dashes.  Ansible will throw warnings and errors about this
+by default, but those should be suppressed if possible.  Be careful, though:
+Always refer to `groups['group-name']`, never to `groups.group-name`.  Python
+variable names are not allowed to contain dashes.
