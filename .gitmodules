@@ -271,3 +271,6 @@
 [submodule "roles/smokeping-proxy"]
 	path = roles/smokeping-proxy
 	url = git@github.com:abugher/ansible-role-smokeping-proxy.git
+[submodule "roles/mariadb-server"]
+	path = roles/mariadb-server
+	url = git@github.com:abugher/ansible-role-mariadb-server.git
