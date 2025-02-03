@@ -274,3 +274,6 @@
 [submodule "roles/mariadb-server"]
 	path = roles/mariadb-server
 	url = git@github.com:abugher/ansible-role-mariadb-server.git
+[submodule "roles/discord-client"]
+	path = roles/discord-client
+	url = git@github.com:abugher/ansible-role-discord-client.git
