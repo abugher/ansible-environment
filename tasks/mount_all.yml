@@ -3,5 +3,5 @@
   register:             mount_all_result
   # The mount module does not provide a 'mount -a' equivalent.  So shut up
   # about it.
-  args:
-    warn:               no
+  #args:
+  #  warn:               no
