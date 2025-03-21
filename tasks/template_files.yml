@@ -3,7 +3,7 @@
   become:               True
   become_user:          'root'
   template:
-    owner:              "{{ item.owner }}"
+    owner:              "{{ item.owner|default(item.user) }}"
     group:              "{{ item.group }}"
     mode:               "{{ item.mode }}"
     src:                "{{ item.src }}"

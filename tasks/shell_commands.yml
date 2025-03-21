@@ -6,5 +6,6 @@
   args:
     chdir:              "{{ item.chdir|default('/') }}"
     creates:            "{{ item.creates|default('/does/not/create/anything') }}"
+    executable:         "{{ item.executable|default('/bin/sh') }}"
   with_items:           "{{ shell_commands }}"
   register:             shell_commands_result

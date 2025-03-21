@@ -3,10 +3,10 @@
   become:               True
   become_user:          'root'
   copy:
-    owner:              "{{ item.owner }}"
+    owner:              "{{ item.owner|default(item.user) }}"
     group:              "{{ item.group }}"
     mode:               "{{ item.mode }}"
     src:                "{{ item.src }}"
-    dest:               "{{ item.dest }}"
+    dest:               "{{ item.dest|default(item.path) }}"
   with_items:           "{{ install_files }}"
   register:             install_files_result
