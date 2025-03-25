@@ -1,4 +1,7 @@
 ---
+# If this task installs repos, the automatic update system needs to find and
+# update them.  Disable until that is ready.
+
 - git:
     repo:               "{{ item.repo }}"
     dest:               "{{ item.dest }}"
