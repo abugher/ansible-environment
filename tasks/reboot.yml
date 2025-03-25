@@ -3,6 +3,7 @@
   reboot:
     msg:                'Reboot triggered by ansible.'
     pre_reboot_delay:   60
+    reboot_command:     'shutdown -r now'
     # default search paths plus molly-guard bypass location
     search_paths:
       - '/lib/molly-guard'

@@ -277,3 +277,6 @@
 [submodule "roles/discord-client"]
 	path = roles/discord-client
 	url = git@github.com:abugher/ansible-role-discord-client.git
+[submodule "roles/systemd"]
+	path = roles/systemd
+	url = git@github.com:abugher/ansible-role-systemd.git
