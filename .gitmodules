@@ -280,3 +280,6 @@
 [submodule "roles/systemd"]
 	path = roles/systemd
 	url = git@github.com:abugher/ansible-role-systemd.git
+[submodule "roles/mailing-list-server"]
+	path = roles/mailing-list-server
+	url = git@github.com:abugher/ansible-role-mailing-list-server.git
