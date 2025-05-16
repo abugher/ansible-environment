@@ -6,3 +6,9 @@
   with_items:           "{{ start_services }}"
   register:             start_services_result
 
+- name:                 'verify services are started'
+  shell:                service "{{ item }}" status
+  with_items:           "{{ start_services }}"
+  register:             verify_services_started_result
+  failed_when:          verify_services_started_result.rc != 0
+  changed_when:         False

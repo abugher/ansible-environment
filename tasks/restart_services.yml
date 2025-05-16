@@ -12,3 +12,10 @@
     state:              'started'
   with_items:           "{{ restart_services }}"
   register:             restart_services_result
+
+- name:                 'restart services (verify)'
+  shell:                service "{{ item }}" status
+  with_items:           "{{ restart_services }}"
+  register:             verify_services_restarted_result
+  failed_when:          verify_services_restarted_result.rc != 0
+  changed_when:         False
