@@ -145,9 +145,6 @@
 [submodule "roles/ssl-identity"]
 	path = roles/ssl-identity
 	url = https://github.com/abugher/ansible-role-ssl-identity.git
-[submodule "roles/static-address"]
-	path = roles/static-address
-	url = https://github.com/abugher/ansible-role-static-address.git
 [submodule "roles/storage-server"]
 	path = roles/storage-server
 	url = https://github.com/abugher/ansible-role-storage-server.git
