@@ -9,6 +9,7 @@
   delay:                120
   until:                install_packages_result is not failed
   when:                 install_packages_from_release is defined
+                        and install_packages_with_apt is not defined
 
 - name:                 'install packages'
   apt:
@@ -19,3 +20,20 @@
   delay:                120
   until:                install_packages_result is not failed
   when:                 install_packages_from_release is not defined
+                        and install_packages_with_apt is not defined
+
+- name:                 'install packages'
+  command:              "apt install {{ install_packages|join(' ') }}"
+  register:             install_packages_result
+  changed_when:         install_packages_result.stdout.find(' 0 newly installed') == -1
+  when:                 install_packages_from_release is not defined
+                        and hostvars[inventory_hostname]['install_packages_with_apt'] is defined
+                        and hostvars[inventory_hostname]['install_packages_with_apt']
+
+- name:                 'install packages'
+  command:              "apt install -t '{{ install_packages_from_release }}' {{ install_packages|join(' ') }}"
+  register:             install_packages_result
+  changed_when:         install_packages_result.stdout.find(' 0 newly installed') == -1
+  when:                 install_packages_from_release is defined
+                        and hostvars[inventory_hostname]['install_packages_with_apt'] is defined
+                        and hostvars[inventory_hostname]['install_packages_with_apt']

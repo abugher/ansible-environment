@@ -1,7 +1,5 @@
 ---
 - command:              "{{ item.command }}"
-  become:               True
-  become_method:        'sudo'
   become_user:          "{{ item.user|default('root') }}"
   args:
     chdir:              "{{ item.chdir|default('/') }}"
