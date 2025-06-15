@@ -280,3 +280,6 @@
 [submodule "roles/mailing-list-server"]
 	path = roles/mailing-list-server
 	url = git@github.com:abugher/ansible-role-mailing-list-server.git
+[submodule "roles/minecraft-server"]
+	path = roles/minecraft-server
+	url = git@github.com:abugher/ansible-role-minecraft-server.git
