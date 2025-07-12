@@ -1,8 +1,0 @@
----
-install_packages:
-  - 'ytalk'
-  - 'talkd'
-enable_services:
-  - 'inetd'
-start_services:
-  - 'inetd'
