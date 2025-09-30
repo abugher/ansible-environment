@@ -286,3 +286,6 @@
 [submodule "roles/streaming-receiver"]
 	path = roles/streaming-receiver
 	url = git@github.com:abugher/ansible-role-streaming-receiver.git
+[submodule "roles/vpn-server"]
+	path = roles/vpn-server
+	url = git@github.com:abugher/ansible-role-vpn-server.git
