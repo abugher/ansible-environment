@@ -17,7 +17,7 @@
     rsync_opts:         "{{ item.rsync_opts }}"
   with_items:           "{{ sync_dirs }}"
   when:                 item.rsync_opts is defined
-  register:             sync_dirs_result
+  register:             sync_dirs_options_result
 
 - name:                 'synchronize directories (no options specified)'
   synchronize:
@@ -36,4 +36,8 @@
     delete:             "{{ item.delete }}"
   with_items:           "{{ sync_dirs }}"
   when:                 item.rsync_opts is not defined
-  register:             sync_dirs_result
+  register:             sync_dirs_no_options_result
+
+- name:                 'synchronize directories - set result'
+  set_fact:
+    sync_dirs_result:   "{{ sync_dirs_options_result if sync_dirs_options is not skipped else sync_dirs_no_options_result }}"
