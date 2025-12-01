@@ -40,4 +40,4 @@
 
 - name:                 'synchronize directories - set result'
   set_fact:
-    sync_dirs_result:   "{{ sync_dirs_options_result if sync_dirs_options is not skipped else sync_dirs_no_options_result }}"
+    sync_dirs_result:   "{{ sync_dirs_options_result if sync_dirs_options_result is not skipped else sync_dirs_no_options_result }}"
