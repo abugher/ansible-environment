@@ -10,4 +10,4 @@ user="${1}"
 shift
 target_hosts="${1}"
 shift
-time ansible-playbook ./playbooks/deploy.yml -e target_roles="${role}" -e remote_user="${user}" -e target_hosts="${target_hosts}" "${@}"
+time ansible-playbook ./playbooks/deploy.yml -e target_roles="${role}" -e ansible_remote_user="${user}" -e target_hosts="${target_hosts}" "${@}"

@@ -1,9 +1,9 @@
 ---
 - name:                 "Deploy!"
   connection:           "{{ connection|default('ssh') }}"
-  remote_user:          "{{ remote_user|default(hostvars[inventory_hostname]['remote_user']|default('ansible')) }}"
-  become:               "{{ hostvars[inventory_hostname]['become']|default(True) }}"
-  become_method:        "{{ hostvars[inventory_hostname]['become_method']|default('sudo') }}"
+  remote_user:          "{{ ansible_remote_user|default(hostvars[inventory_hostname]['ansible_remote_user']|default('ansible')) }}"
+  become:               "{{ hostvars[inventory_hostname]['ansible_become']|default(True) }}"
+  become_method:        "{{ hostvars[inventory_hostname]['ansible_become_method']|default('sudo') }}"
   gather_facts:         "{{ gather_facts|default('no') }}"
   hosts:                "{{ target_hosts }}"
   # https://stackoverflow.com/questions/42947301/ansible-multiple-roles
