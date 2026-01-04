@@ -289,3 +289,6 @@
 [submodule "roles/vpn-server"]
 	path = roles/vpn-server
 	url = git@github.com:abugher/ansible-role-vpn-server.git
+[submodule "roles/letsencrypt-client"]
+	path = roles/letsencrypt-client
+	url = git@github.com:abugher/ansible-role-letsencrypt-client.git
