@@ -292,3 +292,6 @@
 [submodule "roles/letsencrypt-client"]
 	path = roles/letsencrypt-client
 	url = git@github.com:abugher/ansible-role-letsencrypt-client.git
+[submodule "roles/staging-vm-host"]
+	path = roles/staging-vm-host
+	url = git@github.com:abugher/ansible-role-staging-vm-host.git
