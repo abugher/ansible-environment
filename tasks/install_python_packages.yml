@@ -1,12 +1,13 @@
 ---
 - file:
-    owner:              'root'
+    owner:              'python-packages'
     group:              'root'
     mode:               '0755'
     path:               '/usr/local/python-packages/'
     state:              'directory'
 
 - name:                 'install python packages'
+  become_user:          'python-packages'
   pip:
     name:               "{{ item }}"
     state:              'present'
