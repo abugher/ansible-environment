@@ -1,8 +1,0 @@
----
-# After changing release (major version upgrade of OS), the ansible module "apt" complains about a release name mismatch, even when trying to update, which fixes the mismatch.  Just run "apt update" instead.
-- name:                 'apt update'
-#  apt:
-#    update_cache:       'yes'
-  command:              apt update
-  changed_when:         false
-  register:             apt_update_result

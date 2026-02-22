@@ -1,7 +1,0 @@
----
-- capabilities:
-    capability:                 "{{ item.capability }}"
-    path:                       "{{ item.path }}"
-    state:                      "{{ item.state | default('present') }}"
-  with_items:                   "{{ capabilities }}"
-  register:                     capabilities_result

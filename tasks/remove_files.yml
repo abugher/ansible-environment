@@ -1,7 +1,0 @@
----
-- name:                 'remove files'
-  file:
-    path:               "{{ item }}"
-    state:              'absent'
-  with_items:           "{{ remove_files }}"
-  register:             remove_files_result

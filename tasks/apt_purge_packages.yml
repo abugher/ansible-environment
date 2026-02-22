@@ -1,8 +1,0 @@
----
-- name:                 'purge packages'
-  apt:
-    name:               "{{ apt_purge_packages }}"
-    state:              'absent'
-    purge:              'yes'
-#    autoremove:         'yes'
-  register:             apt_purge_packages_result

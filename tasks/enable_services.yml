@@ -1,8 +1,0 @@
----
-- name:                 'enable services'
-  service:
-    name:               "{{ item }}"
-    enabled:            'yes'
-    #state:              'started'
-  with_items:           "{{ enable_services }}"
-  register:             enable_services_result

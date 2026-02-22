@@ -1,8 +1,0 @@
----
-- name:                 'stop services'
-#  command:              service "{{ item }}" stop
-  service:
-    name:               "{{ item }}"
-    state:              'stopped'
-  with_items:           "{{ stop_services }}"
-  register:             stop_services_result

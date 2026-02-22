@@ -1,6 +1,0 @@
----
-- script:               "{{ item.script }}"
-  args:
-    creates:            "{{ item.creates|default('/does/not/create/anything') }}"
-  with_items:           "{{ scripts }}"
-  register:             scripts_result

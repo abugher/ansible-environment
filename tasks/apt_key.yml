@@ -1,5 +1,0 @@
----
-- apt_key:
-    id:                 "{{ item.id }}"
-    keyserver:          "{{ item.keyserver }}"
-  with_items:           "{{ apt_key }}"
