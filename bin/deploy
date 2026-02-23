@@ -1,0 +1,12 @@
+#!/bin/bash
+
+self_path="$(readlink -f ${0})"
+bin_dir="${self_path%/*}"
+env_dir="${bin_dir%/*}"
+role_dir="${env_dir%/*}"
+
+role="${role_dir##*/}"
+
+cd "${env_dir}"
+
+time ansible-playbook ./playbooks/deploy.yml -e target_hosts="${role}" -e target_roles="${role}" "${@}"
