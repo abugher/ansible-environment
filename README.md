@@ -4,7 +4,10 @@
 
 This repo is expected to be a subproject of a repo defining an ansible role.  See `ansible.cfg` for further assumptions about the layout of the role repo.
 
+WARNING:  Do not attempt to use symbolic links to simulate the expected hierarchy of paths.  Doing so could break the deployment scripts.
+
 The inventory is expected to define hostgroups with the same names as roles.  Any host that is a member of a group with the same name as a role is considered to be assigned that role.
+
 
 ## bin/
 
