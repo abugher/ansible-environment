@@ -33,6 +33,7 @@ self_dir="${self_path%/*}/.."
 cd "${self_dir}"
 
 libs=(
+  'inventory'
   'list_hosts'
   'list_roles'
   'deploy_hosts'

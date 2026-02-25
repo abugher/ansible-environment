@@ -29,7 +29,7 @@ function list_roles() {
 
 
 function cat_inventory() {
-  for f in inventory/inventory.d/*; do 
+  for f in "${inventory_path}/inventory.d/"*; do 
     if ! grep -qE 'host-list$|host_vars$' <<< "${f}"; then 
       cat "${f}"; 
     fi; 

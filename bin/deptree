@@ -7,6 +7,14 @@
 # depend.
 
 
+libs=(
+  'inventory'
+)
+for lib in "${libs[@]}"; do
+  . lib/${lib}.sh
+done
+
+
 function main() {
   host="${1}"
   if ! test 'set' = "${1:+set}"; then
@@ -21,7 +29,7 @@ function main() {
 
 
 function all_roles() {
-  for file in $(find inventory/inventory.d/ -maxdepth 1 -type f); do 
+  for file in $(find "${inventory_path}/inventory.d/" -maxdepth 1 -type f); do 
     role="${file##*/}"
     if grep -q "\[${role}\]" "${file}"; then
       printf '%s\n' "${role}"
@@ -34,10 +42,10 @@ function roles_for_host() {
   host="${1}"
   roles_files_to_search=()
   for role in $(all_roles); do
-    roles_files_to_search+=( "inventory/inventory.d/${role}" )
+    roles_files_to_search+=( "${inventory_path}/inventory.d/${role}" )
   done
   grep -lE "${host}" "${roles_files_to_search[@]}" \
-    | sed 's/^inventory\/inventory\.d\///'
+    | sed "s#^${inventory_path}/inventory\.d/##"
 }
 
 
