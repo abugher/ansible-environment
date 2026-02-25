@@ -4,6 +4,11 @@ self_path="$(readlink -f ${0})"
 self_dir="${self_path%/*}/../.."
 cd "${self_dir}"
 
-. lib/inventory.sh
+libs=(
+  'inventory'
+)
+for lib in "${libs[@]}"; do
+  . lib/${lib}.sh
+done
 
 ansible-inventory -i "${inventory_path}/inventory.d/" --list
