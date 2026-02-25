@@ -1,8 +1,11 @@
 #!/bin/bash
 
 self_path="$(readlink -f ${0})"
-self_dir="${self_path%/*}/../.."
-cd "${self_dir}"
+bin_dir="${self_path%/*}"
+env_dir="${bin_dir%/*}"
+role_dir="${env_dir%/*}"
+
+cd "${env_dir}"
 
 libs=(
   'inventory'

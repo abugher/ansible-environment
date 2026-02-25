@@ -1,1 +1,1 @@
-inventory_path=../../inventory
+inventory_path=../../../ansible-inventory

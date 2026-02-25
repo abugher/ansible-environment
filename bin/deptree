@@ -6,6 +6,12 @@
 # of the corresponding group, then recursing through roles on which those roles
 # depend.
 
+self_path="$(readlink -f ${0})"
+bin_dir="${self_path%/*}"
+env_dir="${bin_dir%/*}"
+role_dir="${env_dir%/*}"
+
+cd "${env_dir}"
 
 libs=(
   'inventory'
