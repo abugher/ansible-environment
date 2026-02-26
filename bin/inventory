@@ -8,7 +8,7 @@ role_dir="${env_dir%/*}"
 cd "${env_dir}"
 
 libs=(
-  'inventory'
+  'paths'
 )
 for lib in "${libs[@]}"; do
   . lib/${lib}.sh

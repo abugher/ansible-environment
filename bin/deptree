@@ -14,7 +14,7 @@ role_dir="${env_dir%/*}"
 cd "${env_dir}"
 
 libs=(
-  'inventory'
+  'paths'
 )
 for lib in "${libs[@]}"; do
   . lib/${lib}.sh
@@ -64,7 +64,7 @@ function deps_for_role() {
     fi
   done
   local dep_chain=( "${dep_chain[@]}" "${role}" )
-  meta="roles/${role}/meta/main.yml"
+  meta="${roles_path}/${role}/meta/main.yml"
   deps=()
   if test -e "${meta}"; then
     deps=( $(

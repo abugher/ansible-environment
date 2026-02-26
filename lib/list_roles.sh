@@ -17,7 +17,7 @@ function list_roles() {
       fi
 
       if grep -qE "^[\s]*${host_name}[\s]*$" <<< $line; then
-        if test -d roles/$role_name; then
+        if test -d "${roles_path}/${role_name}"; then
           if ! [[ " ${role_names[@]} " =~ " ${role_name} " ]]; then
             echo "${role_name}"
           fi

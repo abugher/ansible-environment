@@ -13,7 +13,7 @@ function main() {
 
   host_names=( $( list_hosts ) )
 
-  case "${0##*/}" in
+  case "${self_name}" in
   deploy-hosts)
     if test 1 = "${#host_names[@]}"; then
       deploy_host "${host_names[0]}" "${@}"
@@ -24,9 +24,12 @@ function main() {
   list-roles)
     list_roles "${host_names[@]}"
     ;;
+  *)
+    fail "I don't know how to be:  '${self_name}'"
   esac
 }
 
+self_name="${0##*/}"
 self_path="$(readlink -f ${0})"
 bin_dir="${self_path%/*}"
 env_dir="${bin_dir%/*}"
@@ -34,7 +37,8 @@ env_dir="${bin_dir%/*}"
 cd "${env_dir}"
 
 libs=(
-  'inventory'
+  'output'
+  'paths'
   'list_hosts'
   'list_roles'
   'deploy_hosts'
