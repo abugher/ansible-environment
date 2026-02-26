@@ -9,27 +9,46 @@ cd "${env_dir}"
 libs=(
   'paths'
   'output'
+  'inventory'
 )
 for lib in "${libs[@]}"; do
   . lib/${lib}.sh
 done
 
-mode="${1}"
+inventory_mode="${1}"
+target="${2}"
 
 # ansible-inventory seems to always complain about broken pipes when output is
 # redirected to another program.  Silence this by dropping stderr into
 # /dev/null.
-case "${mode}" in
+case "${inventory_mode}" in
   '')
     ;&
-  'full-json')
-    # Full inventory as JSON.
-    ansible-inventory -i "${inventory_path}/inventory.d/" --list
+  'json')
+    inventory_json_basic
     ;;
   'list-hosts')
-    # Plain list of all hosts.
-    ansible-inventory -i ../ansible-inventory/inventory.d --list \
-      | jq -r '.["all"].["children"]|.[]'
+    inventory_list_hosts
+    ;;
+  'list-roles')
+    inventory_list_roles
+    ;;
+  'list-roles-for-host-explicit')
+    inventory_list_roles_for_host_explicit "${target}"
+    ;;
+  'list-roles-for-host-tree')
+    inventory_list_roles_for_host_tree "${target}"
+    ;;
+  'list-roles-for-role')
+    inventory_list_roles_for_role "${target}"
+    ;;
+  'list-roles-for-host')
+    ;&
+  'list-roles-for-host-implicit')
+    inventory_list_roles_for_host_implicit "${target}"
+    ;;
+  'list-hosts-for-role')
+    inventory_list_hosts_for_role "${target}"
     ;;
   *)
     fail "Unknown mode of operation:  '${mode}'"

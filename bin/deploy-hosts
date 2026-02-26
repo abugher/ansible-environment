@@ -21,24 +21,21 @@ function main() {
       deploy_hosts "${@}"
     fi
     ;;
-  list-roles)
-    ;&
   list-roles-explicit)
-    for host in "${host_names[@]}"; do
-      output "# ${host}"
-      list_roles_for_host_explicit "${host}"
-    done
-    ;;
+    list_func=list_roles_for_host_explicit 
+    ;&
   list-roles-implicit)
-    for host in "${host_names[@]}"; do
-      output "# ${host}"
-      list_roles_for_host_implicit "${host}"
-    done
-    ;;
+    list_fun=list_roles_for_host_implicit 
+    ;&
   list-roles-tree)
+    list_func=list_roles_for_host_tree 
+    ;&
+  list-roles)
+    list_func=list_roles_for_host_explicit 
     for host in "${host_names[@]}"; do
+      output ''
       output "# ${host}"
-      list_roles_for_host_tree "${host}"
+      "${list_func}" "${host}"
     done
     ;;
   *)
