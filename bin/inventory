@@ -1,5 +1,4 @@
 #!/bin/bash
-
 self_path="$(readlink -f ${0})"
 bin_dir="${self_path%/*}"
 env_dir="${bin_dir%/*}"
@@ -9,9 +8,30 @@ cd "${env_dir}"
 
 libs=(
   'paths'
+  'output'
 )
 for lib in "${libs[@]}"; do
   . lib/${lib}.sh
 done
 
-ansible-inventory -i "${inventory_path}/inventory.d/" --list
+mode="${1}"
+
+# ansible-inventory seems to always complain about broken pipes when output is
+# redirected to another program.  Silence this by dropping stderr into
+# /dev/null.
+case "${mode}" in
+  '')
+    ;&
+  'full-json')
+    # Full inventory as JSON.
+    ansible-inventory -i "${inventory_path}/inventory.d/" --list
+    ;;
+  'list-hosts')
+    # Plain list of all hosts.
+    ansible-inventory -i ../ansible-inventory/inventory.d --list \
+      | jq -r '.["all"].["children"]|.[]'
+    ;;
+  *)
+    fail "Unknown mode of operation:  '${mode}'"
+    ;;
+esac
