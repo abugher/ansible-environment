@@ -22,10 +22,28 @@ function main() {
     fi
     ;;
   list-roles)
-    list_roles "${host_names[@]}"
+    ;&
+  list-roles-explicit)
+    for host in "${host_names[@]}"; do
+      output "# ${host}"
+      list_roles_for_host_explicit "${host}"
+    done
+    ;;
+  list-roles-implicit)
+    for host in "${host_names[@]}"; do
+      output "# ${host}"
+      list_roles_for_host_implicit "${host}"
+    done
+    ;;
+  list-roles-tree)
+    for host in "${host_names[@]}"; do
+      output "# ${host}"
+      list_roles_for_host_tree "${host}"
+    done
     ;;
   *)
     fail "I don't know how to be:  '${self_name}'"
+    ;;
   esac
 }
 
