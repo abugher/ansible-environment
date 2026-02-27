@@ -52,6 +52,12 @@ case "${inventory_mode}" in
   'list-hosts-for-group')
     inventory_list_hosts_for_group "${target}"
     ;;
+  'list-hosts-for-role-explicit')
+    inventory_list_hosts_for_role_explicit "${target}"
+    ;;
+  'list-hosts-for-role-implicit')
+    inventory_list_hosts_for_role_implicit "${target}"
+    ;;
   '--host')
     inventory_json_vars_for_host "${target}"
     ;;

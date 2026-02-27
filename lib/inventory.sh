@@ -22,6 +22,16 @@
 #
 # Be aware that >() sends a process to the background.  Stdout goes where
 # expected, but you should wait for the process to return.
+#
+# There are probably some instances where subshells are causing
+# inventory_json_basic to populate the cache more than once, due to patterns
+# like:
+#
+#   inventory_something > >( ...; inventory_something_else; ...; )
+#
+# This could probably be factored out, but the impact is minimal, a factor of 2
+# in the example above, compared to never using the cached value while
+# iterating over a long list.
 export inventory_cache=''
 function inventory_json_basic() {
   if test '' = "${inventory_cache}"; then
@@ -39,7 +49,7 @@ function inventory_json_basic() {
 
 # Not cached yet, as this is not part of any loops, yet.
 function inventory_json_vars_for_host() {
-  host="${1}"
+  local host="${1}"
   ansible-inventory -i "${inventory_path}/inventory.d" --host "${host}" 2>/dev/null
 }
 
@@ -54,7 +64,7 @@ function inventory_list_groups() {
 
 
 function inventory_list_hosts_for_group() {
-  group="${1}"
+  local group="${1}"
   # Ignore errors for no group matching role name.
   inventory_json_basic > >(
     jq -r ".[\"${group}\"][\"hosts\"]|.[]" 2>/dev/null
@@ -70,8 +80,14 @@ function inventory_list_roles() {
 }
 
 
+function inventory_list_hosts() {
+  ansible --list-hosts all 2>/dev/null | tail -n +2
+}
+
+
 function inventory_list_roles_for_host_explicit() {
-  host="${1}"
+  local host="${1}"
+  local role
   for role in $(inventory_list_roles); do
     inventory_list_hosts_for_group "${role}" > >(
       if grep -q "^${host}\$"; then
@@ -85,21 +101,23 @@ function inventory_list_roles_for_host_explicit() {
 
 
 function inventory_list_roles_for_host_tree() {
-  host="${1}"
+  local host="${1}"
   inventory_list_roles_for_host_explicit "${host}" > >(
+    local role
     while read role; do
       printf '%s\n' "${role}"
       inventory_list_roles_for_role "${role}"
     done
   )
-  pid="${!}"
+  local pid="${!}"
   wait "${pid}"
 }
 
 
 function inventory_list_roles_for_host_implicit() {
-  host="${1}"
+  local host="${1}"
   inventory_list_roles_for_host_tree "${host}" > >(
+    local line
     while read line; do
       printf '%s\n' "${line}"
     done\
@@ -111,8 +129,10 @@ function inventory_list_roles_for_host_implicit() {
 }
 
 
+dep_chain=()
 function inventory_list_roles_for_role() {
-  role="${1}"
+  local role="${1}"
+  local dep
   for dep in "${dep_chain[@]}"; do
     if test "${dep}" = "${role}"; then
       echo "Loop detected:  ${dep_chain[@]}"
@@ -120,15 +140,17 @@ function inventory_list_roles_for_role() {
     fi
   done
   local dep_chain=( "${dep_chain[@]}" "${role}" )
-  meta="${roles_path}/${role}/meta/main.yml"
-  deps=()
+  local meta="${roles_path}/${role}/meta/main.yml"
+  local deps=()
   if test -e "${meta}"; then
     deps=( $(
       awk '/^ *- role:/ {print $3}' "${meta}" \
         | sed "s/'//g"
     ) )
   fi
+  local dep
   for dep in "${deps[@]}"; do
+    local i
     for i in $(seq 1 "${#dep_chain[@]}"); do
       printf '  '
     done
@@ -137,3 +159,27 @@ function inventory_list_roles_for_role() {
   done
 }
 
+
+function inventory_list_hosts_for_role_explicit() {
+  local role="${1}"
+  inventory_list_hosts_for_group "${role}"
+}
+
+
+function inventory_list_hosts_for_role_implicit() {
+  local role="${1}"
+  inventory_list_hosts > >(
+    local host
+    while read host; do
+      inventory_list_roles_for_host_implicit "${host}" > >(
+        if grep -q "${role}"; then
+          printf '%s\n' "${host}"
+        fi
+      )
+      local pid="${!}"
+      wait "${pid}"
+    done
+  )
+  local pid="${!}"
+  wait "${pid}"
+}

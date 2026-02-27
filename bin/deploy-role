@@ -6,7 +6,15 @@ env_dir="${bin_dir%/*}"
 
 cd "${env_dir}"
 
-role="${1}"
-shift 1
+libs=(
+  'output'
+  'paths'
+  'inventory'
+  'deploy_role'
+)
+for lib in "${libs[@]}"; do
+  . lib/${lib}.sh
+done
 
-time ansible-playbook ./playbooks/deploy.yml -e target_hosts="${role}" -e target_roles="${role}" "${@}"
+
+deploy_role "${@}"
