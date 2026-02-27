@@ -41,7 +41,7 @@ function inventory_json_basic() {
 
 function inventory_json_basic_string() {
   if test '' = "${cache_json}"; then
-    debug 'Cache miss:  JSON'
+    #debug 'Cache miss:  JSON'
     # ansible-inventory seems to always complain about broken pipes when output is
     # redirected to another program.  Silence this by dropping stderr into
     # /dev/null.
@@ -49,7 +49,7 @@ function inventory_json_basic_string() {
       ansible-inventory -i "${inventory_path}/inventory.d" --list 2>/dev/null
     )" || fail "Failed to list inventory."
   else
-    debug 'Cache hit :  JSON'
+    #debug 'Cache hit :  JSON'
   fi
 
   declare -g inventory_json_basic_string_output="${cache_json}"
@@ -66,15 +66,15 @@ function inventory_json_vars_for_host() {
 function inventory_list_groups() {
   if ! test 'yes' = "${cache_groups_flag}"; then
     declare -g cache_groups_flag='yes'
-    debug "Cache miss:  groups"
+    #debug "Cache miss:  groups"
     inventory_json_basic_string
     declare -ga cache_groups
     cache_groups=( $(
       jq -r '.["all"].["children"]|.[]' \
         <<< "${inventory_json_basic_string_output}" 
     ) )
-  else
-    debug "Cache hit :  groups"
+  #else
+  #  debug "Cache hit :  groups"
   fi
   local group
   for group in "${cache_groups[@]}"; do
@@ -99,7 +99,7 @@ function inventory_list_hosts_for_group_array() {
   local var_safe_group="$(sed 's/-/_/g' <<< "${group}")"
   local cache_flag_var="cache_hosts_for_group_flag_${var_safe_group}"
   if ! test 'yes' = "${!cache_flag_var}"; then
-    debug "Cache miss:  hosts for group:  '${group}'"
+    #debug "Cache miss:  hosts for group:  '${group}'"
     declare -g "${cache_flag_var}"='yes'
     inventory_json_basic_string
     local cache_var="cache_hosts_for_group_${var_safe_group}"
@@ -109,12 +109,11 @@ function inventory_list_hosts_for_group_array() {
       jq -r ".[\"${group}\"][\"hosts\"]|.[]" 2>/dev/null \
         <<< "${inventory_json_basic_string_output}"
     ) )
-  else
-    debug "Cache hit :  hosts for group:  '${group}'"
+  #else
+  #  debug "Cache hit :  hosts for group:  '${group}'"
   fi
   declare -ga inventory_list_hosts_for_group_array_output
   inventory_list_hosts_for_group_array_output=( ${cache_hosts_for_group[@]} )
-  #debug "(lower) inventory_list_hosts_for_group_array_output:  '${#inventory_list_hosts_for_group_array_output}'"
   return 0
 }
 
@@ -146,7 +145,6 @@ function inventory_list_roles_for_host_explicit_array() {
   local role
   for role in $(inventory_list_roles); do
     inventory_list_hosts_for_group_array "${role}"
-    #debug "(upper) inventory_list_hosts_for_group_array_output:  '${#inventory_list_hosts_for_group_array_output}'"
     local host_b
     for host_b in "${inventory_list_hosts_for_group_array_output[@]}"; do
       if test "${host_b}" = "${host_a}"; then
@@ -202,7 +200,7 @@ function inventory_list_roles_for_role() {
   declare -n cache_deps="${cache_var}"
   local cache_flag_var="cache_deps_flag_${var_safe_role}"
   if ! test 'cached' = "${!cache_flag_var}"; then
-    debug "Cache miss:  role:  '${role}'"
+    #debug "Cache miss:  role:  '${role}'"
     declare -g "${cache_flag_var}"='cached'
     if test -e "${meta}"; then
       cache_deps=( $(
@@ -210,8 +208,8 @@ function inventory_list_roles_for_role() {
           | sed "s/'//g"
       ) )
     fi
-  else
-    debug "Cache hit :  role:  '${role}'"
+  #else
+  #  debug "Cache hit :  role:  '${role}'"
   fi
   local deps=( "${cache_deps[@]}" )
   local dep
