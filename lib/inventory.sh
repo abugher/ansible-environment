@@ -1,37 +1,8 @@
 #!/bin/bash
+#
+# Beware of the caching variables.  Pipelines send processes to subshells where
+# they cannot share caching variables with the parent process.
 
-
-# Cache the results for inventory_json_basic.  It takes about half a second per
-# invocation without caching, and about a hundredth of a second with caching,
-# at time of writing.
-#
-# If this function is used in a pipeline, it will be run in a subshell, so it
-# will not have access to set global variables, so caching will fail.
-#
-# So don't do this:
-#
-#   inventory_json_basic | output_processor
-#
-# Do this
-#
-#   inventory_json_basic > >(output_processor)
-#
-# The same must be done for any function that calls inventory_json_basic.
-#
-# As a cost, the return value of output_processor will be unavailable.
-#
-# Be aware that >() sends a process to the background.  Stdout goes where
-# expected, but you should wait for the process to return.
-#
-# There are probably some instances where subshells are causing
-# inventory_json_basic to populate the cache more than once, due to patterns
-# like:
-#
-#   inventory_something > >( ...; inventory_something_else; ...; )
-#
-# This could probably be factored out, but the impact is minimal, a factor of 2
-# in the example above, compared to never using the cached value while
-# iterating over a long list.
 export cache_json=''
 function inventory_json_basic() {
   inventory_json_basic_string
@@ -53,7 +24,6 @@ function inventory_json_basic_string() {
 }
 
 
-# Not cached yet, as this is not part of any loops, yet.
 function inventory_json_vars_for_host() {
   local host="${1}"
   ansible-inventory -i "${inventory_path}/inventory.d" --host "${host}" 2>/dev/null
@@ -88,16 +58,6 @@ function inventory_list_hosts_for_group() {
 
 
 function inventory_list_hosts_for_group_array() {
-  ## PROBLEM (depth 5):  I assume the caching is breaking something.
-  # When the problem occurs, results seem normal for repeated calls to this
-  # function, until it has been called for all role groups.  When it is called
-  # again, no hosts are reported as belonging to the groups.  Really looks like
-  # a cache problem.
-  #
-  # The cache flag is getting noticed, but the cached data is not getting
-  # retrieved.
-
-  # Ignore errors from jq for no group matching role name.
   local group="${1}"
   #debug "group:  '${group}'"
   local var_safe_group="$(sed 's/-/_/g' <<< "${group}")"
@@ -108,6 +68,7 @@ function inventory_list_hosts_for_group_array() {
   if ! test 'yes' = "${!cache_flag_var}"; then
     declare -g "${cache_flag_var}"='yes'
     inventory_json_basic_string
+    # Ignore errors and error messages from jq for no group name match.
     cache_hosts_for_group=( $(
       jq -r ".[\"${group}\"][\"hosts\"]|.[]" 2>/dev/null \
         <<< "${inventory_json_basic_string_output}"
@@ -115,8 +76,6 @@ function inventory_list_hosts_for_group_array() {
   fi
   declare -ga inventory_list_hosts_for_group_array_output
   inventory_list_hosts_for_group_array_output=( ${cache_hosts_for_group[@]} )
-  #debug "cache_var:  '${cache_var}'"
-  #debug "cached host count:  '${#cache_hosts_for_group[@]}'"
   return 0
 }
 
@@ -143,19 +102,13 @@ function inventory_list_roles_for_host_explicit() {
 
 function inventory_list_roles_for_host_explicit_array() {
   local host_a="${1}"
-  #debug "host_a:  '${host_a}'"
   declare -g inventory_list_roles_for_host_explicit_array_output=()
   local role
   for role in $(inventory_list_roles); do
-    ## PROBLEM (depth 4):  When this is downstream of:  inventory_list_hosts_for_role_implicit()
-    ## ... A list of B hosts is only produced the first time this function is called.
-    ## This function seems to break when not isolated in a subshell from other instances of itself.
     inventory_list_hosts_for_group_array "${role}"
     local host_b
     for host_b in "${inventory_list_hosts_for_group_array_output[@]}"; do
-      #debug "host_b:  '${host_b}'"
       if test "${host_b}" = "${host_a}"; then
-        #debug "role:  '${role}'"
         inventory_list_roles_for_host_explicit_array_output+=( "${role}" )
       fi
     done
@@ -165,13 +118,9 @@ function inventory_list_roles_for_host_explicit_array() {
 
 function inventory_list_roles_for_host_tree() {
   local host="${1}"
-  #debug "host:  '${host}'"
-  ## PROBLEM (depth 3):  This produces no output when this function is downstream of :  inventory_list_hosts_for_role_implicit()
-  ## ... unless it is in a subshell within that function.
   inventory_list_roles_for_host_explicit_array "${host}"
   local role
   for role in "${inventory_list_roles_for_host_explicit_array_output[@]}"; do
-    #debug "role:  '${role}'"
     printf '%s\n' "${role}"
     inventory_list_roles_for_role "${role}"
   done
@@ -180,13 +129,9 @@ function inventory_list_roles_for_host_tree() {
 
 function inventory_list_roles_for_host_implicit() {
   local host="${1}"
-  #debug "host:  '${host}'"
-  ## PROBLEM (depth 2):  This produces no output when this function is downstream of :  inventory_list_hosts_for_role_implicit()
-  ## ... unless it is in a subshell within that function.
   inventory_list_roles_for_host_tree "${host}" > >(
     local role 
     while read role; do
-      #debug "role:  '${role}'"
       printf '%s\n' "${role}"
     done\
     | sort \
@@ -247,10 +192,6 @@ function inventory_list_hosts_for_role_implicit() {
   local role="${1}"
   local host
   for host in $(inventory_list_hosts); do
-    #
-    # PROBLEM
-    #
-    # This line produces no output when run in the foreground.
     inventory_list_roles_for_host_implicit "${host}" > >(
       if grep -q "${role}"; then
         printf '%s\n' "${host}"
