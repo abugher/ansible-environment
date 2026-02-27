@@ -146,7 +146,9 @@ function inventory_list_roles_for_role() {
   declare -ga "${cache_var}"
   export "${cache_var}"
   declare -n cache_deps="${cache_var}"
-  if test 0 = "${#cache_deps[@]}"; then
+  local cache_flag_var="cache_deps_flag_${var_safe_role}"
+  if ! test 'cached' = "${!cache_flag_var}"; then
+    declare -g "${cache_flag_var}"='cached'
     if test -e "${meta}"; then
       cache_deps=( $(
         awk '/^ *- role:/ {print $3}' "${meta}" \
