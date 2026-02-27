@@ -48,8 +48,8 @@ function inventory_json_basic_string() {
     cache_json="$(
       ansible-inventory -i "${inventory_path}/inventory.d" --list 2>/dev/null
     )" || fail "Failed to list inventory."
-  else
-    #debug 'Cache hit :  JSON'
+  #else
+  #  debug 'Cache hit :  JSON'
   fi
 
   declare -g inventory_json_basic_string_output="${cache_json}"
