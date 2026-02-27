@@ -32,18 +32,18 @@
 # This could probably be factored out, but the impact is minimal, a factor of 2
 # in the example above, compared to never using the cached value while
 # iterating over a long list.
-export inventory_cache=''
+export cache_json=''
 function inventory_json_basic() {
-  if test '' = "${inventory_cache}"; then
+  if test '' = "${cache_json}"; then
     # ansible-inventory seems to always complain about broken pipes when output is
     # redirected to another program.  Silence this by dropping stderr into
     # /dev/null.
-    inventory_cache="$(
+    cache_json="$(
       ansible-inventory -i "${inventory_path}/inventory.d" --list 2>/dev/null
     )" || fail "Failed to list inventory."
   fi
 
-  cat <<< "${inventory_cache}"
+  cat <<< "${cache_json}"
 }
 
 
