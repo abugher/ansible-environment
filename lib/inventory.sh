@@ -96,13 +96,13 @@ function inventory_list_hosts_for_group() {
 function inventory_list_hosts_for_group_array() {
   # Ignore errors for no group matching role name.
   local group="${1}"
-  declare -g inventory_list_hosts_for_group_array_output=()
-  local cache_flag_var="cache_hosts_for_group_flag_${group}"
+  local var_safe_group="$(sed 's/-/_/g' <<< "${group}")"
+  local cache_flag_var="cache_hosts_for_group_flag_${var_safe_group}"
   if ! test 'yes' = "${!cache_flag_var}"; then
     debug "Cache miss:  hosts for group:  '${group}'"
     declare -g "${cache_flag_var}"='yes'
     inventory_json_basic_string
-    local cache_var="cache_hosts_for_group_${group}"
+    local cache_var="cache_hosts_for_group_${var_safe_group}"
     declare -ga "${cache_var}"
     declare -n cache_hosts_for_group="${cache_var}"
     cache_hosts_for_group=( $(
@@ -112,7 +112,9 @@ function inventory_list_hosts_for_group_array() {
   else
     debug "Cache hit :  hosts for group:  '${group}'"
   fi
+  declare -ga inventory_list_hosts_for_group_array_output
   inventory_list_hosts_for_group_array_output=( ${cache_hosts_for_group[@]} )
+  #debug "(lower) inventory_list_hosts_for_group_array_output:  '${#inventory_list_hosts_for_group_array_output}'"
   return 0
 }
 
@@ -144,6 +146,7 @@ function inventory_list_roles_for_host_explicit_array() {
   local role
   for role in $(inventory_list_roles); do
     inventory_list_hosts_for_group_array "${role}"
+    #debug "(upper) inventory_list_hosts_for_group_array_output:  '${#inventory_list_hosts_for_group_array_output}'"
     local host_b
     for host_b in "${inventory_list_hosts_for_group_array_output[@]}"; do
       if test "${host_b}" = "${host_a}"; then
