@@ -222,6 +222,10 @@ function inventory_list_hosts_for_role_implicit() {
   local host
   for host in $(inventory_list_hosts); do
     inventory_list_roles_for_host_implicit "${host}" > >(
+      ##
+      ## PROBLEM
+      ## stdin is empty
+      ##
       if grep -q "${role}"; then
         printf '%s\n' "${host}"
       fi
