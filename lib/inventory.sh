@@ -88,16 +88,26 @@ function inventory_list_hosts_for_group() {
 
 
 function inventory_list_hosts_for_group_array() {
-  # Ignore errors for no group matching role name.
+  ## PROBLEM (depth 5):  I assume the caching is breaking something.
+  # When the problem occurs, results seem normal for repeated calls to this
+  # function, until it has been called for all role groups.  When it is called
+  # again, no hosts are reported as belonging to the groups.  Really looks like
+  # a cache problem.
+  #
+  # The cache flag is getting noticed, but the cached data is not getting
+  # retrieved.
+
+  # Ignore errors from jq for no group matching role name.
   local group="${1}"
+  #debug "group:  '${group}'"
   local var_safe_group="$(sed 's/-/_/g' <<< "${group}")"
+  local cache_var="cache_hosts_for_group_${var_safe_group}"
+  declare -ga "${cache_var}"
+  declare -n cache_hosts_for_group="${cache_var}"
   local cache_flag_var="cache_hosts_for_group_flag_${var_safe_group}"
   if ! test 'yes' = "${!cache_flag_var}"; then
     declare -g "${cache_flag_var}"='yes'
     inventory_json_basic_string
-    local cache_var="cache_hosts_for_group_${var_safe_group}"
-    declare -ga "${cache_var}"
-    declare -n cache_hosts_for_group="${cache_var}"
     cache_hosts_for_group=( $(
       jq -r ".[\"${group}\"][\"hosts\"]|.[]" 2>/dev/null \
         <<< "${inventory_json_basic_string_output}"
@@ -105,6 +115,8 @@ function inventory_list_hosts_for_group_array() {
   fi
   declare -ga inventory_list_hosts_for_group_array_output
   inventory_list_hosts_for_group_array_output=( ${cache_hosts_for_group[@]} )
+  #debug "cache_var:  '${cache_var}'"
+  #debug "cached host count:  '${#cache_hosts_for_group[@]}'"
   return 0
 }
 
@@ -131,13 +143,19 @@ function inventory_list_roles_for_host_explicit() {
 
 function inventory_list_roles_for_host_explicit_array() {
   local host_a="${1}"
+  #debug "host_a:  '${host_a}'"
   declare -g inventory_list_roles_for_host_explicit_array_output=()
   local role
   for role in $(inventory_list_roles); do
+    ## PROBLEM (depth 4):  When this is downstream of:  inventory_list_hosts_for_role_implicit()
+    ## ... A list of B hosts is only produced the first time this function is called.
+    ## This function seems to break when not isolated in a subshell from other instances of itself.
     inventory_list_hosts_for_group_array "${role}"
     local host_b
     for host_b in "${inventory_list_hosts_for_group_array_output[@]}"; do
+      #debug "host_b:  '${host_b}'"
       if test "${host_b}" = "${host_a}"; then
+        #debug "role:  '${role}'"
         inventory_list_roles_for_host_explicit_array_output+=( "${role}" )
       fi
     done
@@ -147,9 +165,13 @@ function inventory_list_roles_for_host_explicit_array() {
 
 function inventory_list_roles_for_host_tree() {
   local host="${1}"
+  #debug "host:  '${host}'"
+  ## PROBLEM (depth 3):  This produces no output when this function is downstream of :  inventory_list_hosts_for_role_implicit()
+  ## ... unless it is in a subshell within that function.
   inventory_list_roles_for_host_explicit_array "${host}"
   local role
   for role in "${inventory_list_roles_for_host_explicit_array_output[@]}"; do
+    #debug "role:  '${role}'"
     printf '%s\n' "${role}"
     inventory_list_roles_for_role "${role}"
   done
@@ -158,10 +180,14 @@ function inventory_list_roles_for_host_tree() {
 
 function inventory_list_roles_for_host_implicit() {
   local host="${1}"
+  #debug "host:  '${host}'"
+  ## PROBLEM (depth 2):  This produces no output when this function is downstream of :  inventory_list_hosts_for_role_implicit()
+  ## ... unless it is in a subshell within that function.
   inventory_list_roles_for_host_tree "${host}" > >(
-    local line
-    while read line; do
-      printf '%s\n' "${line}"
+    local role 
+    while read role; do
+      #debug "role:  '${role}'"
+      printf '%s\n' "${role}"
     done\
     | sort \
     | uniq
