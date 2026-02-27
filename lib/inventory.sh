@@ -65,6 +65,7 @@ function inventory_json_vars_for_host() {
 
 function inventory_list_groups() {
   if ! test 'yes' = "${cache_groups_flag}"; then
+    declare -g cache_groups_flag='yes'
     debug "Cache miss:  groups"
     inventory_json_basic_string
     declare -ga cache_groups
@@ -96,14 +97,22 @@ function inventory_list_hosts_for_group_array() {
   # Ignore errors for no group matching role name.
   local group="${1}"
   declare -g inventory_list_hosts_for_group_array_output=()
-  inventory_json_basic_string
-  local host
-  for host in $(
-    jq -r ".[\"${group}\"][\"hosts\"]|.[]" 2>/dev/null \
-      <<< "${inventory_json_basic_string_output}"
-  ); do
-    inventory_list_hosts_for_group_array_output+=( "${host}" )
-  done
+  local cache_flag_var="cache_hosts_for_group_flag_${group}"
+  if ! test 'yes' = "${!cache_flag_var}"; then
+    debug "Cache miss:  hosts for group:  '${group}'"
+    declare -g "${cache_flag_var}"='yes'
+    inventory_json_basic_string
+    local cache_var="cache_hosts_for_group_${group}"
+    declare -ga "${cache_var}"
+    declare -n cache_hosts_for_group="${cache_var}"
+    cache_hosts_for_group=( $(
+      jq -r ".[\"${group}\"][\"hosts\"]|.[]" 2>/dev/null \
+        <<< "${inventory_json_basic_string_output}"
+    ) )
+  else
+    debug "Cache hit :  hosts for group:  '${group}'"
+  fi
+  inventory_list_hosts_for_group_array_output=( ${cache_hosts_for_group[@]} )
   return 0
 }
 
