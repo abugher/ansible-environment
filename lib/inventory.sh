@@ -34,16 +34,25 @@
 # iterating over a long list.
 export cache_json=''
 function inventory_json_basic() {
+  inventory_json_basic_string
+  cat <<< "${inventory_json_basic_string_output}"
+}
+
+
+function inventory_json_basic_string() {
   if test '' = "${cache_json}"; then
+    debug 'Cache miss:  JSON'
     # ansible-inventory seems to always complain about broken pipes when output is
     # redirected to another program.  Silence this by dropping stderr into
     # /dev/null.
     cache_json="$(
       ansible-inventory -i "${inventory_path}/inventory.d" --list 2>/dev/null
     )" || fail "Failed to list inventory."
+  else
+    debug 'Cache hit :  JSON'
   fi
 
-  cat <<< "${cache_json}"
+  declare -g inventory_json_basic_string_output="${cache_json}"
 }
 
 
@@ -65,12 +74,26 @@ function inventory_list_groups() {
 
 function inventory_list_hosts_for_group() {
   local group="${1}"
+  inventory_list_hosts_for_group_array "${group}"
+  local host
+  for host in "${inventory_list_hosts_for_group_array_output[@]}"; do
+    printf '%s\n' "${host}"
+  done
+}
+
+
+function inventory_list_hosts_for_group_array() {
   # Ignore errors for no group matching role name.
-  inventory_json_basic > >(
-    jq -r ".[\"${group}\"][\"hosts\"]|.[]" 2>/dev/null
-  )
-  local pid="${!}"
-  wait "${pid}"
+  local group="${1}"
+  declare -g inventory_list_hosts_for_group_array_output=()
+  inventory_json_basic_string
+  local host
+  for host in $(
+    jq -r ".[\"${group}\"][\"hosts\"]|.[]" 2>/dev/null \
+      <<< "${inventory_json_basic_string_output}"
+  ); do
+    inventory_list_hosts_for_group_array_output+=( "${host}" )
+  done
   return 0
 }
 
@@ -81,36 +104,45 @@ function inventory_list_roles() {
 
 
 function inventory_list_hosts() {
+  debug 'Listing hosts.'
   ansible --list-hosts all 2>/dev/null | tail -n +2
 }
 
 
 function inventory_list_roles_for_host_explicit() {
   local host="${1}"
+  inventory_list_roles_for_host_explicit_array "${host}"
+  local role
+  for role in "${inventory_list_roles_for_host_explicit_array_output[@]}"; do
+    printf '%s\n' "${role}"
+  done
+}
+
+
+function inventory_list_roles_for_host_explicit_array() {
+  local host_a="${1}"
+  declare -g inventory_list_roles_for_host_explicit_array_output=()
   local role
   for role in $(inventory_list_roles); do
-    inventory_list_hosts_for_group "${role}" > >(
-      if grep -q "^${host}\$"; then
-        printf '%s\n' "${role}"
+    inventory_list_hosts_for_group_array "${role}"
+    local host_b
+    for host_b in "${inventory_list_hosts_for_group_array_output[@]}"; do
+      if test "${host_b}" = "${host_a}"; then
+        inventory_list_roles_for_host_explicit_array_output+=( "${role}" )
       fi
-    )
-    local pid="${!}"
-    wait "${pid}"
+    done
   done
 }
 
 
 function inventory_list_roles_for_host_tree() {
   local host="${1}"
-  inventory_list_roles_for_host_explicit "${host}" > >(
-    local role
-    while read role; do
-      printf '%s\n' "${role}"
-      inventory_list_roles_for_role "${role}"
-    done
-  )
-  local pid="${!}"
-  wait "${pid}"
+  inventory_list_roles_for_host_explicit_array "${host}"
+  local role
+  for role in "${inventory_list_roles_for_host_explicit_array_output[@]}"; do
+    printf '%s\n' "${role}"
+    inventory_list_roles_for_role "${role}"
+  done
 }
 
 
@@ -148,6 +180,7 @@ function inventory_list_roles_for_role() {
   declare -n cache_deps="${cache_var}"
   local cache_flag_var="cache_deps_flag_${var_safe_role}"
   if ! test 'cached' = "${!cache_flag_var}"; then
+    debug "Cache miss:  role:  '${role}'"
     declare -g "${cache_flag_var}"='cached'
     if test -e "${meta}"; then
       cache_deps=( $(
@@ -155,6 +188,8 @@ function inventory_list_roles_for_role() {
           | sed "s/'//g"
       ) )
     fi
+  else
+    debug "Cache hit :  role:  '${role}'"
   fi
   local deps=( "${cache_deps[@]}" )
   local dep
@@ -177,18 +212,14 @@ function inventory_list_hosts_for_role_explicit() {
 
 function inventory_list_hosts_for_role_implicit() {
   local role="${1}"
-  inventory_list_hosts > >(
-    local host
-    while read host; do
-      inventory_list_roles_for_host_implicit "${host}" > >(
-        if grep -q "${role}"; then
-          printf '%s\n' "${host}"
-        fi
-      )
-      local pid="${!}"
-      wait "${pid}"
-    done
-  )
-  local pid="${!}"
-  wait "${pid}"
+  local host
+  for host in $(inventory_list_hosts); do
+    inventory_list_roles_for_host_implicit "${host}" > >(
+      if grep -q "${role}"; then
+        printf '%s\n' "${host}"
+      fi
+    )
+    local pid="${!}"
+    wait "${pid}"
+  done
 }
