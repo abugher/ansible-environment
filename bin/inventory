@@ -24,14 +24,16 @@ target="${2}"
 case "${inventory_mode}" in
   '')
     ;&
+  '--list')
+    ;&
   'json')
     inventory_json_basic
     ;;
-  'list-hosts')
-    inventory_list_hosts
-    ;;
   'list-roles')
     inventory_list_roles
+    ;;
+  'list-roles-for-role')
+    inventory_list_roles_for_role "${target}"
     ;;
   'list-roles-for-host-explicit')
     inventory_list_roles_for_host_explicit "${target}"
@@ -39,18 +41,21 @@ case "${inventory_mode}" in
   'list-roles-for-host-tree')
     inventory_list_roles_for_host_tree "${target}"
     ;;
-  'list-roles-for-role')
-    inventory_list_roles_for_role "${target}"
-    ;;
   'list-roles-for-host')
     ;&
   'list-roles-for-host-implicit')
     inventory_list_roles_for_host_implicit "${target}"
     ;;
-  'list-hosts-for-role')
-    inventory_list_hosts_for_role "${target}"
+  'list-groups')
+    inventory_list_groups
+    ;;
+  'list-hosts-for-group')
+    inventory_list_hosts_for_group "${target}"
+    ;;
+  '--host')
+    inventory_json_vars_for_host "${target}"
     ;;
   *)
-    fail "Unknown mode of operation:  '${mode}'"
+    fail "Unknown mode of operation:  '${inventory_mode}'"
     ;;
 esac

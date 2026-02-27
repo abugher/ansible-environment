@@ -42,7 +42,7 @@ function launch_deploy_host() {
 function deploy_host() {
   target_host="${1}"
   shift 1
-  role_names=( $( list_roles "${target_host}" ) )
+  role_names=( $( inventory_list_roles_for_host_explicit "${target_host}" ) )
   roles_string="{ 'target_roles': [$(
     for role_name in "${role_names[@]}"; do 
       echo -n "'${role_name}', "

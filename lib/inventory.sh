@@ -19,6 +19,9 @@
 # The same must be done for any function that calls inventory_json_basic.
 #
 # As a cost, the return value of output_processor will be unavailable.
+#
+# Be aware that >() sends a process to the background.  Stdout goes where
+# expected, but you should wait for the process to return.
 export inventory_cache=''
 function inventory_json_basic() {
   if test '' = "${inventory_cache}"; then
@@ -26,7 +29,7 @@ function inventory_json_basic() {
     # redirected to another program.  Silence this by dropping stderr into
     # /dev/null.
     inventory_cache="$(
-      ansible-inventory -i "${inventory_path}/inventory.d/" --list 2>/dev/null
+      ansible-inventory -i "${inventory_path}/inventory.d" --list 2>/dev/null
     )" || fail "Failed to list inventory."
   fi
 
@@ -34,20 +37,31 @@ function inventory_json_basic() {
 }
 
 
-function inventory_list_hosts_for_role() {
-  role="${1}"
-  # Ignore errors for no group matching role name.
-  inventory_json_basic > >(
-    jq -r ".[\"${role}\"][\"hosts\"]|.[]" 2>/dev/null
-  )
-  return 0
+# Not cached yet, as this is not part of any loops, yet.
+function inventory_json_vars_for_host() {
+  host="${1}"
+  ansible-inventory -i "${inventory_path}/inventory.d" --host "${host}" 2>/dev/null
 }
 
 
-function inventory_list_hosts() {
+function inventory_list_groups() {
   inventory_json_basic > >(
     jq -r '.["all"].["children"]|.[]'
   )
+  local pid="${!}"
+  wait "${pid}"
+}
+
+
+function inventory_list_hosts_for_group() {
+  group="${1}"
+  # Ignore errors for no group matching role name.
+  inventory_json_basic > >(
+    jq -r ".[\"${group}\"][\"hosts\"]|.[]" 2>/dev/null
+  )
+  local pid="${!}"
+  wait "${pid}"
+  return 0
 }
 
 
@@ -59,11 +73,13 @@ function inventory_list_roles() {
 function inventory_list_roles_for_host_explicit() {
   host="${1}"
   for role in $(inventory_list_roles); do
-    inventory_list_hosts_for_role "${role}" > >(
+    inventory_list_hosts_for_group "${role}" > >(
       if grep -q "^${host}\$"; then
         printf '%s\n' "${role}"
       fi
     )
+    local pid="${!}"
+    wait "${pid}"
   done
 }
 
@@ -76,18 +92,22 @@ function inventory_list_roles_for_host_tree() {
       inventory_list_roles_for_role "${role}"
     done
   )
+  pid="${!}"
+  wait "${pid}"
 }
 
 
 function inventory_list_roles_for_host_implicit() {
   host="${1}"
   inventory_list_roles_for_host_tree "${host}" > >(
-      while read line; do
-        printf '%s\n' "${line}"
-      done\
-      | sort \
-      | uniq
-    )
+    while read line; do
+      printf '%s\n' "${line}"
+    done\
+    | sort \
+    | uniq
+  )
+  local pid="${!}"
+  wait "${pid}"
 }
 
 
