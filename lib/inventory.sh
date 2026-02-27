@@ -141,13 +141,20 @@ function inventory_list_roles_for_role() {
   done
   local dep_chain=( "${dep_chain[@]}" "${role}" )
   local meta="${roles_path}/${role}/meta/main.yml"
-  local deps=()
-  if test -e "${meta}"; then
-    deps=( $(
-      awk '/^ *- role:/ {print $3}' "${meta}" \
-        | sed "s/'//g"
-    ) )
+  local var_safe_role="$(sed 's/-/_/g' <<< "${role}")"
+  local cache_var="cache_deps_${var_safe_role}"
+  declare -ga "${cache_var}"
+  export "${cache_var}"
+  declare -n cache_deps="${cache_var}"
+  if test 0 = "${#cache_deps[@]}"; then
+    if test -e "${meta}"; then
+      cache_deps=( $(
+        awk '/^ *- role:/ {print $3}' "${meta}" \
+          | sed "s/'//g"
+      ) )
+    fi
   fi
+  local deps=( "${cache_deps[@]}" )
   local dep
   for dep in "${deps[@]}"; do
     local i
