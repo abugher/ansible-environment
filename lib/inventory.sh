@@ -64,11 +64,21 @@ function inventory_json_vars_for_host() {
 
 
 function inventory_list_groups() {
-  inventory_json_basic > >(
-    jq -r '.["all"].["children"]|.[]'
-  )
-  local pid="${!}"
-  wait "${pid}"
+  if ! test 'yes' = "${cache_groups_flag}"; then
+    debug "Cache miss:  groups"
+    inventory_json_basic_string
+    declare -ga cache_groups
+    cache_groups=( $(
+      jq -r '.["all"].["children"]|.[]' \
+        <<< "${inventory_json_basic_string_output}" 
+    ) )
+  else
+    debug "Cache hit :  groups"
+  fi
+  local group
+  for group in "${cache_groups[@]}"; do
+    printf '%s\n' "${group}"
+  done
 }
 
 
