@@ -3,24 +3,25 @@
 # Beware of the caching variables.  Pipelines send processes to subshells where
 # they cannot share caching variables with the parent process.
 
-export cache_json=''
 function inventory_json_basic() {
   inventory_json_basic_string
   cat <<< "${inventory_json_basic_string_output}"
 }
 
 
+unset cache_flag_json_basic
 function inventory_json_basic_string() {
-  if test '' = "${cache_json}"; then
+  if ! test 'cached' = "${cache_flag_json_basic}"; then
+    cache_flag_json_basic='cached'
     # ansible-inventory seems to always complain about broken pipes when output is
     # redirected to another program.  Silence this by dropping stderr into
     # /dev/null.
-    cache_json="$(
+    cache_json_basic="$(
       ansible-inventory -i "${inventory_path}/inventory.d" --list 2>/dev/null
     )" || fail "Failed to list inventory."
   fi
 
-  declare -g inventory_json_basic_string_output="${cache_json}"
+  declare -g inventory_json_basic_string_output="${cache_json_basic}"
 }
 
 
@@ -29,19 +30,19 @@ function inventory_json_vars_for_host() {
   ansible-inventory -i "${inventory_path}/inventory.d" --host "${host}" 2>/dev/null
 }
 
-
+unset cache_flag_list_groups
 function inventory_list_groups() {
-  if ! test 'yes' = "${cache_groups_flag}"; then
-    declare -g cache_groups_flag='yes'
+  if ! test 'cached' = "${cache_flag_list_groups}"; then
+    declare -g cache_flag_list_groups='cached'
     inventory_json_basic_string
-    declare -ga cache_groups
-    cache_groups=( $(
+    declare -ga cache_list_groups
+    cache_list_groups=( $(
       jq -r '.["all"].["children"]|.[]' \
         <<< "${inventory_json_basic_string_output}" 
     ) )
   fi
   local group
-  for group in "${cache_groups[@]}"; do
+  for group in "${cache_list_groups[@]}"; do
     printf '%s\n' "${group}"
   done
 }
@@ -57,26 +58,31 @@ function inventory_list_hosts_for_group() {
 }
 
 
+for cache_flag_var in $(
+  set \
+    | awk -F '=' '/^cache_flag_hosts_for_group_/ {print $1}'
+); do
+  unset "${cache_flag_var}"
+done
 function inventory_list_hosts_for_group_array() {
   local group="${1}"
-  #debug "group:  '${group}'"
-  local var_safe_group="$(sed 's/-/_/g' <<< "${group}")"
-  local cache_var="cache_hosts_for_group_${var_safe_group}"
+  local group_underscored="$(sed 's/-/_/g' <<< "${group}")"
+  local cache_var="cache_hosts_for_group_${group_underscored}"
   declare -ga "${cache_var}"
   declare -n cache_hosts_for_group="${cache_var}"
-  local cache_flag_var="cache_hosts_for_group_flag_${var_safe_group}"
-  if ! test 'yes' = "${!cache_flag_var}"; then
-    declare -g "${cache_flag_var}"='yes'
+  local cache_flag_var="cache_flag_hosts_for_group_${group_underscored}"
+  if ! test 'cached' = "${!cache_flag_var}"; then
+    declare -g "${cache_flag_var}"='cached'
     inventory_json_basic_string
     # Ignore errors and error messages from jq for no group name match.
     cache_hosts_for_group=( $(
       jq -r ".[\"${group}\"][\"hosts\"]|.[]" 2>/dev/null \
         <<< "${inventory_json_basic_string_output}"
+      true
     ) )
   fi
   declare -ga inventory_list_hosts_for_group_array_output
   inventory_list_hosts_for_group_array_output=( ${cache_hosts_for_group[@]} )
-  return 0
 }
 
 
@@ -142,6 +148,12 @@ function inventory_list_roles_for_host_implicit() {
 }
 
 
+for cache_flag_var in $(
+  set \
+    | awk -F '=' '/^cache_flag_roles_for_role_/ {print $1}'
+); do
+  unset "${cache_flag_var}"
+done
 dep_chain=()
 function inventory_list_roles_for_role() {
   local role="${1}"
@@ -155,21 +167,21 @@ function inventory_list_roles_for_role() {
   local dep_chain=( "${dep_chain[@]}" "${role}" )
   local meta="${roles_path}/${role}/meta/main.yml"
   local var_safe_role="$(sed 's/-/_/g' <<< "${role}")"
-  local cache_var="cache_deps_${var_safe_role}"
+  local cache_var="cache_roles_for_role_${var_safe_role}"
   declare -ga "${cache_var}"
   export "${cache_var}"
-  declare -n cache_deps="${cache_var}"
-  local cache_flag_var="cache_deps_flag_${var_safe_role}"
+  declare -n cache_roles_for_role="${cache_var}"
+  local cache_flag_var="cache_flag_roles_for_role_${var_safe_role}"
   if ! test 'cached' = "${!cache_flag_var}"; then
     declare -g "${cache_flag_var}"='cached'
     if test -e "${meta}"; then
-      cache_deps=( $(
+      cache_roles_for_role=( $(
         awk '/^ *- role:/ {print $3}' "${meta}" \
           | sed "s/'//g"
       ) )
     fi
   fi
-  local deps=( "${cache_deps[@]}" )
+  local deps=( "${cache_roles_for_role[@]}" )
   local dep
   for dep in "${deps[@]}"; do
     local i
