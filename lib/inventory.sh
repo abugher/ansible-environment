@@ -202,14 +202,18 @@ function inventory_list_hosts_for_role_explicit() {
 
 function inventory_list_hosts_for_role_implicit() {
   local role="${1}"
+  local hosts=( $(inventory_list_hosts) )
+  declare -A pids_by_host
   local host
-  for host in $(inventory_list_hosts); do
-    inventory_list_roles_for_host_implicit "${host}" > >(
-      if grep -q "${role}"; then
-        printf '%s\n' "${host}"
-      fi
-    )
-    local pid="${!}"
-    wait "${pid}"
+  for host in "${hosts[@]}"; do
+    # Silence output on job creation.
+    { inventory_list_roles_for_host_implicit "${host}" | grep -q "${role}" & } 2>/dev/null
+    pids_by_host["${host}"]="${!}"
+  done
+  for host in "${hosts[@]}"; do
+    # Silence output on job termination/cleanup.
+    if wait "${pids_by_host[${host}]}" 2>/dev/null; then
+      printf '%s\n' "${host}"
+    fi
   done
 }
