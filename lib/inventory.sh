@@ -2,6 +2,14 @@
 #
 # Beware of the caching variables.  Pipelines send processes to subshells where
 # they cannot share caching variables with the parent process.
+#
+# Caching is intended to prevent redundant filesystem operations and calls to
+# potentially slow applications like `jq`.  In concept, the operating system
+# should be caching filesystem operations.  I am not sure how resource
+# expensive `jq` really is.  It could be wise to compare execution time with
+# caching enabled and disabled.  If the performance gain from caching is not
+# significant, this code could be simplified by removing it.  Otherwise, some
+# comments here about the measured improvement would be nice.
 
 function inventory_json_basic() {
   inventory_json_basic_string
@@ -205,6 +213,17 @@ function inventory_list_hosts_for_role_implicit() {
   local hosts=( $(inventory_list_hosts) )
   declare -A pids_by_host
   local host
+  # Check each host in parallel.  Separate processes cannot benefit from shared
+  # cache, so this is expected to be less efficient.  However, on a system with
+  # many CPU cores, the execution time is drastically reduced compared to
+  # running each check in the foreground in serial.  (<6s compared to ~30s on
+  # 16 cores.)
+  #
+  # Filling the caches first would make them available to the background
+  # processes, but this seems impractical.  It would probably be necessary to
+  # fill all possible caches, which could actually reduce efficiency.  Even if
+  # efficiency is improved, I expect it the performance gain would be very
+  # slight compared to increased code complexity.
   for host in "${hosts[@]}"; do
     # Silence output on job creation.
     { inventory_list_roles_for_host_implicit "${host}" | grep -q "${role}" & } 2>/dev/null
