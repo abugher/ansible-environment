@@ -226,7 +226,7 @@ function inventory_list_hosts_for_role_implicit() {
   # slight compared to increased code complexity.
   for host in "${hosts[@]}"; do
     # Silence output on job creation.
-    { inventory_list_roles_for_host_implicit "${host}" | grep -q "${role}" & } 2>/dev/null
+    { inventory_list_roles_for_host_implicit "${host}" | grep -q "^${role}\$" & } 2>/dev/null
     pids_by_host["${host}"]="${!}"
   done
   for host in "${hosts[@]}"; do
