@@ -7,7 +7,7 @@ function deploy_role() {
   hosts_array=( $(inventory_list_hosts_for_role_implicit "${role}") )
   hosts_string=''
   for host in "${hosts_array[@]}"; do
-    hosts_string="${host_string}${host},"
+    hosts_string="${hosts_string}${host},"
   done
   hosts_string="${hosts_string%,}"
 
